@@ -8,5 +8,5 @@ The target spawn time is 0.5 seconds.
 I will implement everything to modify the game experience later on with a menu.
 
 Example of early prototype gameplay:
-![gameplayGIF]https://i.imgur.com/yf4gMYa.gif
+![gameplayGIF](https://i.imgur.com/yf4gMYa.gif)
 
