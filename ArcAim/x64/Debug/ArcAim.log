@@ -1,3 +1,0 @@
-﻿  main.cpp
-D:\VS2022repos\ArcAim\ArcAim\src\main.cpp(183,62): warning C4305: 'argument': truncation from 'double' to 'float'
-  ArcAim.vcxproj -> D:\VS2022repos\ArcAim\x64\Debug\ArcAim.exe
