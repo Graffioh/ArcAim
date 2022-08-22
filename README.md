@@ -10,6 +10,8 @@ Press R to Restart the game and P to pause.
 
 Enjoy and let me know (with a DM on Twitter: @graffioh or Discord: Graffioh#2823) anything useful to get better coding wise :)
 
+IMPORTANT! For now if You want to build and compile you need to open the .sln project with Visual Studio Community (not Code).
+
 Example of early prototype gameplay:
 
 ![gameplayGIF](https://i.imgur.com/yf4gMYa.gif)
