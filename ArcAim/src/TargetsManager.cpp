@@ -36,10 +36,9 @@ void TargetsManager::spawn()
 
 void TargetsManager::reflexEnemies()
 {
-	//m_timer = m_clock.getElapsedTime().asSeconds();
 	m_timer = TimeManager::clockTargets.getElapsedTime().asSeconds();
-	// 
-	//if (m_targets.size() > 0 && m_timer > TARGET_SPAWN_TIMER - 0.01f)
+
+
 	if (m_targets.size() > 0 && m_timer > TARGET_SPAWN_TIMER - 0.01f)
 	{
 		for (size_t i = 0; i < m_targets.size(); i++)
@@ -48,6 +47,7 @@ void TargetsManager::reflexEnemies()
 			m_targets.erase(m_targets.begin() + i);
 			m_playerHealth -= 10;
 		}
+
 	}
 }
 
@@ -71,14 +71,12 @@ void TargetsManager::fallingEnemies()
 
 void TargetsManager::update()
 {
-	//m_timer = m_clock.getElapsedTime().asSeconds();
 	m_timer = TimeManager::clockTargets.getElapsedTime().asSeconds();
 
 	if (m_targets.size() < MAX_TARGETS)
 	{
 		// If TARGET_SPAWN_TIMER seconds are elapsed then spawn
-		//if (m_timer > TARGET_SPAWN_TIMER)
-		if (m_timer > TARGET_SPAWN_TIMER)
+		if (m_timer > TARGET_SPAWN_TIMER + 0.01f)
 		{
 			spawn();
 

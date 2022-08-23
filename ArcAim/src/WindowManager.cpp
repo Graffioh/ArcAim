@@ -112,12 +112,12 @@ void WindowManager::updateTimerText()
 	m_timerText.setString(ss2.str());
 }
 
-void WindowManager::renderText()
+void WindowManager::drawText()
 {
 	m_window->draw(m_uiText);
 }
 
-void WindowManager::renderTimerText()
+void WindowManager::drawTimerText()
 {
 	m_window->draw(m_timerText);
 }

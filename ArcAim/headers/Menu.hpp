@@ -41,7 +41,7 @@ public:
 
 	// Start Menu text setup
 	void updateText(bool isPause);
-	void renderText(sf::RenderWindow& window, bool isPause);
+	void drawText(sf::RenderWindow& window, bool isPause);
 
 	// If left click on the rectangle return true
 	bool resumeGame(sf::Vector2f mousePos);

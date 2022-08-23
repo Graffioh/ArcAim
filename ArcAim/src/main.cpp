@@ -1,5 +1,4 @@
 #include <iostream>
-#include <chrono>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -18,7 +17,7 @@ sf::Clock TimeManager::clockTargets;
 int main()
 {
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), "ArcAim", sf::Style::Default);
-	window->setFramerateLimit(144); 
+	window->setFramerateLimit(300);
 
 	sf::Event event;
 
@@ -70,17 +69,25 @@ int main()
 					std::cout << "Game Paused" << std::endl;
 				}
 
-				if (event.key.code == sf::Keyboard::F1)
+				if (event.key.code == sf::Keyboard::F1) // Idk if it works
 				{
 					vsync = !vsync;
 					window->setVerticalSyncEnabled(vsync);
-					std::cout << "VSync Enabled" << std::endl;
+					std::cout << "VSync Toggled" << std::endl;
 				}
 
-				if (event.key.code == sf::Keyboard::F2) // Work In progress (the game needs to be framerate indipendent)
+				if (event.key.code == sf::Keyboard::F2)
 				{
 					window->setFramerateLimit(60);
+					
 					std::cout << "Frame limit set to 60" << std::endl;
+				}
+
+				if (event.key.code == sf::Keyboard::F3)
+				{
+					window->setFramerateLimit(144);
+					
+					std::cout << "Frame limit set to 144" << std::endl;
 				}
 
 				if (event.key.code == sf::Keyboard::R && endgame)
@@ -94,12 +101,12 @@ int main()
 			}
 		}
 
-		// Start Menu 
+		// START MENU
 		if (!start)
 		{
 			menu.displayMenu(*window, pause);
 			menu.updateText(pause);
-			menu.renderText(*window, pause);
+			menu.drawText(*window, pause);
 
 			if (menu.gameStatus(mouseManager.getMousePos()) == GAME_START)
 			{
@@ -119,10 +126,13 @@ int main()
 		}
 		else
 		{
+
 			window->setMouseCursorVisible(false);
 
 			// Clear the window and set the grey background
+
 			window->clear(sf::Color(18, 18, 18, 255));
+
 
 			mouseManager.updateMousePos(*window);
 
@@ -134,11 +144,16 @@ int main()
 			{
 				targetsManager.update();
 				targetsManager.eraseOnClick(mouseManager.getMousePos());
+
+
 				targetsManager.draw(*window);
+
 			}
 
 			mouseManager.syncPosition(*window);
+
 			mouseManager.draw(*window);
+
 
 			points = targetsManager.getPoints();
 			health = targetsManager.getPlayerHealth();
@@ -160,9 +175,9 @@ int main()
 
 				menu.displayMenu(*window, pause);
 				menu.updateText(pause);
-				menu.renderText(*window, pause);
+				menu.drawText(*window, pause);
 
-				//TimeManager::clockCountdown.restart(); not necessary
+				//TimeManager::clockCountdown.restart(); //not necessary
 				TimeManager::clockTargets.restart();
 
 				if (menu.gameStatus(mouseManager.getMousePos()) == GAME_RESUME)
@@ -171,8 +186,8 @@ int main()
 				}
 			}
 
-			winManager.renderText();
-			winManager.renderTimerText();
+			winManager.drawText();
+			winManager.drawTimerText();
 
 			// GAME OVER & RESTART
 			//
@@ -187,7 +202,7 @@ int main()
 				window->clear(sf::Color(0, 0, 0, 255));
 				winManager.initUIText(WIN_WIDTH / 3.5, WIN_HEIGHT / 5, 60);
 				winManager.updateText(points, health, endgame);
-				winManager.renderText();
+				winManager.drawText();
 			}
 
 			// Restart trigger

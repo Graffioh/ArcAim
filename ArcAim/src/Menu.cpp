@@ -91,7 +91,7 @@ void Menu::updateText(bool isPause)
 	}
 }
 
-void Menu::renderText(sf::RenderWindow& window, bool isPause)
+void Menu::drawText(sf::RenderWindow& window, bool isPause)
 {
 	if (isPause)
 	{

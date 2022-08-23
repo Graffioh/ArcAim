@@ -55,9 +55,9 @@ public:
 
 	void updateTimerText();
 
-	void renderText();
+	void drawText();
 
-	void renderTimerText();
+	void drawTimerText();
 
 	// Getters
 	float getCountdown();

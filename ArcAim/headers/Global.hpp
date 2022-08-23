@@ -30,3 +30,4 @@ constexpr char FALLING_ENEMIES = '2';
 
 // frame
 constexpr std::chrono::microseconds FRAME_DURATION(16667);
+
