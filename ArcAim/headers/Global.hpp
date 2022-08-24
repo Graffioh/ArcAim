@@ -16,7 +16,7 @@ constexpr float TARGET_SPAWN_TIMER = 0.5f;
 constexpr unsigned int MAX_TARGETS = 5;
 
 // player health
-constexpr unsigned int PLAYER_HEALTH = 80;
+constexpr unsigned int PLAYER_HEALTH = 800;
 
 // game status
 constexpr char GAME_START = '1';
@@ -29,5 +29,5 @@ constexpr char REFLEX_ENEMIES = '1';
 constexpr char FALLING_ENEMIES = '2';
 
 // frame
-constexpr std::chrono::microseconds FRAME_DURATION(16667);
+constexpr std::chrono::microseconds FRAME_DURATION(3333);
 

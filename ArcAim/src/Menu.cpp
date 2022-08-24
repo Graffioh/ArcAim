@@ -42,6 +42,9 @@ void Menu::initText()
 	// Pause Screen Text
 	formatTxt(m_pauseScreenTxt, m_font, 30, sf::Color::White, WIN_WIDTH / 2.7f, WIN_HEIGHT / 2.4);
 
+	// FPS cap infos text
+	formatTxt(m_infoCapFpsTxt, m_font, 25, sf::Color::Magenta, 50, 0);
+
 	// 1st menu button text
 	formatTxt(m_menuTxt1, m_font, 30, sf::Color::White, WIN_WIDTH / 2.65f, 170);
 
@@ -63,6 +66,7 @@ Menu::Menu()
 void Menu::updateText(bool isPause)
 {
 	std::stringstream ss;
+	std::stringstream ss1;
 	std::stringstream ss2;
 	std::stringstream ss3;
 	
@@ -81,29 +85,16 @@ void Menu::updateText(bool isPause)
 	}*/
 	else
 	{
-		ss << "START GAME" << std::endl;
+		ss << "F1 for VSync - F2 for 60 FPS cap - F3 for 144 FPS cap" << std::endl;
+		ss1 << "START GAME" << std::endl;
 		ss2 << "OPTIONS" << std::endl;
 		ss3 << "Go Fck Yrslf" << std::endl;
 		
-		m_menuTxt1.setString(ss.str());
+		m_infoCapFpsTxt.setString(ss.str());
+
+		m_menuTxt1.setString(ss1.str());
 		m_menuTxt2.setString(ss2.str());
 		m_menuTxt3.setString(ss3.str());
-	}
-}
-
-void Menu::drawText(sf::RenderWindow& window, bool isPause)
-{
-	if (isPause)
-	{
-		window.draw(m_pauseScreenTxt);
-	}
-	else
-	{
-		//window.draw(m_startScreenTxt);
-
-		window.draw(m_menuTxt1);
-		window.draw(m_menuTxt2);
-		window.draw(m_menuTxt3);
 	}
 }
 
@@ -228,12 +219,20 @@ void Menu::displayMenu(sf::RenderWindow& window, bool isPause)
 	if (isPause)
 	{
 		window.draw(m_resumeButton);
+		window.draw(m_pauseScreenTxt);
 	}
 	else
 	{
+		window.draw(m_infoCapFpsTxt);
+
+
 		window.draw(m_menuButton1);
 		window.draw(m_menuButton2);
 		window.draw(m_menuButton3);
-	}
+
+		window.draw(m_menuTxt1);
+		window.draw(m_menuTxt2);
+		window.draw(m_menuTxt3);
+	}	
 }
 

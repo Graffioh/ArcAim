@@ -52,7 +52,7 @@ void TargetsManager::reflexEnemies()
 }
 
 void TargetsManager::fallingEnemies()
-{
+{ 
 	for (size_t i = 0; i < m_targets.size(); i++)
 	{
 		// If out of bounds delete, else move the target down
@@ -64,7 +64,7 @@ void TargetsManager::fallingEnemies()
 		}
 		else
 		{
-			m_targets[i].moveDown(0.f, 5.f);
+			m_targets[i].moveDown(0.f, 2.5f);
 		}
 	}	
 }

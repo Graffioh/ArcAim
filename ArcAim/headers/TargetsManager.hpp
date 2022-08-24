@@ -24,7 +24,6 @@ private:
 	bool m_mouseHeld;
 	bool m_deleted;
 
-	//sf::Clock m_clock;
 	float m_timer;
 
 	// RNG system (Better than srand)
