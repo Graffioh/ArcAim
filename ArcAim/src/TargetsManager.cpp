@@ -153,8 +153,6 @@ void TargetsManager::eraseAllEnemies()
 
 void TargetsManager::reset(unsigned short health, unsigned short points)
 {
-	eraseAllEnemies();
-
 	m_playerHealth = health;
 	m_points = points;
 }

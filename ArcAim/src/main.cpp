@@ -135,6 +135,8 @@ int main()
 
 				// Reset
 				targetsManager.reset(healthReset, 0);
+				targetsManager.eraseAllEnemies();
+
 
 				winManager.setCountdown(20);
 
@@ -301,6 +303,7 @@ int main()
 				{
 					// Reset
 					targetsManager.reset(healthReset, 0);
+					targetsManager.eraseAllEnemies();
 
 					winManager.setCountdown(20);
 					winManager.initUIText();
