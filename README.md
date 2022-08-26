@@ -4,13 +4,31 @@ An arcade aim based game, made in **SFML** with C++.
 Try to reach the highest score, but remember, You got only 80 HP and every miss is a penalty (-10 HP), so be careful ;)
 
 # Functionality
-+ Target spawn time: 0.5 seconds
-+ Health: 80
+Press **[ R ]** to Restart the game and **[ P ]** to pause.
+## Difficulty:
+
+**Default**
++ Target spawn time: 1 seconds
++ Health: 100
 + Countdown: 20 seconds
 
-I will implement everything to modify the game experience later on with a menu.
+If you want something else go into "OPTIONS" and change the difficulty by choosing:
 
-Press **[ R ]** to Restart the game and **[ P ]** to pause.
+**Easy**
++ Target spawn time: 1.2 seconds
++ Health: 120
++ Countdown: 20 seconds
+
+**Medium**
++ Target spawn time: 0.7 seconds
++ Health: 100
++ Countdown: 20 seconds
+
+**Hard** (*if you want a serious challenge*)
++ Target spawn time: 0.5 seconds
++ Health: 70
++ Countdown: 20 seconds
+
 
 ## Framerate
 
@@ -24,7 +42,11 @@ Press
 To avoid weird input lag just cap the fps accordingly to your monitor refresh rate.
 
 # Build and compile
-**IMPORTANT!** For now if You want to build and compile you need to open the .sln project with Visual Studio Community (not Code).
+**IMPORTANT!** You have 2 options:
+
+    1) Build and compile with Visual studio community (just open the project .sln)
+
+    2) Build by opening the console in the main folder, write mingw32-make (MinGW 64 bit compiler required) and then open the .exe in bin/x64
 
 # Socials
 Enjoy and let me know (with a DM on Twitter: @graffioh or Discord: Graffioh#2823) anything useful to get better coding wise :)
