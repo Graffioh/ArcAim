@@ -52,6 +52,9 @@ public:
 
 	// If click on enemy, then erase it
 	void eraseOnClick(sf::Vector2f mousePos);
+	void eraseAllEnemies();
+
+	void reset(unsigned short health, unsigned short points);
 
 	// Getters
 	unsigned short getPoints();

@@ -47,7 +47,7 @@ void Menu::initText()
 	formatTxt(m_pauseScreenTxt, m_font, 30, sf::Color::White, WIN_WIDTH / 2.7f, WIN_HEIGHT / 2.4);
 
 	// FPS cap infos text
-	formatTxt(m_infoCapFpsTxt, m_font, 25, sf::Color::Magenta, 50, 0);
+	formatTxt(m_infoCapFpsTxt, m_font, 25, sf::Color::White, 50, 0);
 
 	// 1st,2nd,3rd menu buttons text
 	formatTxt(m_menuTxt1, m_font, 30, sf::Color::White, WIN_WIDTH / 2.65f, 170);
@@ -122,6 +122,7 @@ void Menu::updateText(bool isPause, bool isOptions)
 	else
 	{
 		ss << "F1 for VSync - F2 for 60 FPS cap - F3 for 144 FPS cap" << std::endl;
+		ss << "\t\t\t\t\t\t   ESC for fast Restart" << std::endl;
 		ss1 << "START GAME" << std::endl;
 		ss2 << "OPTIONS" << std::endl;
 		ss3 << "Go Fck Yrslf" << std::endl;

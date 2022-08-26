@@ -48,7 +48,11 @@ int main()
 	bool options = false;
 	bool exit = false;
 	bool vsync = false;
+	bool reset = false;
 	bool restart = false;
+
+	unsigned short healthReset = PLAYER_HEALTH;
+	float spawnTimerReset = TARGET_SPAWN_TIMER;
 
 	winManager.initWindow(window);
 
@@ -83,8 +87,8 @@ int main()
 				case sf::Event::KeyPressed:
 					if (event.key.code == sf::Keyboard::Escape)
 					{
-						options = false;
-						std::cout << "Back" << std::endl;
+						reset = true;
+						std::cout << "Reset" << std::endl; // NEED TO RESET COUNTDOWN POINTS AND HEALTH WHEN PRESSED
 					}
 
 					if (event.key.code == sf::Keyboard::P)
@@ -124,9 +128,26 @@ int main()
 				}
 			}
 
+			if (reset)
+			{
+				reset = false;
+				start = false;
+
+				// Reset
+				targetsManager.reset(healthReset, 0);
+
+				winManager.setCountdown(20);
+
+				// Sync the clock
+				TimeManager::clockCountdown.restart();
+				TimeManager::clockTargets.restart();
+			}
+
 			// START MENU
 			if (!start && !options)
 			{
+				window->setMouseCursorVisible(true);
+
 				menu.initStartBtn();
 				menu.displayMenu(*window, pause, options);
 				menu.updateText(pause, options);
@@ -154,7 +175,7 @@ int main()
 
 				mouseManager.updateMousePos(*window);
 
-				// Reset the clock to sync it when You are not in the start menu
+				// Sync the clock
 				TimeManager::clockCountdown.restart();
 				TimeManager::clockTargets.restart();
 			}
@@ -172,20 +193,32 @@ int main()
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_EASY:
-					targetsManager.setHealth(120);
-					targetsManager.setSpawnTimer(1.2f);
+					healthReset = 120;
+					targetsManager.setHealth(healthReset);
+					spawnTimerReset = 1.2f;
+					targetsManager.setSpawnTimer(spawnTimerReset);
 					std::cout << "Difficulty set to EASY" << std::endl;
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_MEDIUM:
-					targetsManager.setHealth(100);
-					targetsManager.setSpawnTimer(0.7f);
+					//targetsManager.setHealth(100);
+					//targetsManager.setSpawnTimer(0.7f);
+
+					healthReset = 100;
+					targetsManager.setHealth(healthReset);
+					spawnTimerReset = 0.7f;
+					targetsManager.setSpawnTimer(spawnTimerReset);
 					std::cout << "Difficulty set to MEDIUM" << std::endl;
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_HARD:
-					targetsManager.setHealth(70);
-					targetsManager.setSpawnTimer(0.5f);
+					//targetsManager.setHealth(70);
+					//targetsManager.setSpawnTimer(0.5f);
+
+					healthReset = 70;
+					targetsManager.setHealth(healthReset);
+					spawnTimerReset = 0.5f;
+					targetsManager.setSpawnTimer(spawnTimerReset);
 					std::cout << "Difficulty set to HARD" << std::endl;
 					sf::sleep(sf::milliseconds(100));
 					break;
@@ -195,6 +228,7 @@ int main()
 
 				mouseManager.updateMousePos(*window);
 
+				// Sync the clock
 				TimeManager::clockCountdown.restart();
 				TimeManager::clockTargets.restart();
 			}
@@ -265,16 +299,16 @@ int main()
 				// Restart trigger
 				if (restart)
 				{
-					targetsManager.setHealth(PLAYER_HEALTH);
-					targetsManager.setPoints(0);
+					// Reset
+					targetsManager.reset(healthReset, 0);
 
-					winManager.setCountdown(COUNTDOWN);
+					winManager.setCountdown(20);
 					winManager.initUIText();
 
 					endgame = false;
 					restart = false;
 
-					// Reset the clock
+					// Sync the clock
 					TimeManager::clockCountdown.restart();
 					TimeManager::clockTargets.restart();
 				}

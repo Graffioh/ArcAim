@@ -142,6 +142,23 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 	}
 }
 
+void TargetsManager::eraseAllEnemies()
+{
+	for (size_t i = 0; i < m_targets.size() && !m_deleted; i++)
+	{
+		m_targets.erase(this->m_targets.begin() + i);
+	}
+		
+}
+
+void TargetsManager::reset(unsigned short health, unsigned short points)
+{
+	eraseAllEnemies();
+
+	m_playerHealth = health;
+	m_points = points;
+}
+
 unsigned short TargetsManager::getPoints()
 {
 	return m_points;
