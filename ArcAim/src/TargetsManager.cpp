@@ -1,7 +1,7 @@
 #include "../headers/TargetsManager.hpp"
 
 TargetsManager::TargetsManager()
-	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_rng(m_rd()), m_xDist(0, WIN_WIDTH - 50), m_yDist(0, WIN_HEIGHT - 50)
+	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_targetSpawnTime(TARGET_SPAWN_TIMER), m_rng(m_rd()), m_xDist(0, WIN_WIDTH - 50), m_yDist(0, WIN_HEIGHT - 50)
 {
 }
 
@@ -38,8 +38,7 @@ void TargetsManager::reflexEnemies()
 {
 	m_timer = TimeManager::clockTargets.getElapsedTime().asSeconds();
 
-
-	if (m_targets.size() > 0 && m_timer > TARGET_SPAWN_TIMER - 0.01f)
+	if (m_targets.size() > 0 && m_timer > m_targetSpawnTime - 0.01f)
 	{
 		for (size_t i = 0; i < m_targets.size(); i++)
 		{
@@ -47,7 +46,6 @@ void TargetsManager::reflexEnemies()
 			m_targets.erase(m_targets.begin() + i);
 			m_playerHealth -= 10;
 		}
-
 	}
 }
 
@@ -76,7 +74,7 @@ void TargetsManager::update()
 	if (m_targets.size() < MAX_TARGETS)
 	{
 		// If TARGET_SPAWN_TIMER seconds are elapsed then spawn
-		if (m_timer > TARGET_SPAWN_TIMER + 0.01f)
+		if (m_timer > m_targetSpawnTime + 0.01f)
 		{
 			spawn();
 
@@ -153,6 +151,12 @@ unsigned short TargetsManager::getPlayerHealth()
 {
 	return m_playerHealth;
 }
+
+void TargetsManager::setSpawnTimer(float spawn_timer)
+{
+	m_targetSpawnTime = spawn_timer;
+}
+
 
 void TargetsManager::setHealth(unsigned short health)
 {

@@ -12,7 +12,6 @@
 #include "../headers/Menu.hpp"
 #include "../headers/TimeManager.hpp"
 
-sf::Clock TimeManager::clockGame;
 sf::Clock TimeManager::clockCountdown;
 sf::Clock TimeManager::clockTargets;
 
@@ -27,7 +26,6 @@ int main()
 	std::chrono::microseconds lag(0);
 
 	std::chrono::steady_clock::time_point previous_time;
-
 
 	sf::Event event;
 
@@ -47,6 +45,7 @@ int main()
 	bool endgame = false;
 	bool pause = false;
 	bool start = false;
+	bool options = false;
 	bool exit = false;
 	bool vsync = false;
 	bool restart = false;
@@ -58,7 +57,7 @@ int main()
 	// Game loop
 	while (window->isOpen())
 	{
-		// Frames and others calculations for a framerate indipendent gameplay
+		// Frames and others calculations to make the game framerate indipendent
 		std::chrono::microseconds delta_time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - previous_time);
 
 		lag += delta_time;
@@ -84,8 +83,8 @@ int main()
 				case sf::Event::KeyPressed:
 					if (event.key.code == sf::Keyboard::Escape)
 					{
-						window->close();
-						std::cout << "Process Killed" << std::endl;
+						options = false;
+						std::cout << "Back" << std::endl;
 					}
 
 					if (event.key.code == sf::Keyboard::P)
@@ -126,17 +125,29 @@ int main()
 			}
 
 			// START MENU
-			if (!start)
+			if (!start && !options)
 			{
-				menu.displayMenu(*window, pause);
-				menu.updateText(pause);
+				menu.initStartBtn();
+				menu.displayMenu(*window, pause, options);
+				menu.updateText(pause, options);
 
-				if (menu.gameStatus(mouseManager.getMousePos()) == GAME_START)
+				// Start menu buttons
+				switch (menu.activateStartBtn(mouseManager.getMousePos()))
 				{
+				case GAME_START:
 					start = true;
+					break;
+				case GAME_OPTIONS:
+					options = true;
+					break;
+				case GAME_EXIT:
+					exit = true;
+					break;
+				default:
+					break;
 				}
 
-				if (menu.gameStatus(mouseManager.getMousePos()) == GAME_EXIT)
+				if (exit)
 				{
 					window->close();
 				}
@@ -147,13 +158,51 @@ int main()
 				TimeManager::clockCountdown.restart();
 				TimeManager::clockTargets.restart();
 			}
+			else if (options)
+			{
+				menu.initOptionsBtn();
+				menu.displayMenu(*window, pause, options);
+				menu.updateText(pause, options);
+
+				// Options buttons
+				switch (menu.activateOptionBtn(mouseManager.getMousePos()))
+				{
+				case GAME_GOBACK:
+					options = false;
+					sf::sleep(sf::milliseconds(100));
+					break;
+				case DIFFICULTY_EASY:
+					targetsManager.setHealth(120);
+					targetsManager.setSpawnTimer(1.2f);
+					std::cout << "Difficulty set to EASY" << std::endl;
+					sf::sleep(sf::milliseconds(100));
+					break;
+				case DIFFICULTY_MEDIUM:
+					targetsManager.setHealth(100);
+					targetsManager.setSpawnTimer(0.7f);
+					std::cout << "Difficulty set to MEDIUM" << std::endl;
+					sf::sleep(sf::milliseconds(100));
+					break;
+				case DIFFICULTY_HARD:
+					targetsManager.setHealth(70);
+					targetsManager.setSpawnTimer(0.5f);
+					std::cout << "Difficulty set to HARD" << std::endl;
+					sf::sleep(sf::milliseconds(100));
+					break;
+				default:
+					break;
+				}
+
+				mouseManager.updateMousePos(*window);
+
+				TimeManager::clockCountdown.restart();
+				TimeManager::clockTargets.restart();
+			}
 			else
 			{
-
 				window->setMouseCursorVisible(false);
 
 				// Clear the window and set the grey background
-
 				window->clear(sf::Color(18, 18, 18, 255));
 
 				mouseManager.updateMousePos(*window);
@@ -188,11 +237,11 @@ int main()
 
 					winManager.updateText(-1, health, endgame);
 
-					menu.updateText(pause);
+					menu.updateText(pause, options);
 
 					TimeManager::clockTargets.restart();
 
-					if (menu.gameStatus(mouseManager.getMousePos()) == GAME_RESUME)
+					if (menu.activateStartBtn(mouseManager.getMousePos()) == GAME_RESUME)
 					{
 						pause = !pause;
 					}
@@ -233,19 +282,17 @@ int main()
 				// Drawing here
 				if (FRAME_DURATION > lag)
 				{
-					if(!pause && !endgame)
+					if (!pause && !endgame)
+					{
 						targetsManager.draw(*window);
+						mouseManager.draw(*window);
+					}
 
-
-
-					if(pause)
-						menu.displayMenu(*window, pause);
-
-
+					if (pause)
+						menu.displayMenu(*window, pause, options);
 
 					if (!endgame)
 					{
-						mouseManager.draw(*window);
 						winManager.drawText();
 						winManager.drawTimerText();
 					}
@@ -254,9 +301,8 @@ int main()
 				}
 			}
 		}
-
 		// Displaying the window
-		if(FRAME_DURATION > lag)
+		if (FRAME_DURATION > lag)
 			winManager.displayWindow();
 	}
 

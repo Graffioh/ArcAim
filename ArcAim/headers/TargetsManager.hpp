@@ -23,7 +23,7 @@ private:
 	char m_spawnType;
 	bool m_mouseHeld;
 	bool m_deleted;
-
+	float m_targetSpawnTime;
 	float m_timer;
 
 	// RNG system (Better than srand)
@@ -61,6 +61,8 @@ public:
 	// Setters
 	// Spawn type: 1 for reflex, 2 for falling targets
 	void setSpawnType(char spawnType);
+
+	void setSpawnTimer(float spawn_timer);
 
 	void setHealth(unsigned short health);
 
