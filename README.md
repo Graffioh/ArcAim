@@ -1,10 +1,10 @@
 # ArcAim
 An arcade aim based game, made in **SFML** with C++.
 
-Try to reach the highest score, but remember, You got only 80 HP and every miss is a penalty (-10 HP), so be careful ;)
+Try to reach the highest score, but remember, every miss is a penalty (-10 HP), so be careful ;)
 
 # Functionality
-Press **[ R ]** to Restart the game and **[ P ]** to pause.
+Press **[ R ]** to Restart the game , **[ P ]** to pause, **[ESC]** for a fast Restart.
 ## Difficulty:
 
 **Default**
