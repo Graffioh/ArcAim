@@ -44,9 +44,11 @@ To avoid weird input lag just cap the fps accordingly to your monitor refresh ra
 # Build and compile
 **IMPORTANT!** You have 2 options:
 
-    1) Build and compile with Visual studio community (just open the project .sln)
+1) Build and compile with Visual studio community (just open the project .sln).
 
-    2) Build by opening the console in the main folder, write mingw32-make (MinGW 64 bit compiler required) and then open the .exe in bin/x64
+2) Build by opening the console in the main folder, write mingw32-make  and then open the .exe in the Exec folder.
+
+(MinGW 64 bit compiler required: https://www.msys2.org/ )
 
 # Socials
 Enjoy and let me know (with a DM on Twitter: @graffioh or Discord: Graffioh#2823) anything useful to get better coding wise :)
