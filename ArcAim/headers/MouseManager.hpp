@@ -22,7 +22,7 @@ public:
 	sf::Vector2f getMousePos();
 
 	// Sync the mouse position with the sprite
-	void syncPosition(sf::RenderWindow& window);
+	void syncPositionWithSprite(sf::RenderWindow& window);
 
 	// Draw the sprite cursor on the screen
 	void draw(sf::RenderWindow& window);

@@ -21,11 +21,10 @@ sf::Vector2f MouseManager::getMousePos()
 	return m_mousePosView;
 }
 
-void MouseManager::syncPosition(sf::RenderWindow& window)
+void MouseManager::syncPositionWithSprite(sf::RenderWindow& window)
 {
 	m_cursorSprite.setPosition(static_cast<sf::Vector2f>(m_mousePosView));
 }
-
 
 void MouseManager::draw(sf::RenderWindow& window)
 {

@@ -253,7 +253,7 @@ int main()
 					targetsManager.eraseOnClick(mouseManager.getMousePos());
 				}
 
-				mouseManager.syncPosition(*window);
+				mouseManager.syncPositionWithSprite(*window);
 
 				points = targetsManager.getPoints();
 				health = targetsManager.getPlayerHealth();
