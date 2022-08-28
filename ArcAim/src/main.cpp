@@ -159,12 +159,15 @@ int main()
 				{
 				case GAME_START:
 					start = true;
+
 					break;
 				case GAME_OPTIONS:
 					options = true;
+
 					break;
 				case GAME_EXIT:
 					exit = true;
+
 					break;
 				default:
 					break;
@@ -190,38 +193,54 @@ int main()
 				// Options buttons
 				switch (menu.activateOptionBtn(mouseManager.getMousePos()))
 				{
-				case GAME_GOBACK:
-					options = false;
-					sf::sleep(sf::milliseconds(100));
-					break;
 				case DIFFICULTY_EASY:
 					healthReset = 120;
 					targetsManager.setHealth(healthReset);
 					spawnTimerReset = 1.2f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
+
 					std::cout << "Difficulty set to EASY" << std::endl;
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_MEDIUM:
-					//targetsManager.setHealth(100);
-					//targetsManager.setSpawnTimer(0.7f);
-
 					healthReset = 100;
 					targetsManager.setHealth(healthReset);
 					spawnTimerReset = 0.7f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
+
 					std::cout << "Difficulty set to MEDIUM" << std::endl;
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_HARD:
-					//targetsManager.setHealth(70);
-					//targetsManager.setSpawnTimer(0.5f);
-
 					healthReset = 70;
 					targetsManager.setHealth(healthReset);
 					spawnTimerReset = 0.5f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
+
 					std::cout << "Difficulty set to HARD" << std::endl;
+					sf::sleep(sf::milliseconds(100));
+					break;
+				case CROSS_STYLE1:
+					mouseManager.setCrossStyle(CROSS_STYLE1);
+
+					std::cout << "Crosshair STYLE 1 set" << std::endl;
+					sf::sleep(sf::milliseconds(100));
+					break;
+				case CROSS_STYLE2:
+					mouseManager.setCrossStyle(CROSS_STYLE2);
+
+					std::cout << "Crosshair STYLE 2 set" << std::endl;
+					sf::sleep(sf::milliseconds(100));
+					break;
+				case CROSS_STYLE3:
+					mouseManager.setCrossStyle(CROSS_STYLE3);
+
+					std::cout << "Crosshair STYLE 3 set" << std::endl;
+					sf::sleep(sf::milliseconds(100));
+					break;
+				case GAME_GOBACK:
+					options = false;
+
 					sf::sleep(sf::milliseconds(100));
 					break;
 				default:

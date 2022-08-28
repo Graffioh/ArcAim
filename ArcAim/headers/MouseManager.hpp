@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Global.hpp"
+
 class MouseManager
 {
 private:
@@ -26,5 +28,9 @@ public:
 
 	// Draw the sprite cursor on the screen
 	void draw(sf::RenderWindow& window);
+	
+	// Setters
+	// set the crosshair texture
+	void setCrossStyle(char style);
 };
 

@@ -2,9 +2,6 @@
 
 MouseManager::MouseManager()
 {
-	// Crosshair selection
-	//m_cursorTexture.loadFromFile("res/Images/RedReticle.png");
-	//m_cursorTexture.loadFromFile("res/Images/GreenReticle.png");
 	m_cursorTexture.loadFromFile("res/Images/GreenReticleOutline.png");
 
 	m_cursorSprite.setTexture(m_cursorTexture);
@@ -29,6 +26,26 @@ void MouseManager::syncPositionWithSprite(sf::RenderWindow& window)
 void MouseManager::draw(sf::RenderWindow& window)
 {
 	window.draw(m_cursorSprite);
+}
+
+void MouseManager::setCrossStyle(char style)
+{
+	if (style == CROSS_STYLE1)
+	{
+		m_cursorTexture.loadFromFile("res/Images/GreenReticleOutline.png");
+	}
+
+	if (style == CROSS_STYLE2)
+	{
+		m_cursorTexture.loadFromFile("res/Images/CyanReticle.png");
+	}
+
+	if (style == CROSS_STYLE3)
+	{
+		m_cursorTexture.loadFromFile("res/Images/RedReticle.png");
+	}
+
+	m_cursorSprite.setTexture(m_cursorTexture);
 }
 
 

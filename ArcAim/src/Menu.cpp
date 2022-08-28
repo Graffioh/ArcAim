@@ -1,40 +1,42 @@
 #include "../headers/Menu.hpp"
 
-void Menu::setupButton(sf::RectangleShape& button, sf::Color color, float width, float height, sf::Vector2f vec2)
+void Menu::setupButton(sf::RectangleShape& button, sf::Color color, sf::Vector2f vec2, float x, float y)
 {
 	button.setFillColor(color);
-	button.setPosition(width, height);
+	button.setPosition(x, y);
 	button.setSize(vec2);
 }
 
 void Menu::initButton()
 {
-	setupButton(m_resumeButton, sf::Color(255, 165, 0, 255), WIN_WIDTH / 3, WIN_HEIGHT / 2.5, sf::Vector2f(280, 60));
+	setupButton(m_resumeButton, sf::Color(255, 165, 0, 255), sf::Vector2f(280, 60), WIN_WIDTH / 3, WIN_HEIGHT / 2.5);
 
-	/*setupButton(m_menuButton1, sf::Color::Red, WIN_WIDTH / 3, 160, sf::Vector2f(260, 60));
-	setupButton(m_menuButton2, sf::Color::Red, WIN_WIDTH / 3, 300, sf::Vector2f(260, 60));
-	setupButton(m_menuButton3, sf::Color::Red, WIN_WIDTH / 3, 440, sf::Vector2f(260, 60));*/
+	// Cursor style img
+	m_crossStyle1Img.loadFromFile("res/Images/GreenReticleOutline.png");
+	m_crossStyle1SpriteImg.setTexture(m_crossStyle1Img);
+	m_crossStyle1SpriteImg.setPosition(240, 262);
 
-	/*setupButton(m_difficultyBtn1, sf::Color::Green, 100 , 250, sf::Vector2f(130, 40));
-	setupButton(m_difficultyBtn2, sf::Color::Blue, 330, 250, sf::Vector2f(130, 40));
-	setupButton(m_difficultyBtn3, sf::Color::Red, 550, 250, sf::Vector2f(130, 40));*/
+	m_crossStyle2Img.loadFromFile("res/Images/CyanReticle.png");
+	m_crossStyle2SpriteImg.setTexture(m_crossStyle2Img);
+	m_crossStyle2SpriteImg.setPosition(470, 262);
 
-	//setupButton(m_returnToMenuBtn, sf::Color::Yellow, 330, 450, sf::Vector2f(130, 40));
-	//setupButton(m_returnToMenuBtn, sf::Color::Yellow, 330, 500, sf::Vector2f(130, 40));
-
+	m_crossStyle3Img.loadFromFile("res/Images/RedReticle.png");
+	m_crossStyle3SpriteImg.setTexture(m_crossStyle3Img);
+	m_crossStyle3SpriteImg.setPosition(690, 262);
 }
 
-void Menu::formatTxt(sf::Text& txt, sf::Font& font, unsigned int size, sf::Color color, float width, float height)
+void Menu::formatTxt(sf::Text& txt, sf::Font& font, unsigned int size, sf::Color color, float x, float y)
 {
 	txt.setFont(font);
 	txt.setCharacterSize(size);
 	txt.setFillColor(color);
 	txt.setString("NONE");
-	txt.setPosition(width, height);
+	txt.setPosition(x, y);
 }
 
 void Menu::initText()
 {
+	// Loading the font
 	if (!m_font.loadFromFile("res/Fonts/Minecraft.ttf"))
 	{
 		std::cout << "FONTS: Load Error!" << std::endl;
@@ -55,10 +57,20 @@ void Menu::initText()
 	formatTxt(m_menuTxt3, m_font, 30, sf::Color::White, WIN_WIDTH / 2.60f, 450);
 
 	// Difficulty button text
-	formatTxt(m_difficultyTxt1, m_font, 25, sf::Color::White, 130, 255);
-	formatTxt(m_difficultyTxt2, m_font, 25, sf::Color::White, 347, 255);
-	formatTxt(m_difficultyTxt3, m_font, 25, sf::Color::White, 580, 255);
+	formatTxt(m_difficulty0Txt, m_font, 25, sf::Color::White, 335, 50);
 
+	formatTxt(m_difficulty1Txt, m_font, 25, sf::Color::White, 135, 105);
+	formatTxt(m_difficulty2Txt, m_font, 25, sf::Color::White, 347, 105);
+	formatTxt(m_difficulty3Txt, m_font, 25, sf::Color::White, 580, 105);
+
+	// Crosshair style button text
+	formatTxt(m_crossStyle0Txt, m_font, 25, sf::Color::White, 335, 200);
+
+	formatTxt(m_crossStyle1Txt, m_font, 25, sf::Color::Black, 113, 255);
+	formatTxt(m_crossStyle2Txt, m_font, 25, sf::Color::Black, 343, 255);
+	formatTxt(m_crossStyle3Txt, m_font, 25, sf::Color::Black, 563, 255);
+
+	// Back button text
 	formatTxt(m_returnToMenuTxt, m_font, 25, sf::Color::Black, 365, 455);
 }
 
@@ -71,18 +83,22 @@ Menu::Menu()
 
 void Menu::initStartBtn()
 {
-	setupButton(m_menuButton1, sf::Color::Red, WIN_WIDTH / 3, 160, sf::Vector2f(260, 60));
-	setupButton(m_menuButton2, sf::Color::Red, WIN_WIDTH / 3, 300, sf::Vector2f(260, 60));
-	setupButton(m_menuButton3, sf::Color::Red, WIN_WIDTH / 3, 440, sf::Vector2f(260, 60));
+	setupButton(m_menuButton1, sf::Color::Red, sf::Vector2f(260, 60), WIN_WIDTH / 3, 160);
+	setupButton(m_menuButton2, sf::Color::Red, sf::Vector2f(260, 60), WIN_WIDTH / 3, 300);
+	setupButton(m_menuButton3, sf::Color::Red, sf::Vector2f(260, 60), WIN_WIDTH / 3, 440);
 }
 
 void Menu::initOptionsBtn()
 {
-	setupButton(m_difficultyBtn1, sf::Color::Green, 100, 250, sf::Vector2f(130, 40));
-	setupButton(m_difficultyBtn2, sf::Color::Blue, 330, 250, sf::Vector2f(130, 40));
-	setupButton(m_difficultyBtn3, sf::Color::Red, 550, 250, sf::Vector2f(130, 40));
+	setupButton(m_difficulty1Btn, sf::Color::Green, sf::Vector2f(130, 40), 100, 100);
+	setupButton(m_difficulty2Btn, sf::Color::Blue, sf::Vector2f(130, 40), 330, 100);
+	setupButton(m_difficulty3Btn, sf::Color::Red, sf::Vector2f(130, 40), 550, 100);
 
-	setupButton(m_returnToMenuBtn, sf::Color::Yellow, 330, 450, sf::Vector2f(130, 40));
+	setupButton(m_crossStyle1Btn, sf::Color::White, sf::Vector2f(130, 40), 100, 250);
+	setupButton(m_crossStyle2Btn, sf::Color::White, sf::Vector2f(130, 40), 330, 250);
+	setupButton(m_crossStyle3Btn, sf::Color::White, sf::Vector2f(130, 40), 550, 250);
+
+	setupButton(m_returnToMenuBtn, sf::Color::Yellow, sf::Vector2f(130, 40), 330, 450);
 
 	// try (moving the button)
 	m_menuButton3 = m_menuButton2;
@@ -91,6 +107,8 @@ void Menu::initOptionsBtn()
 
 void Menu::updateText(bool isPause, bool isOptions)
 {
+	std::stringstream ss0;
+	std::stringstream ss00;
 	std::stringstream ss;
 	std::stringstream ss1;
 	std::stringstream ss2;
@@ -98,6 +116,7 @@ void Menu::updateText(bool isPause, bool isOptions)
 	std::stringstream ss4;
 	std::stringstream ss5;
 	std::stringstream ss6;
+	std::stringstream ss7;
 
 	if (isPause)
 	{
@@ -107,17 +126,29 @@ void Menu::updateText(bool isPause, bool isOptions)
 	}
 	else if(isOptions)
 	{
+		ss0 << "Difficulty" << std::endl;
 		ss << "EASY" << std::endl;
 		ss1 << "MEDIUM" << std::endl;
 		ss2 << "HARD" << std::endl;
 
-		ss3 << "Back" << std::endl;
+		ss00 << "Crosshair" << std::endl;
+		ss4 << "STYLE 1" << std::endl;
+		ss5 << "STYLE 2" << std::endl;
+		ss6 << "STYLE 3" << std::endl;
 
-		m_difficultyTxt1.setString(ss.str());
-		m_difficultyTxt2.setString(ss1.str());
-		m_difficultyTxt3.setString(ss2.str());
+		ss7 << "Back" << std::endl;
 
-		m_returnToMenuTxt.setString(ss3.str());
+		m_difficulty0Txt.setString(ss0.str());
+		m_difficulty1Txt.setString(ss.str());
+		m_difficulty2Txt.setString(ss1.str());
+		m_difficulty3Txt.setString(ss2.str());
+
+		m_crossStyle0Txt.setString(ss00.str());
+		m_crossStyle1Txt.setString(ss4.str());
+		m_crossStyle2Txt.setString(ss5.str());
+		m_crossStyle3Txt.setString(ss6.str());
+
+		m_returnToMenuTxt.setString(ss7.str());
 	}
 	else
 	{
@@ -183,19 +214,34 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				return GAME_GOBACK;
 			}
 
-			if (m_difficultyBtn1.getGlobalBounds().contains(mousePos))
+			if (m_difficulty1Btn.getGlobalBounds().contains(mousePos))
 			{
 				return DIFFICULTY_EASY;
 			}
 
-			if (m_difficultyBtn2.getGlobalBounds().contains(mousePos))
+			if (m_difficulty2Btn.getGlobalBounds().contains(mousePos))
 			{
 				return DIFFICULTY_MEDIUM;
 			}
 
-			if (m_difficultyBtn3.getGlobalBounds().contains(mousePos))
+			if (m_difficulty3Btn.getGlobalBounds().contains(mousePos))
 			{
 				return DIFFICULTY_HARD;
+			}
+
+			if (m_crossStyle1Btn.getGlobalBounds().contains(mousePos))
+			{
+				return CROSS_STYLE1;
+			}
+
+			if (m_crossStyle2Btn.getGlobalBounds().contains(mousePos))
+			{
+				return CROSS_STYLE2;
+			}
+
+			if (m_crossStyle3Btn.getGlobalBounds().contains(mousePos))
+			{
+				return CROSS_STYLE3;
 			}
 
 			m_mouseHeld = true;
@@ -221,14 +267,32 @@ void Menu::displayMenu(sf::RenderWindow& window, bool isPause, bool isOptions)
 	}
 	else if (isOptions)
 	{
-		window.draw(m_difficultyBtn1);
-		window.draw(m_difficultyBtn2);
-		window.draw(m_difficultyBtn3);
+		// Drawing buttons
+		window.draw(m_difficulty1Btn);
+		window.draw(m_difficulty2Btn);
+		window.draw(m_difficulty3Btn);
+
+		window.draw(m_crossStyle1Btn);
+		window.draw(m_crossStyle2Btn);
+		window.draw(m_crossStyle3Btn);
+
+		window.draw(m_crossStyle1SpriteImg);
+		window.draw(m_crossStyle2SpriteImg);
+		window.draw(m_crossStyle3SpriteImg);
+
 		window.draw(m_returnToMenuBtn);
 
-		window.draw(m_difficultyTxt1);
-		window.draw(m_difficultyTxt2);
-		window.draw(m_difficultyTxt3);
+		// Drawin button text
+		window.draw(m_difficulty0Txt);
+		window.draw(m_difficulty1Txt);
+		window.draw(m_difficulty2Txt);
+		window.draw(m_difficulty3Txt);
+
+		window.draw(m_crossStyle0Txt);
+		window.draw(m_crossStyle1Txt);
+		window.draw(m_crossStyle2Txt);
+		window.draw(m_crossStyle3Txt);
+
 		window.draw(m_returnToMenuTxt);
 	}
 	else
