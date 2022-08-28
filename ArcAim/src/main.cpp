@@ -43,7 +43,6 @@ int main()
 	unsigned short health = 0;
 	short points = 0;
 	bool endgame = false;
-	bool pause = false;
 	bool start = false;
 	bool options = false;
 	bool exit = false;
@@ -91,12 +90,6 @@ int main()
 						std::cout << "Reset" << std::endl; // NEED TO RESET COUNTDOWN POINTS AND HEALTH WHEN PRESSED
 					}
 
-					if (event.key.code == sf::Keyboard::P)
-					{
-						pause = !pause;
-						std::cout << "Game Paused" << std::endl;
-					}
-
 					if (event.key.code == sf::Keyboard::F1) // Idk if it works
 					{
 						vsync = !vsync;
@@ -137,7 +130,6 @@ int main()
 				targetsManager.reset(healthReset, 0);
 				targetsManager.eraseAllEnemies();
 
-
 				winManager.setCountdown(20);
 
 				// Sync the clock
@@ -150,23 +142,24 @@ int main()
 			{
 				window->setMouseCursorVisible(true);
 
-				menu.initStartBtn();
-				menu.displayMenu(*window, pause, options);
-				menu.updateText(pause, options);
+				menu.displayMenu(window, *window, options);
 
 				// Start menu buttons
 				switch (menu.activateStartBtn(mouseManager.getMousePos()))
 				{
 				case GAME_START:
 					start = true;
+					sf::sleep(sf::milliseconds(100));
 
 					break;
 				case GAME_OPTIONS:
 					options = true;
+					sf::sleep(sf::milliseconds(100));
 
 					break;
 				case GAME_EXIT:
 					exit = true;
+					sf::sleep(sf::milliseconds(100));
 
 					break;
 				default:
@@ -186,9 +179,8 @@ int main()
 			}
 			else if (options)
 			{
-				menu.initOptionsBtn();
-				menu.displayMenu(*window, pause, options);
-				menu.updateText(pause, options);
+				menu.displayMenu(window, *window, options);
+				menu.updateText(options);
 
 				// Options buttons
 				switch (menu.activateOptionBtn(mouseManager.getMousePos()))
@@ -259,6 +251,8 @@ int main()
 
 				// Clear the window and set the grey background
 				window->clear(sf::Color(18, 18, 18, 255));
+				
+				menu.updateText(options);
 
 				mouseManager.updateMousePos(*window);
 
@@ -266,7 +260,7 @@ int main()
 				//
 				// Managing target's funcs
 				targetsManager.setSpawnType(REFLEX_ENEMIES);
-				if (!pause && !endgame)
+				if (!endgame)
 				{
 					targetsManager.update();
 					targetsManager.eraseOnClick(mouseManager.getMousePos());
@@ -279,29 +273,13 @@ int main()
 
 				// WINDOW
 				// 
-				// HUD Text update and render + pause mechanism (if -1 change the text to PAUSE)
-				if (!pause)
-				{
-					winManager.updateClock();
-					winManager.updateTimerText();
-					winManager.updateText(points, health, endgame);
-				}
-				else // PAUSE Setup
-				{
-					window->setMouseCursorVisible(true);
-
-					winManager.updateText(-1, health, endgame);
-
-					menu.updateText(pause, options);
-
-					TimeManager::clockTargets.restart();
-
-					if (menu.activateStartBtn(mouseManager.getMousePos()) == GAME_RESUME)
-					{
-						pause = !pause;
-					}
-				}
-
+				// HUD Text update and draw + pause mechanism (if -1 change the text to PAUSE)
+				
+				winManager.updateClock();
+				winManager.updateTimerText();
+				winManager.updateText(points, health, endgame);
+				
+				
 				// GAME OVER & RESTART
 				//
 				// Endgame trigger
@@ -338,17 +316,11 @@ int main()
 				// Drawing here
 				if (FRAME_DURATION > lag)
 				{
-					if (!pause && !endgame)
+					if (!endgame)
 					{
 						targetsManager.draw(*window);
 						mouseManager.draw(*window);
-					}
 
-					if (pause)
-						menu.displayMenu(*window, pause, options);
-
-					if (!endgame)
-					{
 						winManager.drawText();
 						winManager.drawTimerText();
 					}

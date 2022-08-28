@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\MouseManager.cpp" />
@@ -28,6 +29,7 @@
     <ClCompile Include="src\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\Button.hpp" />
     <ClInclude Include="headers\Global.hpp" />
     <ClInclude Include="headers\Menu.hpp" />
     <ClInclude Include="headers\MouseManager.hpp" />
