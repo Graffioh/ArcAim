@@ -5,14 +5,17 @@ Try to reach the highest score, but remember, every miss is a penalty (-10 HP), 
 
 # Functionality
 Press **[ R ]** to Restart the game , **[ P ]** to pause, **[ESC]** for a fast Restart.
+
+## Options:
++ Choose between 3 different difficulties
++ Choose between 3 crosshair styles
+
 ## Difficulty:
 
 **Default**
 + Target spawn time: 1 seconds
 + Health: 100
 + Countdown: 20 seconds
-
-If you want something else go into "OPTIONS" and change the difficulty by choosing:
 
 **Easy**
 + Target spawn time: 1.2 seconds
