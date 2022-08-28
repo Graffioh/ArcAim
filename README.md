@@ -4,11 +4,12 @@ An arcade aim based game, made in **SFML** with C++.
 Try to reach the highest score, but remember, every miss is a penalty (-10 HP), so be careful ;)
 
 # Functionality
-Press **[ R ]** to Restart the game , **[ P ]** to pause, **[ESC]** for a fast Restart.
+Press **[ R ]** to Restart the game , **[ESC]** for a fast Restart.
 
 ## Options:
-+ Choose between 3 different difficulties
-+ Choose between 3 crosshair styles
+Choose between:
++ 3 different difficulties
++ 3 crosshair styles
 
 ## Difficulty:
 
