@@ -14,20 +14,20 @@ void TargetsManager::spawn()
 {
 	switch (m_spawnType)
 	{
-	case '1':
+	case REFLEX_ENEMIES:
 		//m_target.setTargetPos(static_cast<float>(rand() % static_cast<int>(WIN_WIDTH - 50)), static_cast<float>(rand() % static_cast<int>(WIN_HEIGHT - 50))); // BAD SYSTEM
 
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
 		break;
 
-	case '2':
+	case FALLING_ENEMIES:
 		//m_target.setTargetPos(static_cast<float>(rand() % static_cast<int>(WIN_WIDTH - 50)), 0); // BAD SYSTEM
 
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), 0);
 		break;
 
 	default:
-		std::cout << "Spawn type not allowed\n";
+		std::cout << "Spawn type not allowed(spawn)\n";
 		break;
 	}
 
@@ -84,14 +84,14 @@ void TargetsManager::update()
 
 	switch (m_spawnType)
 	{
-	case '1':
+	case REFLEX_ENEMIES:
 		reflexEnemies();
 		break;
-	case '2':
+	case FALLING_ENEMIES:
 		fallingEnemies();
 		break;
 	default:
-		std::cout << "Spawn type not allowed\n";
+		std::cout << "Spawn type not allowed(update)\n";
 		break;
 	}
 }

@@ -57,6 +57,8 @@ int main()
 
 	previous_time = std::chrono::steady_clock::now();
 
+	targetsManager.setSpawnType(REFLEX_ENEMIES);
+
 	// Game loop
 	while (window->isOpen())
 	{
@@ -87,7 +89,7 @@ int main()
 					if (event.key.code == sf::Keyboard::Escape)
 					{
 						reset = true;
-						std::cout << "Reset" << std::endl; // NEED TO RESET COUNTDOWN POINTS AND HEALTH WHEN PRESSED
+						std::cout << "Reset" << std::endl;
 					}
 
 					if (event.key.code == sf::Keyboard::F1) // Idk if it works
@@ -230,6 +232,18 @@ int main()
 					std::cout << "Crosshair STYLE 3 set" << std::endl;
 					sf::sleep(sf::milliseconds(100));
 					break;
+				case REFLEX_ENEMIES:
+					targetsManager.setSpawnType(REFLEX_ENEMIES);
+
+					std::cout << "Reflex mode set" << std::endl;
+					sf::sleep(sf::milliseconds(100));
+					break;
+				case FALLING_ENEMIES:
+					targetsManager.setSpawnType(FALLING_ENEMIES);
+
+					std::cout << "Falling mode set" << std::endl;
+					sf::sleep(sf::milliseconds(100));
+					break;
 				case GAME_GOBACK:
 					options = false;
 
@@ -259,7 +273,7 @@ int main()
 				// TARGET
 				//
 				// Managing target's funcs
-				targetsManager.setSpawnType(REFLEX_ENEMIES);
+				//targetsManager.setSpawnType(REFLEX_ENEMIES);
 				if (!endgame)
 				{
 					targetsManager.update();
@@ -291,7 +305,7 @@ int main()
 				if (endgame)
 				{
 					window->clear(sf::Color(0, 0, 0, 255));
-					winManager.initUIText(WIN_WIDTH / 3.5, WIN_HEIGHT / 5, 60);
+					winManager.initUIText(WIN_WIDTH / 3.5f, WIN_HEIGHT / 5.f, 60);
 					winManager.updateText(points, health, endgame);
 				}
 

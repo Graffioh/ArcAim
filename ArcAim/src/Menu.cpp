@@ -20,11 +20,12 @@ void Menu::initFont()
 
 void Menu::initText()
 {
-	// Difficulty button text
+	// Options description text
 	formatTxt(m_difficulty0Txt, m_font, 25, sf::Color::White, 345, 55);
 
-	// Crosshair style button text
-	formatTxt(m_crossStyle0Txt, m_font, 25, sf::Color::White, 345, 235);
+	formatTxt(m_crossStyle0Txt, m_font, 25, sf::Color::White, 345, 200);
+
+	formatTxt(m_gameModes0Txt, m_font, 25, sf::Color::White, 365, 350);
 
 	// Info for fps cap
 	formatTxt(m_infoCapFpsTxt, m_font, 25, sf::Color::White, 150, 0);
@@ -40,11 +41,14 @@ void Menu::initButton()
 	m_buttons["DIFFICULTY_MEDIUM"] = new Button(sf::Color::Yellow, 150, 40, 330, 100, &m_font, "MEDIUM", sf::Color::Black);
 	m_buttons["DIFFICULTY_HARD"] = new Button(sf::Color::Red, 150, 40, 550, 100, &m_font, "HARD", sf::Color::Black);
 
-	m_buttons["CROSS_STYLE1"] = new Button(sf::Color::White, 150, 40, 100, 280, &m_font, "STYLE 1", sf::Color::Black);
-	m_buttons["CROSS_STYLE2"] = new Button(sf::Color::White, 150, 40, 330, 280, &m_font, "STYLE 2", sf::Color::Black);
-	m_buttons["CROSS_STYLE3"] = new Button(sf::Color::White, 150, 40, 550, 280, &m_font, "STYLE 3", sf::Color::Black);
+	m_buttons["CROSS_STYLE1"] = new Button(sf::Color::White, 150, 40, 100, 243, &m_font, "STYLE 1", sf::Color::Black);
+	m_buttons["CROSS_STYLE2"] = new Button(sf::Color::White, 150, 40, 330, 243, &m_font, "STYLE 2", sf::Color::Black);
+	m_buttons["CROSS_STYLE3"] = new Button(sf::Color::White, 150, 40, 550, 243, &m_font, "STYLE 3", sf::Color::Black);
 
-	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, 150, 40, 330, 450, &m_font, "BACK", sf::Color::Black);
+	m_buttons["REFLEX_ENEMIES"] = new Button(sf::Color::White, 150, 40, 170, 390, &m_font, "REFLEX", sf::Color::Black);
+	m_buttons["FALLING_ENEMIES"] = new Button(sf::Color::White, 150, 40, 490, 390, &m_font, "FALLING", sf::Color::Black);
+
+	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, 150, 40, 330, 500, &m_font, "BACK", sf::Color::Black);
 }
 
 void Menu::initCrossStyleImg()
@@ -52,15 +56,15 @@ void Menu::initCrossStyleImg()
 	// Cursor style img
 	m_crossStyle1Img.loadFromFile("res/Images/GreenReticleOutline.png");
 	m_crossStyle1SpriteImg.setTexture(m_crossStyle1Img);
-	m_crossStyle1SpriteImg.setPosition(260, 292);
+	m_crossStyle1SpriteImg.setPosition(260, 255);
 
 	m_crossStyle2Img.loadFromFile("res/Images/CyanReticle.png");
 	m_crossStyle2SpriteImg.setTexture(m_crossStyle2Img);
-	m_crossStyle2SpriteImg.setPosition(490, 292);
+	m_crossStyle2SpriteImg.setPosition(490, 255);
 
 	m_crossStyle3Img.loadFromFile("res/Images/RedReticle.png");
 	m_crossStyle3SpriteImg.setTexture(m_crossStyle3Img);
-	m_crossStyle3SpriteImg.setPosition(710, 292);
+	m_crossStyle3SpriteImg.setPosition(710, 255);
 }
 
 Menu::Menu()
@@ -74,7 +78,7 @@ Menu::Menu()
 
 Menu::~Menu()
 {
-	// blackbox
+	// Deleting map elements when destructor is called
 	auto it = m_buttons.begin();
 
 	for (it = m_buttons.begin(); it != m_buttons.end(); ++it)
@@ -88,6 +92,7 @@ void Menu::updateText(bool isOptions)
 	std::stringstream ss1;
 	std::stringstream ss2;
 	std::stringstream ss3;
+	std::stringstream ss4;
 
 	if (isOptions)
 	{
@@ -95,16 +100,20 @@ void Menu::updateText(bool isOptions)
 
 		ss2 << "Crosshair" << std::endl;
 
+		ss3 << "Modes" << std::endl;
+
 		m_difficulty0Txt.setString(ss1.str());
 
 		m_crossStyle0Txt.setString(ss2.str());
+
+		m_gameModes0Txt.setString(ss3.str());
 	}
 	else
 	{	
-		m_infoCapFpsTxt.setString(ss3.str());
+		m_infoCapFpsTxt.setString(ss4.str());
 
-		ss3 << "F1 for VSync - F2 for 60 FPS cap - F3 for 144 FPS cap" << std::endl;
-		ss3 << "\t\t\t\t\t\t   ESC for fast Restart" << std::endl;
+		ss4 << "F1 for VSync - F2 for 60 FPS cap - F3 for 144 FPS cap" << std::endl;
+		ss4 << "\t\t\t\t\t\t   ESC for fast Restart" << std::endl;
 	}
 }
 
@@ -178,6 +187,16 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				return CROSS_STYLE3;
 			}
 
+			if (m_buttons["REFLEX_ENEMIES"]->getBounds().contains(mousePos))
+			{
+				return REFLEX_ENEMIES;
+			}
+
+			if (m_buttons["FALLING_ENEMIES"]->getBounds().contains(mousePos))
+			{
+				return FALLING_ENEMIES;
+			}
+
 			if (m_buttons["GAME_GOBACK"]->getBounds().contains(mousePos))
 			{
 				return GAME_GOBACK;
@@ -218,6 +237,10 @@ void Menu::displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool 
 		
 		m_buttons["CROSS_STYLE3"]->draw(target);
 		target->draw(m_crossStyle3SpriteImg);
+
+		target->draw(m_gameModes0Txt);
+		m_buttons["REFLEX_ENEMIES"]->draw(target);
+		m_buttons["FALLING_ENEMIES"]->draw(target);
 
 		m_buttons["GAME_GOBACK"]->draw(target);
 	}

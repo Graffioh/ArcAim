@@ -38,8 +38,8 @@ constexpr char CROSS_STYLE3 = '6';
 constexpr char GAME_GOBACK = '7';
 
 // spawn type
-constexpr char REFLEX_ENEMIES = '1';
-constexpr char FALLING_ENEMIES = '2';
+constexpr char REFLEX_ENEMIES = '8';
+constexpr char FALLING_ENEMIES = '9';
 
 // frame duration for frame indipendent gameplay
 constexpr std::chrono::microseconds FRAME_DURATION(3333);

@@ -11,12 +11,14 @@
 class Menu
 {
 private:
-	sf::Font m_font;
-
+	// Using a map to store button objects who will be created
 	std::map<std::string, Button*> m_buttons;
+
+	sf::Font m_font;
 
 	sf::Text m_difficulty0Txt;
 	sf::Text m_crossStyle0Txt;
+	sf::Text m_gameModes0Txt;
 	sf::Text m_infoCapFpsTxt;
 
 	sf::Texture m_crossStyle1Img;

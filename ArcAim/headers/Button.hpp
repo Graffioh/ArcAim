@@ -21,7 +21,6 @@ public:
 	void draw(sf::RenderTarget* target);
 
 	sf::FloatRect getBounds();
-	sf::RectangleShape getShape();
 };
 	
 
