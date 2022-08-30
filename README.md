@@ -19,13 +19,13 @@ Choose between:
 + Countdown: 20 seconds
 
 **Easy**
-+ Target spawn time: 1.2 seconds
++ Target spawn time: 1.1 seconds
 + Health: 120
 + Countdown: 20 seconds
 
 **Medium**
-+ Target spawn time: 0.7 seconds
-+ Health: 100
++ Target spawn time: 0.65 seconds
++ Health: 80
 + Countdown: 20 seconds
 
 **Hard** (*if you want a serious challenge*)
