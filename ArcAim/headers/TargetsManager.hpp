@@ -18,7 +18,7 @@ private:
 
 	sf::Sprite m_targetSprite;
 
-	unsigned short m_playerHealth;
+	float m_playerHealth;
 	unsigned short m_points;
 	char m_spawnType;
 	bool m_mouseHeld;
@@ -54,12 +54,12 @@ public:
 	void eraseOnClick(sf::Vector2f mousePos);
 	void eraseAllEnemies();
 
-	void reset(unsigned short health, unsigned short points);
+	void reset(float health, unsigned short points);
 
 	// Getters
 	unsigned short getPoints();
 
-	unsigned short getPlayerHealth();
+	float getPlayerHealth();
 
 	// Setters
 	// Spawn type: 1 for reflex, 2 for falling targets
@@ -67,7 +67,7 @@ public:
 
 	void setSpawnTimer(float spawn_timer);
 
-	void setHealth(unsigned short health);
+	void setHealth(float health);
 
 	void setPoints(unsigned short points);
 };

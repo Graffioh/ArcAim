@@ -81,7 +81,7 @@ void WindowManager::updateClock()
 	}
 }
 
-void WindowManager::updateText(short points, unsigned short health, bool endgame)
+void WindowManager::updateText(short points, float health, bool endgame)
 {
 	std::stringstream ss;
 	//std::stringstream ss2; Wanted to put health on up-right side colored red!!!!

@@ -51,7 +51,7 @@ public:
 	void updateClock();
 
 	// Text funcs
-	void updateText(short points, unsigned short health, bool endgame);
+	void updateText(short points, float health, bool endgame);
 
 	void updateTimerText();
 

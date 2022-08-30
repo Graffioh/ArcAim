@@ -16,7 +16,7 @@ constexpr float TARGET_SPAWN_TIMER = 1.f;
 constexpr unsigned int MAX_TARGETS = 5;
 
 // player health
-constexpr unsigned int PLAYER_HEALTH = 100;
+constexpr float PLAYER_HEALTH = 100.f;
 
 // game status
 constexpr char GAME_START = '1';

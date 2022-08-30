@@ -40,7 +40,7 @@ int main()
 	TimeManager time;
 
 	char gameStatus = 0;
-	unsigned short health = 0;
+	float health = 0.f;
 	short points = 0;
 	bool endgame = false;
 	bool start = false;
@@ -49,8 +49,7 @@ int main()
 	bool vsync = false;
 	bool reset = false;
 	bool restart = false;
-
-	unsigned short healthReset = PLAYER_HEALTH;
+	float healthReset = PLAYER_HEALTH;
 	float spawnTimerReset = TARGET_SPAWN_TIMER;
 
 	winManager.initWindow(window);
@@ -152,17 +151,14 @@ int main()
 				case GAME_START:
 					start = true;
 					sf::sleep(sf::milliseconds(100));
-
 					break;
 				case GAME_OPTIONS:
 					options = true;
 					sf::sleep(sf::milliseconds(100));
-
 					break;
 				case GAME_EXIT:
 					exit = true;
 					sf::sleep(sf::milliseconds(100));
-
 					break;
 				default:
 					break;
@@ -188,7 +184,7 @@ int main()
 				switch (menu.activateOptionBtn(mouseManager.getMousePos()))
 				{
 				case DIFFICULTY_EASY:
-					healthReset = 120;
+					healthReset = 120.f;
 					targetsManager.setHealth(healthReset);
 					spawnTimerReset = 1.2f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
@@ -197,7 +193,7 @@ int main()
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_MEDIUM:
-					healthReset = 100;
+					healthReset = 100.f;
 					targetsManager.setHealth(healthReset);
 					spawnTimerReset = 0.7f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
@@ -206,7 +202,7 @@ int main()
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_HARD:
-					healthReset = 70;
+					healthReset = 60.f;
 					targetsManager.setHealth(healthReset);
 					spawnTimerReset = 0.5f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
@@ -288,7 +284,6 @@ int main()
 				// WINDOW
 				// 
 				// HUD Text update and draw + pause mechanism (if -1 change the text to PAUSE)
-				
 				winManager.updateClock();
 				winManager.updateTimerText();
 				winManager.updateText(points, health, endgame);
@@ -299,7 +294,7 @@ int main()
 				// Endgame trigger
 				if (health == 0 || winManager.getCountdown() == 0)
 				{
-					endgame = true;
+					endgame = true; // not workin with falling enemies
 				}
 
 				if (endgame)

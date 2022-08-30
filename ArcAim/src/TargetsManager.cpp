@@ -15,14 +15,10 @@ void TargetsManager::spawn()
 	switch (m_spawnType)
 	{
 	case REFLEX_ENEMIES:
-		//m_target.setTargetPos(static_cast<float>(rand() % static_cast<int>(WIN_WIDTH - 50)), static_cast<float>(rand() % static_cast<int>(WIN_HEIGHT - 50))); // BAD SYSTEM
-
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
 		break;
 
 	case FALLING_ENEMIES:
-		//m_target.setTargetPos(static_cast<float>(rand() % static_cast<int>(WIN_WIDTH - 50)), 0); // BAD SYSTEM
-
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), 0);
 		break;
 
@@ -42,7 +38,6 @@ void TargetsManager::reflexEnemies()
 	{
 		for (size_t i = 0; i < m_targets.size(); i++)
 		{
-			std::cout << "no" << std::endl;
 			m_targets.erase(m_targets.begin() + i);
 			m_playerHealth -= 10;
 		}
@@ -56,9 +51,8 @@ void TargetsManager::fallingEnemies()
 		// If out of bounds delete, else move the target down
 		if (m_targets[i].getSprite().getPosition().y > WIN_WIDTH)
 		{
-			std::cout << "no" << std::endl;
 			m_targets.erase(m_targets.begin() + i);
-			m_playerHealth -= 10;
+			m_playerHealth -= 10.f;
 		}
 		else
 		{
@@ -120,18 +114,18 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 			{
 				if (m_targets[i].getSprite().getGlobalBounds().contains(mousePos))
 				{
-					std::cout << "yes" << std::endl;
 					m_deleted = true;
-
 					m_targets.erase(this->m_targets.begin() + i);
+
 					m_points++;
 
 					m_target.playHitSound();
 				}
 				else
 				{
-					std::cout << "miss" << std::endl;
-					m_playerHealth -= 10; // If target miss, decrease the health by 10
+					// If target miss, decrease the health by 10 
+					if (m_playerHealth != 0.f)
+					m_playerHealth -= 10.f; // (PROBLEM OVER/UNDER FLOWING THE HEALTH!!!!)
 				}
 			}
 		}
@@ -144,14 +138,13 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 
 void TargetsManager::eraseAllEnemies()
 {
-	for (size_t i = 0; i < m_targets.size() && !m_deleted; i++)
+	for (size_t i = 0; i < m_targets.size(); i++)
 	{
 		m_targets.erase(this->m_targets.begin() + i);
 	}
-		
 }
 
-void TargetsManager::reset(unsigned short health, unsigned short points)
+void TargetsManager::reset(float health, unsigned short points)
 {
 	m_playerHealth = health;
 	m_points = points;
@@ -162,7 +155,7 @@ unsigned short TargetsManager::getPoints()
 	return m_points;
 }
 
-unsigned short TargetsManager::getPlayerHealth()
+float TargetsManager::getPlayerHealth()
 {
 	return m_playerHealth;
 }
@@ -172,8 +165,7 @@ void TargetsManager::setSpawnTimer(float spawn_timer)
 	m_targetSpawnTime = spawn_timer;
 }
 
-
-void TargetsManager::setHealth(unsigned short health)
+void TargetsManager::setHealth(float health)
 {
 	m_playerHealth = health;
 }
