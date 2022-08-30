@@ -125,7 +125,7 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 				{
 					// If target miss, decrease the health by 10 
 					if (m_playerHealth != 0.f)
-					m_playerHealth -= 10.f; // (PROBLEM OVER/UNDER FLOWING THE HEALTH!!!!)
+					m_playerHealth -= 10.f;
 				}
 			}
 		}

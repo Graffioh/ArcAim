@@ -122,10 +122,12 @@ int main()
 				}
 			}
 
+			// Reset everything with Esc button
 			if (reset)
 			{
 				reset = false;
 				start = false;
+				restart = true;
 
 				// Reset
 				targetsManager.reset(healthReset, 0);
@@ -186,23 +188,23 @@ int main()
 				case DIFFICULTY_EASY:
 					healthReset = 120.f;
 					targetsManager.setHealth(healthReset);
-					spawnTimerReset = 1.2f;
+					spawnTimerReset = 1.1f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
 
 					std::cout << "Difficulty set to EASY" << std::endl;
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_MEDIUM:
-					healthReset = 100.f;
+					healthReset = 80.f;
 					targetsManager.setHealth(healthReset);
-					spawnTimerReset = 0.7f;
+					spawnTimerReset = 0.65f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
 
 					std::cout << "Difficulty set to MEDIUM" << std::endl;
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_HARD:
-					healthReset = 60.f;
+					healthReset = 70.f;
 					targetsManager.setHealth(healthReset);
 					spawnTimerReset = 0.5f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
