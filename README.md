@@ -4,7 +4,7 @@ An arcade aim based game, made in **SFML** with C++.
 Try to reach the highest score, but remember, every miss is a penalty (-10 HP), so be careful ;)
 
 # Functionality
-Press **[ R ]** to Restart the game , **[ESC]** for a fast Restart.
+Press **[ R ]** to Restart the game , **[ESC]** for menu (it will restart the game too), **[R]** for a fast restart during the gameplay.
 
 ## Options:
 Choose between:
