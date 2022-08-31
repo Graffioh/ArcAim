@@ -111,7 +111,7 @@ int main()
 						std::cout << "Frame limit set to 144" << std::endl;
 					}
 
-					if (event.key.code == sf::Keyboard::R && endgame)
+					if (event.key.code == sf::Keyboard::R)
 					{
 						restart = true;
 						std::cout << "Game Restarted" << std::endl;
@@ -185,6 +185,7 @@ int main()
 				// Options buttons
 				switch (menu.activateOptionBtn(mouseManager.getMousePos()))
 				{
+				// DIFFICULTY
 				case DIFFICULTY_EASY:
 					healthReset = 120.f;
 					targetsManager.setHealth(healthReset);
@@ -212,6 +213,8 @@ int main()
 					std::cout << "Difficulty set to HARD" << std::endl;
 					sf::sleep(sf::milliseconds(100));
 					break;
+
+				// CROSSHAIR STYLE
 				case CROSS_STYLE1:
 					mouseManager.setCrossStyle(CROSS_STYLE1);
 
@@ -230,6 +233,8 @@ int main()
 					std::cout << "Crosshair STYLE 3 set" << std::endl;
 					sf::sleep(sf::milliseconds(100));
 					break;
+
+				// MODE
 				case REFLEX_ENEMIES:
 					targetsManager.setSpawnType(REFLEX_ENEMIES);
 
@@ -247,6 +252,7 @@ int main()
 
 					sf::sleep(sf::milliseconds(100));
 					break;
+
 				default:
 					break;
 				}
