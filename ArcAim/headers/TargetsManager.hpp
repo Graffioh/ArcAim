@@ -32,7 +32,13 @@ private:
 	std::uniform_int_distribution<int> m_xDist;
 	std::uniform_int_distribution<int> m_yDist;
 
+	sf::CircleShape m_circle;
+	std::vector<sf::CircleShape> m_holes;
+	bool m_isHoleActive;
+
 public:
+	void initHole();
+
 	// Constructor
 	TargetsManager();
 
@@ -54,21 +60,24 @@ public:
 	void eraseOnClick(sf::Vector2f mousePos);
 	void eraseAllEnemies();
 
+	// Reset func for game restart
 	void reset(float health, unsigned short points);
+
+	// Create an hole when you miss
+	void createHole(sf::Vector2f mousePos);
+	//void deleteHole();
+	void drawHole(sf::RenderWindow& window);
 
 	// Getters
 	unsigned short getPoints();
-
 	float getPlayerHealth();
 
 	// Setters
 	// Spawn type: 1 for reflex, 2 for falling targets
 	void setSpawnType(char spawnType);
-
 	void setSpawnTimer(float spawn_timer);
-
 	void setHealth(float health);
-
 	void setPoints(unsigned short points);
+	void setHole(bool holeActive);
 };
 

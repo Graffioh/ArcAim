@@ -1,8 +1,15 @@
 #include "../headers/TargetsManager.hpp"
 
+void TargetsManager::initHole()
+{
+	m_circle.setFillColor(sf::Color(240, 240, 240, 255));
+	m_circle.setRadius(2.f);
+}
+
 TargetsManager::TargetsManager()
 	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_targetSpawnTime(TARGET_SPAWN_TIMER), m_rng(m_rd()), m_xDist(0, WIN_WIDTH - 50), m_yDist(0, WIN_HEIGHT - 50)
 {
+	initHole();
 }
 
 void TargetsManager::setSpawnType(char spawnType)
@@ -101,8 +108,8 @@ void TargetsManager::draw(sf::RenderWindow& window)
 void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 {
 	// Fix mouse pos offset but the detection on the borders is still shit
-	mousePos.x = mousePos.x + 8;
-	mousePos.y = mousePos.y + 8;
+	mousePos.x = mousePos.x + 6;
+	mousePos.y = mousePos.y + 6;
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
@@ -123,9 +130,13 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 				}
 				else
 				{
-					// If target miss, decrease the health by 10 
+					// If target miss, decrease the health by 10 and create an hole on background
 					if (m_playerHealth != 0.f)
-					m_playerHealth -= 10.f;
+					{
+						m_playerHealth -= 10.f;
+						if(m_isHoleActive)
+							createHole(mousePos);
+					}
 				}
 			}
 		}
@@ -138,9 +149,16 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 
 void TargetsManager::eraseAllEnemies()
 {
+	// Erase targets
 	for (size_t i = 0; i < m_targets.size(); i++)
 	{
-		m_targets.erase(this->m_targets.begin() + i);
+		m_targets.erase(m_targets.begin() + i);
+	}
+
+	// Erase bullet hole
+	for (size_t i = 0; i < m_holes.size(); i++)
+	{
+		m_holes.erase(m_holes.begin() + i);
 	}
 }
 
@@ -173,4 +191,32 @@ void TargetsManager::setHealth(float health)
 void TargetsManager::setPoints(unsigned short points)
 {
 	m_points = points;
+}
+
+void TargetsManager::createHole(sf::Vector2f mousePos)
+{
+	m_circle.setPosition(mousePos.x, mousePos.y);
+
+	m_holes.push_back(m_circle);
+}
+
+//void TargetsManager::deleteHole()
+//{
+//	for (size_t i = 0; i < m_holes.size(); i++)
+//	{
+//		m_holes.erase(m_holes.begin() + i);
+//	}
+//}
+
+void TargetsManager::drawHole(sf::RenderWindow& window)
+{
+	for (auto& hole : m_holes)
+	{
+		window.draw(hole);
+	}
+}
+
+void TargetsManager::setHole(bool holeActive)
+{
+	m_isHoleActive = holeActive;
 }

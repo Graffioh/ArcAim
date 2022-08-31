@@ -1,6 +1,7 @@
 #include "../headers/MouseManager.hpp"
 
 MouseManager::MouseManager()
+	:m_mouseHeld(false)
 {
 	m_cursorTexture.loadFromFile("res/Images/GreenReticleOutline.png");
 
@@ -47,5 +48,7 @@ void MouseManager::setCrossStyle(char style)
 
 	m_cursorSprite.setTexture(m_cursorTexture);
 }
+
+
 
 

@@ -52,6 +52,8 @@ int main()
 	float healthReset = PLAYER_HEALTH;
 	float spawnTimerReset = TARGET_SPAWN_TIMER;
 
+	bool holeActive = false;
+
 	winManager.initWindow(window);
 
 	previous_time = std::chrono::steady_clock::now();
@@ -109,6 +111,13 @@ int main()
 					{
 						window->setFramerateLimit(144);
 						std::cout << "Frame limit set to 144" << std::endl;
+					}
+
+					if (event.key.code == sf::Keyboard::F5)
+					{
+						holeActive = !holeActive;
+						targetsManager.setHole(holeActive);
+						std::cout << "Hole toggled" << std::endl;
 					}
 
 					if (event.key.code == sf::Keyboard::R)
@@ -277,11 +286,11 @@ int main()
 				// TARGET
 				//
 				// Managing target's funcs
-				//targetsManager.setSpawnType(REFLEX_ENEMIES);
 				if (!endgame)
 				{
 					targetsManager.update();
 					targetsManager.eraseOnClick(mouseManager.getMousePos());
+					
 				}
 
 				mouseManager.syncPositionWithSprite(*window);
@@ -336,6 +345,8 @@ int main()
 					if (!endgame)
 					{
 						targetsManager.draw(*window);
+						targetsManager.drawHole(*window);
+
 						mouseManager.draw(*window);
 
 						winManager.drawText();

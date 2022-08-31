@@ -13,6 +13,8 @@ private:
 	sf::Vector2i m_mousePosWindow;
 	sf::Vector2f m_mousePosView;
 
+	bool m_mouseHeld;
+
 public:
 	// Constructor
 	MouseManager();
