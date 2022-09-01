@@ -17,7 +17,7 @@ sf::Clock TimeManager::clockTargets;
 
 int main()
 {
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), "ArcAim", sf::Style::Default);
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), "ArcAim", sf::Style::Close);
 
 	// Framerate
 	window->setFramerateLimit(240);
@@ -129,7 +129,7 @@ int main()
 					break;
 				}
 			}
-
+			// Activate holes from default
 			targetsManager.setHole(holeActive);
 
 			// Reset everything with Esc button
@@ -215,7 +215,7 @@ int main()
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_HARD:
-					healthReset = 700.f;
+					healthReset = 70.f;
 					targetsManager.setHealth(healthReset);
 					spawnTimerReset = 0.5f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
@@ -291,7 +291,7 @@ int main()
 				{
 					targetsManager.update();
 					targetsManager.eraseOnClick(mouseManager.getMousePos());
-					
+
 				}
 
 				mouseManager.syncPositionWithSprite(*window);
@@ -312,7 +312,7 @@ int main()
 				// Endgame trigger
 				if (health == 0 || winManager.getCountdown() == 0)
 				{
-					endgame = true; // not workin with falling enemies
+					endgame = true;
 				}
 
 				if (endgame)
@@ -320,6 +320,9 @@ int main()
 					window->clear(sf::Color(0, 0, 0, 255));
 					winManager.initUIText(WIN_WIDTH / 3.5f, WIN_HEIGHT / 5.f, 60);
 					winManager.updateText(points, health, endgame);
+
+					// To erase holes when endgame
+					targetsManager.eraseAllEnemies();
 				}
 
 				// Restart trigger
