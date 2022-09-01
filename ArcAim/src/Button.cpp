@@ -18,7 +18,6 @@ Button::Button(sf::Color btnColor, float width, float height, float x, float y, 
 
 Button::~Button()
 {
-
 }
 
 void Button::draw(sf::RenderTarget* target)

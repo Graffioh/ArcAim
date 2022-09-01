@@ -26,15 +26,16 @@ private:
 	float m_targetSpawnTime;
 	float m_timer;
 
+	sf::Texture m_holeTexture;
+	sf::Sprite m_holeSprite;
+	std::vector<sf::Sprite> m_holes;
+	bool m_isHoleActive;
+
 	// RNG system (Better than srand)
 	std::random_device m_rd;
 	std::mt19937 m_rng;
 	std::uniform_int_distribution<int> m_xDist;
 	std::uniform_int_distribution<int> m_yDist;
-
-	sf::CircleShape m_circle;
-	std::vector<sf::CircleShape> m_holes;
-	bool m_isHoleActive;
 
 public:
 	void initHole();
@@ -51,10 +52,10 @@ public:
 	// Falling enemies
 	void fallingEnemies();
 
-	// Update and draw
+	// Update and drawTarget
 	void update();
 
-	void draw(sf::RenderWindow& window);
+	void drawTarget(sf::RenderWindow& window);
 
 	// If click on enemy, then erase it
 	void eraseOnClick(sf::Vector2f mousePos);
@@ -65,7 +66,9 @@ public:
 
 	// Create an hole when you miss
 	void createHole(sf::Vector2f mousePos);
-	//void deleteHole();
+	// Delete one hole every 4 holes spawned
+	void deleteHole();
+	// Draw the hole and delete when needed
 	void drawHole(sf::RenderWindow& window);
 
 	// Getters

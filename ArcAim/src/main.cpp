@@ -52,7 +52,7 @@ int main()
 	float healthReset = PLAYER_HEALTH;
 	float spawnTimerReset = TARGET_SPAWN_TIMER;
 
-	bool holeActive = false;
+	bool holeActive = true;
 
 	winManager.initWindow(window);
 
@@ -116,7 +116,6 @@ int main()
 					if (event.key.code == sf::Keyboard::F5)
 					{
 						holeActive = !holeActive;
-						targetsManager.setHole(holeActive);
 						std::cout << "Hole toggled" << std::endl;
 					}
 
@@ -130,6 +129,8 @@ int main()
 					break;
 				}
 			}
+
+			targetsManager.setHole(holeActive);
 
 			// Reset everything with Esc button
 			if (reset)
@@ -214,7 +215,7 @@ int main()
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_HARD:
-					healthReset = 70.f;
+					healthReset = 700.f;
 					targetsManager.setHealth(healthReset);
 					spawnTimerReset = 0.5f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
@@ -300,7 +301,7 @@ int main()
 
 				// WINDOW
 				// 
-				// HUD Text update and draw + pause mechanism (if -1 change the text to PAUSE)
+				// HUD Text update and drawTarget + pause mechanism (if -1 change the text to PAUSE)
 				winManager.updateClock();
 				winManager.updateTimerText();
 				winManager.updateText(points, health, endgame);
@@ -344,10 +345,10 @@ int main()
 				{
 					if (!endgame)
 					{
-						targetsManager.draw(*window);
+						targetsManager.drawTarget(*window);
 						targetsManager.drawHole(*window);
 
-						mouseManager.draw(*window);
+						mouseManager.drawTarget(*window);
 
 						winManager.drawText();
 						winManager.drawTimerText();

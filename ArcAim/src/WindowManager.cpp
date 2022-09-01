@@ -72,7 +72,6 @@ void WindowManager::updateClock()
 	m_timer = TimeManager::clockCountdown.getElapsedTime().asSeconds();
 
 	// Every seconds decrease the countdown
-	//if (m_timer >= 1.f)
 	if (m_timer >= 1.f)
 	{
 		m_countdown--;

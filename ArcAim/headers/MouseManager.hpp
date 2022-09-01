@@ -29,7 +29,7 @@ public:
 	void syncPositionWithSprite(sf::RenderWindow& window);
 
 	// Draw the sprite cursor on the screen
-	void draw(sf::RenderWindow& window);
+	void drawTarget(sf::RenderWindow& window);
 	
 	// Setters
 	// set the crosshair texture

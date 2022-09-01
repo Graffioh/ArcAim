@@ -24,7 +24,7 @@ void MouseManager::syncPositionWithSprite(sf::RenderWindow& window)
 	m_cursorSprite.setPosition(static_cast<sf::Vector2f>(m_mousePosView));
 }
 
-void MouseManager::draw(sf::RenderWindow& window)
+void MouseManager::drawTarget(sf::RenderWindow& window)
 {
 	window.draw(m_cursorSprite);
 }

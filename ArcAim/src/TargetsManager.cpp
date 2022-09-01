@@ -2,8 +2,10 @@
 
 void TargetsManager::initHole()
 {
-	m_circle.setFillColor(sf::Color(240, 240, 240, 255));
-	m_circle.setRadius(2.f);
+	m_holeTexture.loadFromFile("res/Images/Hole Texture.png");
+
+	m_holeSprite.setTexture(m_holeTexture);
+	m_holeSprite.setScale(0.3f, 0.3f);
 }
 
 TargetsManager::TargetsManager()
@@ -97,7 +99,7 @@ void TargetsManager::update()
 	}
 }
 
-void TargetsManager::draw(sf::RenderWindow& window)
+void TargetsManager::drawTarget(sf::RenderWindow& window)
 {
 	for (auto& target : m_targets)
 	{
@@ -168,6 +170,34 @@ void TargetsManager::reset(float health, unsigned short points)
 	m_points = points;
 }
 
+void TargetsManager::createHole(sf::Vector2f mousePos)
+{
+	m_holeSprite.setPosition(mousePos.x - 3, mousePos.y - 3);
+
+	m_holes.push_back(m_holeSprite);
+}
+
+void TargetsManager::deleteHole()
+{
+	for (size_t i = 0; i < 1; i++)
+	{
+		if (m_holes.size() > 3 && m_timer > m_targetSpawnTime)
+		{
+			m_holes.erase(m_holes.begin() + i);
+		}
+	}
+}
+
+void TargetsManager::drawHole(sf::RenderWindow& window)
+{
+	for (auto& hole : m_holes)
+	{
+		window.draw(hole);
+	}
+
+	deleteHole();
+}
+
 unsigned short TargetsManager::getPoints()
 {
 	return m_points;
@@ -193,28 +223,6 @@ void TargetsManager::setPoints(unsigned short points)
 	m_points = points;
 }
 
-void TargetsManager::createHole(sf::Vector2f mousePos)
-{
-	m_circle.setPosition(mousePos.x, mousePos.y);
-
-	m_holes.push_back(m_circle);
-}
-
-//void TargetsManager::deleteHole()
-//{
-//	for (size_t i = 0; i < m_holes.size(); i++)
-//	{
-//		m_holes.erase(m_holes.begin() + i);
-//	}
-//}
-
-void TargetsManager::drawHole(sf::RenderWindow& window)
-{
-	for (auto& hole : m_holes)
-	{
-		window.draw(hole);
-	}
-}
 
 void TargetsManager::setHole(bool holeActive)
 {

@@ -246,7 +246,7 @@ void Menu::displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool 
 	}
 	else
 	{
-		//target->draw(m_infoCapFpsTxt); Not working
+		//target->drawTarget(m_infoCapFpsTxt); Not working
 
 		m_buttons["GAME_START"]->draw(target);
 		m_buttons["GAME_OPTIONS"]->draw(target);
