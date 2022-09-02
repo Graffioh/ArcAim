@@ -11,7 +11,7 @@ void WindowManager::initVars()
 
 	if (!m_font.loadFromFile("res/Fonts/Minecraft.ttf"))
 	{
-		std::cout << "FONTS: Load Error!" << std::endl;
+		std::cout << "FONTS: Load Error!\n";
 	}
 
 	m_convert << m_countdown;
@@ -87,16 +87,16 @@ void WindowManager::updateText(short points, float health, bool endgame)
 
 	if (points == -1)
 	{
-		ss << "PAUSE" << std::endl;
+		ss << "PAUSE" ;
 	}
 	else if(endgame)
 	{
-		ss << "GAME OVER\n\n" << "   Points: " << points << "\n\nR to Restart" << std::endl;
+		ss << "GAME OVER\n\n" << "   Points: " << points << "\n\nR to Restart\n";
 	}
 	else
 	{
-		ss << "Points: " << points << std::endl;
-		ss << "Health: " << health << std::endl;
+		ss << "Points: " << points << "\n";
+		ss << "Health: " << health << "\n";
 	}
 
 	m_uiText.setString(ss.str());
@@ -107,7 +107,7 @@ void WindowManager::updateTimerText()
 {
 	std::stringstream ss2;
 
-	ss2 << m_countdown << std::endl;
+	ss2 << m_countdown ;
 	m_timerText.setString(ss2.str());
 }
 

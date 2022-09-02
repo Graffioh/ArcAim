@@ -83,14 +83,14 @@ int main()
 				{
 				case sf::Event::Closed:
 					window->close();
-					std::cout << "Process Killed" << std::endl;
+					std::cout << "Process Killed\n";
 					break;
 
 				case sf::Event::KeyPressed:
 					if (event.key.code == sf::Keyboard::Escape)
 					{
 						reset = true;
-						std::cout << "Reset" << std::endl;
+						std::cout << "Reset\n";
 					}
 
 					if (event.key.code == sf::Keyboard::F1) // Idk if it works
@@ -98,31 +98,31 @@ int main()
 						vsync = !vsync;
 						window->setVerticalSyncEnabled(vsync);
 
-						std::cout << "VSync Toggled" << std::endl;
+						std::cout << "VSync Toggled\n";
 					}
 
 					if (event.key.code == sf::Keyboard::F2)
 					{
 						window->setFramerateLimit(60);
-						std::cout << "Frame limit set to 60" << std::endl;
+						std::cout << "Frame limit set to 60\n";
 					}
 
 					if (event.key.code == sf::Keyboard::F3)
 					{
 						window->setFramerateLimit(144);
-						std::cout << "Frame limit set to 144" << std::endl;
+						std::cout << "Frame limit set to 144\n";
 					}
 
 					if (event.key.code == sf::Keyboard::F5)
 					{
 						holeActive = !holeActive;
-						std::cout << "Hole toggled" << std::endl;
+						std::cout << "Hole toggled\n";
 					}
 
 					if (event.key.code == sf::Keyboard::R)
 					{
 						restart = true;
-						std::cout << "Game Restarted" << std::endl;
+						std::cout << "Game Restarted\n";
 					}
 
 				default:
@@ -202,7 +202,7 @@ int main()
 					spawnTimerReset = 1.1f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
 
-					std::cout << "Difficulty set to EASY" << std::endl;
+					std::cout << "Difficulty set to EASY\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_MEDIUM:
@@ -211,7 +211,7 @@ int main()
 					spawnTimerReset = 0.65f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
 
-					std::cout << "Difficulty set to MEDIUM" << std::endl;
+					std::cout << "Difficulty set to MEDIUM\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case DIFFICULTY_HARD:
@@ -220,7 +220,7 @@ int main()
 					spawnTimerReset = 0.5f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
 
-					std::cout << "Difficulty set to HARD" << std::endl;
+					std::cout << "Difficulty set to HARD\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
 
@@ -228,19 +228,19 @@ int main()
 				case CROSS_STYLE1:
 					mouseManager.setCrossStyle(CROSS_STYLE1);
 
-					std::cout << "Crosshair STYLE 1 set" << std::endl;
+					std::cout << "Crosshair STYLE 1 set\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case CROSS_STYLE2:
 					mouseManager.setCrossStyle(CROSS_STYLE2);
 
-					std::cout << "Crosshair STYLE 2 set" << std::endl;
+					std::cout << "Crosshair STYLE 2 set\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case CROSS_STYLE3:
 					mouseManager.setCrossStyle(CROSS_STYLE3);
 
-					std::cout << "Crosshair STYLE 3 set" << std::endl;
+					std::cout << "Crosshair STYLE 3 set\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
 
@@ -248,13 +248,13 @@ int main()
 				case REFLEX_ENEMIES:
 					targetsManager.setSpawnType(REFLEX_ENEMIES);
 
-					std::cout << "Reflex mode set" << std::endl;
+					std::cout << "Reflex mode set\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case FALLING_ENEMIES:
 					targetsManager.setSpawnType(FALLING_ENEMIES);
 
-					std::cout << "Falling mode set" << std::endl;
+					std::cout << "Falling mode set\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case GAME_GOBACK:

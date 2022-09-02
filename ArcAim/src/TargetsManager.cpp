@@ -9,7 +9,7 @@ void TargetsManager::initHole()
 }
 
 TargetsManager::TargetsManager()
-	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_targetSpawnTime(TARGET_SPAWN_TIMER), m_rng(m_rd()), m_xDist(0, WIN_WIDTH - 50), m_yDist(0, WIN_HEIGHT - 50)
+	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_targetSpawnTime(TARGET_SPAWN_TIMER), m_rng(m_rd()), m_xDist(0, WIN_WIDTH - 50), m_yDist(0, WIN_HEIGHT - 50), isHit(false)
 {
 	initHole();
 }
@@ -129,12 +129,16 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 					m_points++;
 
 					m_target.playHitSound();
+
+					isHit = true;
 				}
 				else
 				{
 					// If target miss, decrease the health by 10 and create an hole on background
 					if (m_playerHealth != 0.f)
 					{
+						isHit = false;
+
 						m_playerHealth -= 10.f;
 						if(m_isHoleActive)
 							createHole(mousePos);
@@ -181,10 +185,8 @@ void TargetsManager::deleteHole()
 {
 	for (size_t i = 0; i < 1; i++)
 	{
-		if (m_holes.size() > 3 && m_timer > m_targetSpawnTime)
-		{
+		if(m_holes.size() > 3)
 			m_holes.erase(m_holes.begin() + i);
-		}
 	}
 }
 
@@ -222,7 +224,6 @@ void TargetsManager::setPoints(unsigned short points)
 {
 	m_points = points;
 }
-
 
 void TargetsManager::setHole(bool holeActive)
 {

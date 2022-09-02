@@ -14,7 +14,7 @@ void Menu::initFont()
 {
 	if (!m_font.loadFromFile("res/Fonts/Minecraft.ttf"))
 		{
-			std::cout << "FONTS: Load Error!" << std::endl;
+			std::cout << "FONTS: Load Error!\n";
 		}
 }
 
@@ -96,11 +96,11 @@ void Menu::updateText(bool isOptions)
 
 	if (isOptions)
 	{
-		ss1 << "Difficulty" << std::endl;
+		ss1 << "Difficulty\n";
 
-		ss2 << "Crosshair" << std::endl;
+		ss2 << "Crosshair\n";
 
-		ss3 << "Modes" << std::endl;
+		ss3 << "Modes\n";
 
 		m_difficulty0Txt.setString(ss1.str());
 
@@ -112,8 +112,8 @@ void Menu::updateText(bool isOptions)
 	{	
 		m_infoCapFpsTxt.setString(ss4.str());
 
-		ss4 << "F1 for VSync - F2 for 60 FPS cap - F3 for 144 FPS cap" << std::endl;
-		ss4 << "\t\t\t\t\t\t   ESC for fast Restart" << std::endl;
+		ss4 << "F1 for VSync - F2 for 60 FPS cap - F3 for 144 FPS cap\n";
+		ss4 << "\t\t\t\t\t\t   ESC for fast Restart\n";
 	}
 }
 

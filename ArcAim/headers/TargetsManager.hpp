@@ -37,7 +37,10 @@ private:
 	std::uniform_int_distribution<int> m_xDist;
 	std::uniform_int_distribution<int> m_yDist;
 
+	bool isHit;
+
 public:
+	// Initializers
 	void initHole();
 
 	// Constructor
@@ -54,7 +57,6 @@ public:
 
 	// Update and drawTarget
 	void update();
-
 	void drawTarget(sf::RenderWindow& window);
 
 	// If click on enemy, then erase it
@@ -76,7 +78,6 @@ public:
 	float getPlayerHealth();
 
 	// Setters
-	// Spawn type: 1 for reflex, 2 for falling targets
 	void setSpawnType(char spawnType);
 	void setSpawnTimer(float spawn_timer);
 	void setHealth(float health);
