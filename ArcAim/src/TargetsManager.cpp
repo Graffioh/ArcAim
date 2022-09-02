@@ -12,6 +12,7 @@ TargetsManager::TargetsManager()
 	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_targetSpawnTime(TARGET_SPAWN_TIMER), m_rng(m_rd()), m_xDist(0, WIN_WIDTH - 50), m_yDist(0, WIN_HEIGHT - 50), isHit(false)
 {
 	initHole();
+	initMissSound();
 }
 
 void TargetsManager::setSpawnType(char spawnType)
@@ -142,6 +143,8 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 						m_playerHealth -= 10.f;
 						if(m_isHoleActive)
 							createHole(mousePos);
+
+						playMissSound();
 					}
 				}
 			}
@@ -200,6 +203,13 @@ void TargetsManager::drawHole(sf::RenderWindow& window)
 	deleteHole();
 }
 
+void TargetsManager::initMissSound()
+{
+	m_missSoundBuffer.loadFromFile("res/Sounds/Nope.wav");
+	m_missSound.setBuffer(m_missSoundBuffer);
+	m_missSound.setVolume(10);
+}
+
 unsigned short TargetsManager::getPoints()
 {
 	return m_points;
@@ -228,4 +238,10 @@ void TargetsManager::setPoints(unsigned short points)
 void TargetsManager::setHole(bool holeActive)
 {
 	m_isHoleActive = holeActive;
+}
+
+
+void TargetsManager::playMissSound()
+{
+	m_missSound.play();
 }

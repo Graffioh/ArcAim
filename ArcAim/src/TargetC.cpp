@@ -14,7 +14,7 @@ void TargetC::initHitSound()
 {
 	m_hitSoundBuffer.loadFromFile("res/Sounds/pophitsound.wav");
 	m_sound.setBuffer(m_hitSoundBuffer);
-	m_sound.setVolume(12);
+	m_sound.setVolume(15);
 }
 
 TargetC::TargetC()

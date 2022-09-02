@@ -31,6 +31,9 @@ private:
 	std::vector<sf::Sprite> m_holes;
 	bool m_isHoleActive;
 
+	sf::SoundBuffer m_missSoundBuffer;
+	sf::Sound m_missSound;
+
 	// RNG system (Better than srand)
 	std::random_device m_rd;
 	std::mt19937 m_rng;
@@ -42,6 +45,7 @@ private:
 public:
 	// Initializers
 	void initHole();
+	void initMissSound();
 
 	// Constructor
 	TargetsManager();
@@ -73,6 +77,8 @@ public:
 	// Draw the hole and delete when needed
 	void drawHole(sf::RenderWindow& window);
 
+	void playMissSound();
+
 	// Getters
 	unsigned short getPoints();
 	float getPlayerHealth();
@@ -83,5 +89,6 @@ public:
 	void setHealth(float health);
 	void setPoints(unsigned short points);
 	void setHole(bool holeActive);
+	
 };
 
