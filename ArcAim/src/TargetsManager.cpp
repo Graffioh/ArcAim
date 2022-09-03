@@ -2,10 +2,10 @@
 
 void TargetsManager::initMissSprite()
 {
-	m_holeTexture.loadFromFile("res/Images/misscross.png");
+	m_missTexture.loadFromFile("res/Images/misscross.png");
 
-	m_holeSprite.setTexture(m_holeTexture);
-	m_holeSprite.setScale(1.f, 1.f);
+	m_missSprite.setTexture(m_missTexture);
+	m_missSprite.setScale(1.f, 1.f);
 }
 
 void TargetsManager::initMissSound()
@@ -149,7 +149,7 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 						isHit = false;
 
 						m_playerHealth -= 10.f;
-						if(m_isHoleActive)
+						if(m_isMissSpriteActive)
 							createMissSprite(mousePos);
 
 						playMissSound();
@@ -173,9 +173,9 @@ void TargetsManager::eraseAllEnemies()
 	}
 
 	// Erase bullet hole
-	for (size_t i = 0; i < m_holes.size(); i++)
+	for (size_t i = 0; i < m_missSprites.size(); i++)
 	{
-		m_holes.erase(m_holes.begin() + i);
+		m_missSprites.erase(m_missSprites.begin() + i);
 	}
 }
 
@@ -187,23 +187,23 @@ void TargetsManager::reset(float health, unsigned short points)
 
 void TargetsManager::createMissSprite(sf::Vector2f mousePos)
 {
-	m_holeSprite.setPosition(mousePos.x - 3, mousePos.y - 3);
+	m_missSprite.setPosition(mousePos.x - 3, mousePos.y - 3);
 
-	m_holes.push_back(m_holeSprite);
+	m_missSprites.push_back(m_missSprite);
 }
 
 void TargetsManager::deleteMissSprite()
 {
 	for (size_t i = 0; i < 1; i++)
 	{
-		if(m_holes.size() > 3)
-			m_holes.erase(m_holes.begin() + i);
+		if(m_missSprites.size() > 3)
+			m_missSprites.erase(m_missSprites.begin() + i);
 	}
 }
 
 void TargetsManager::drawMissSprite(sf::RenderWindow& window)
 {
-	for (auto& hole : m_holes)
+	for (auto& hole : m_missSprites)
 	{
 		window.draw(hole);
 	}
@@ -236,9 +236,9 @@ void TargetsManager::setPoints(unsigned short points)
 	m_points = points;
 }
 
-void TargetsManager::setMissActivation(bool holeActive)
+void TargetsManager::setMissActivation(bool missSpriteActive)
 {
-	m_isHoleActive = holeActive;
+	m_isMissSpriteActive = missSpriteActive;
 }
 
 

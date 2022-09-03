@@ -19,7 +19,7 @@ private:
 	sf::Text m_difficulty0Txt;
 	sf::Text m_crossStyle0Txt;
 	sf::Text m_gameModes0Txt;
-	sf::Text m_infoCapFpsTxt;
+	sf::Text m_infoTxt;
 
 	sf::Texture m_crossStyle1Img;
 	sf::Sprite m_crossStyle1SpriteImg;
@@ -45,6 +45,8 @@ public:
 
 	// Start Menu text setup
 	void updateText(bool isOptions);
+
+	void displayInfo(sf::RenderWindow& window);
 
 	// Mechanism for buttons
 	char activateStartBtn(sf::Vector2f mousePos);

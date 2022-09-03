@@ -46,13 +46,14 @@ int main()
 	bool start = false;
 	bool options = false;
 	bool exit = false;
+	bool info = false;
 	bool vsync = false;
 	bool reset = false;
 	bool restart = false;
 	float healthReset = PLAYER_HEALTH;
 	float spawnTimerReset = TARGET_SPAWN_TIMER;
 
-	bool holeActive = true;
+	bool missSpriteActive = true;
 
 	winManager.initWindow(window);
 
@@ -90,15 +91,17 @@ int main()
 					if (event.key.code == sf::Keyboard::Escape)
 					{
 						reset = true;
-						std::cout << "Reset\n";
+						std::cout << "ESC\n";
 					}
 
 					if (event.key.code == sf::Keyboard::F1) // Idk if it works
 					{
 						vsync = !vsync;
 						window->setVerticalSyncEnabled(vsync);
-
-						std::cout << "VSync Toggled\n";
+						if (vsync)
+							std::cout << "VSync ON\n";
+						else
+							std::cout << "VSync OFF\n";
 					}
 
 					if (event.key.code == sf::Keyboard::F2)
@@ -115,8 +118,11 @@ int main()
 
 					if (event.key.code == sf::Keyboard::F5)
 					{
-						holeActive = !holeActive;
-						std::cout << "Hole toggled\n";
+						missSpriteActive = !missSpriteActive;
+						if(missSpriteActive)
+							std::cout << "Miss Sprite ON\n";
+						else
+							std::cout << "Miss Sprite OFF\n";
 					}
 
 					if (event.key.code == sf::Keyboard::R)
@@ -129,14 +135,15 @@ int main()
 					break;
 				}
 			}
-			// Activate holes from default
-			targetsManager.setMissActivation(holeActive);
+			// Activate miss red cross from default
+			targetsManager.setMissActivation(missSpriteActive);
 
 			// Reset everything with Esc button
 			if (reset)
 			{
 				reset = false;
 				start = false;
+				info = false;
 				restart = true;
 
 				// Reset
@@ -151,7 +158,7 @@ int main()
 			}
 
 			// START MENU
-			if (!start && !options)
+			if (!start && !options && !info)
 			{
 				window->setMouseCursorVisible(true);
 
@@ -172,6 +179,10 @@ int main()
 					exit = true;
 					sf::sleep(sf::milliseconds(100));
 					break;
+				case GAME_INFO:
+					info = true;
+					sf::sleep(sf::milliseconds(100));
+					break;
 				default:
 					break;
 				}
@@ -181,7 +192,25 @@ int main()
 					window->close();
 				}
 
+				//if (info)
+				//{
+				//	window->clear(sf::Color(0, 0, 0, 255));
+
+				//	//info func from menu
+				//	menu.displayInfo(*window);
+				//}
 				mouseManager.updateMousePos(*window);
+
+				// Sync the clock
+				TimeManager::clockCountdown.restart();
+				TimeManager::clockTargets.restart();
+			}
+			else if (info)
+			{
+				window->clear(sf::Color(0, 0, 0, 255));
+
+				//info func from menu
+				menu.displayInfo(*window);
 
 				// Sync the clock
 				TimeManager::clockCountdown.restart();
@@ -267,6 +296,8 @@ int main()
 					break;
 				}
 
+				//info = false;
+
 				mouseManager.updateMousePos(*window);
 
 				// Sync the clock
@@ -275,6 +306,8 @@ int main()
 			}
 			else
 			{
+				info = false;
+
 				window->setMouseCursorVisible(false);
 
 				// Clear the window and set the grey background

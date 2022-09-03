@@ -26,10 +26,10 @@ private:
 	float m_targetSpawnTime;
 	float m_timer;
 
-	sf::Texture m_holeTexture;
-	sf::Sprite m_holeSprite;
-	std::vector<sf::Sprite> m_holes;
-	bool m_isHoleActive;
+	sf::Texture m_missTexture;
+	sf::Sprite m_missSprite;
+	std::vector<sf::Sprite> m_missSprites;
+	bool m_isMissSpriteActive;
 
 	sf::SoundBuffer m_missSoundBuffer;
 	sf::Sound m_missSound;

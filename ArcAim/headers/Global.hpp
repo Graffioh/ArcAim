@@ -23,6 +23,7 @@ constexpr char GAME_START = '1';
 constexpr char GAME_OPTIONS = '2';
 constexpr char GAME_EXIT = '3';
 constexpr char GAME_RESUME = '4';
+constexpr char GAME_INFO = '5';
 
 // difficulty types
 constexpr char DIFFICULTY_EASY = '1';

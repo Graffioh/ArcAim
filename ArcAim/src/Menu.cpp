@@ -28,14 +28,16 @@ void Menu::initText()
 	formatTxt(m_gameModes0Txt, m_font, 25, sf::Color::White, 365, 350);
 
 	// Info for fps cap
-	formatTxt(m_infoCapFpsTxt, m_font, 25, sf::Color::White, 150, 0);
+	formatTxt(m_infoTxt, m_font, 25, sf::Color::White, 250, 160);
 }
 
 void Menu::initButton()
 {
-	m_buttons["GAME_START"] = new Button(sf::Color::Red, 210, 60, 300, 160, &m_font, "START GAME", sf::Color::White);
-	m_buttons["GAME_OPTIONS"] = new Button(sf::Color::Red, 210, 60, 300, 300, &m_font, "OPTIONS", sf::Color::White);
-	m_buttons["GAME_EXIT"] = new Button(sf::Color::Red, 210, 60, 300, 440, &m_font, "EXIT GAME", sf::Color::White);
+	m_buttons["GAME_START"] = new Button(sf::Color::Red, 210, 60, 270, 160, &m_font, "START GAME", sf::Color::White);
+	m_buttons["GAME_OPTIONS"] = new Button(sf::Color::Red, 210, 60, 270, 300, &m_font, "OPTIONS", sf::Color::White);
+	m_buttons["GAME_EXIT"] = new Button(sf::Color::Red, 210, 60, 270, 440, &m_font, "EXIT GAME", sf::Color::White);
+
+	m_buttons["GAME_INFO"] = new Button(sf::Color::Red, 60, 210, 520, 230, &m_font, "\nI\nN\nF\nO", sf::Color::White);
 
 	m_buttons["DIFFICULTY_EASY"] = new Button(sf::Color::Green, 150, 40, 100, 100, &m_font, "EASY", sf::Color::Black);
 	m_buttons["DIFFICULTY_MEDIUM"] = new Button(sf::Color::Yellow, 150, 40, 330, 100, &m_font, "MEDIUM", sf::Color::Black);
@@ -108,13 +110,17 @@ void Menu::updateText(bool isOptions)
 
 		m_gameModes0Txt.setString(ss3.str());
 	}
-	else
-	{	
-		m_infoCapFpsTxt.setString(ss4.str());
+}
 
-		ss4 << "F1 for VSync - F2 for 60 FPS cap - F3 for 144 FPS cap\n";
-		ss4 << "\t\t\t\t\t\t   ESC for fast Restart\n";
-	}
+void Menu::displayInfo(sf::RenderWindow& window)
+{
+	std::stringstream ss;
+
+	ss << "[F1] VSync (ON/OFF)\n\n[F2] 60 FPS cap\n\n[F3] 144 FPS cap\n\n[F5] Red Cross miss (ON/OFF)\n\n[ESC] for fast Restart\n";
+
+	m_infoTxt.setString(ss.str());
+
+	window.draw(m_infoTxt);
 }
 
 char Menu::activateStartBtn(sf::Vector2f mousePos)
@@ -138,6 +144,11 @@ char Menu::activateStartBtn(sf::Vector2f mousePos)
 			if (m_buttons["GAME_EXIT"]->getBounds().contains(mousePos))
 			{
 				return GAME_EXIT;
+			}
+
+			if (m_buttons["GAME_INFO"]->getBounds().contains(mousePos))
+			{
+				return GAME_INFO;
 			}
 		}
 	}
@@ -251,6 +262,8 @@ void Menu::displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool 
 		m_buttons["GAME_START"]->draw(target);
 		m_buttons["GAME_OPTIONS"]->draw(target);
 		m_buttons["GAME_EXIT"]->draw(target);
+
+		m_buttons["GAME_INFO"]->draw(target);
 	}
 }
 
