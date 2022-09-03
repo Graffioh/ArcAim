@@ -44,7 +44,7 @@ private:
 
 public:
 	// Initializers
-	void initHole();
+	void initMissSprite();
 	void initMissSound();
 
 	// Constructor
@@ -71,11 +71,11 @@ public:
 	void reset(float health, unsigned short points);
 
 	// Create an hole when you miss
-	void createHole(sf::Vector2f mousePos);
+	void createMissSprite(sf::Vector2f mousePos);
 	// Delete one hole every 4 holes spawned
-	void deleteHole();
+	void deleteMissSprite();
 	// Draw the hole and delete when needed
-	void drawHole(sf::RenderWindow& window);
+	void drawMissSprite(sf::RenderWindow& window);
 
 	void playMissSound();
 
@@ -88,7 +88,7 @@ public:
 	void setSpawnTimer(float spawn_timer);
 	void setHealth(float health);
 	void setPoints(unsigned short points);
-	void setHole(bool holeActive);
+	void setMissActivation(bool holeActive);
 	
 };
 

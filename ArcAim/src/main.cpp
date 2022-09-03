@@ -130,7 +130,7 @@ int main()
 				}
 			}
 			// Activate holes from default
-			targetsManager.setHole(holeActive);
+			targetsManager.setMissActivation(holeActive);
 
 			// Reset everything with Esc button
 			if (reset)
@@ -348,8 +348,8 @@ int main()
 				{
 					if (!endgame)
 					{
+						targetsManager.drawMissSprite(*window);
 						targetsManager.drawTarget(*window);
-						targetsManager.drawHole(*window);
 
 						mouseManager.drawTarget(*window);
 

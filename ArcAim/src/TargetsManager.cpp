@@ -1,17 +1,25 @@
 #include "../headers/TargetsManager.hpp"
 
-void TargetsManager::initHole()
+void TargetsManager::initMissSprite()
 {
-	m_holeTexture.loadFromFile("res/Images/Hole Texture.png");
+	m_holeTexture.loadFromFile("res/Images/misscross.png");
 
 	m_holeSprite.setTexture(m_holeTexture);
-	m_holeSprite.setScale(0.3f, 0.3f);
+	m_holeSprite.setScale(1.f, 1.f);
 }
+
+void TargetsManager::initMissSound()
+{
+	m_missSoundBuffer.loadFromFile("res/Sounds/Nope.wav");
+	m_missSound.setBuffer(m_missSoundBuffer);
+	m_missSound.setVolume(8);
+}
+
 
 TargetsManager::TargetsManager()
 	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_targetSpawnTime(TARGET_SPAWN_TIMER), m_rng(m_rd()), m_xDist(0, WIN_WIDTH - 50), m_yDist(0, WIN_HEIGHT - 50), isHit(false)
 {
-	initHole();
+	initMissSprite();
 	initMissSound();
 }
 
@@ -142,7 +150,7 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 
 						m_playerHealth -= 10.f;
 						if(m_isHoleActive)
-							createHole(mousePos);
+							createMissSprite(mousePos);
 
 						playMissSound();
 					}
@@ -177,14 +185,14 @@ void TargetsManager::reset(float health, unsigned short points)
 	m_points = points;
 }
 
-void TargetsManager::createHole(sf::Vector2f mousePos)
+void TargetsManager::createMissSprite(sf::Vector2f mousePos)
 {
 	m_holeSprite.setPosition(mousePos.x - 3, mousePos.y - 3);
 
 	m_holes.push_back(m_holeSprite);
 }
 
-void TargetsManager::deleteHole()
+void TargetsManager::deleteMissSprite()
 {
 	for (size_t i = 0; i < 1; i++)
 	{
@@ -193,21 +201,14 @@ void TargetsManager::deleteHole()
 	}
 }
 
-void TargetsManager::drawHole(sf::RenderWindow& window)
+void TargetsManager::drawMissSprite(sf::RenderWindow& window)
 {
 	for (auto& hole : m_holes)
 	{
 		window.draw(hole);
 	}
 
-	deleteHole();
-}
-
-void TargetsManager::initMissSound()
-{
-	m_missSoundBuffer.loadFromFile("res/Sounds/Nope.wav");
-	m_missSound.setBuffer(m_missSoundBuffer);
-	m_missSound.setVolume(10);
+	deleteMissSprite();
 }
 
 unsigned short TargetsManager::getPoints()
@@ -235,7 +236,7 @@ void TargetsManager::setPoints(unsigned short points)
 	m_points = points;
 }
 
-void TargetsManager::setHole(bool holeActive)
+void TargetsManager::setMissActivation(bool holeActive)
 {
 	m_isHoleActive = holeActive;
 }
