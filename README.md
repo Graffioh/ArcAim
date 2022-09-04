@@ -16,14 +16,9 @@ Choose between:
 
 ## Difficulty:
 
-**Default**
-+ Target spawn time: 1 seconds
-+ Health: 100
-+ Countdown: 20 seconds
-
-**Easy**
-+ Target spawn time: 1.1 seconds
-+ Health: 120
+**Easy** (*Default*)
++ Target spawn time: 1 second
++ Health: 110
 + Countdown: 20 seconds
 
 **Medium**
