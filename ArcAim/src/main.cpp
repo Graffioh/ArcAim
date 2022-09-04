@@ -90,8 +90,15 @@ int main()
 				case sf::Event::KeyPressed:
 					if (event.key.code == sf::Keyboard::Escape)
 					{
-						reset = true;
-						std::cout << "ESC\n";
+						restart = true;
+						start = false;
+						std::cout << "Menu\n";
+					}
+
+					if (event.key.code == sf::Keyboard::R)
+					{
+						restart = true;
+						std::cout << "Game Restarted\n";
 					}
 
 					if (event.key.code == sf::Keyboard::F1) // Idk if it works
@@ -125,37 +132,13 @@ int main()
 							std::cout << "Miss Sprite OFF\n";
 					}
 
-					if (event.key.code == sf::Keyboard::R)
-					{
-						restart = true;
-						std::cout << "Game Restarted\n";
-					}
-
 				default:
 					break;
 				}
 			}
+
 			// Activate miss red cross from default
 			targetsManager.setMissActivation(missSpriteActive);
-
-			// Reset everything with Esc button
-			if (reset)
-			{
-				reset = false;
-				start = false;
-				info = false;
-				restart = true;
-
-				// Reset
-				targetsManager.reset(healthReset, 0);
-				targetsManager.eraseAllEnemies();
-
-				winManager.setCountdown(20);
-
-				// Sync the clock
-				TimeManager::clockCountdown.restart();
-				TimeManager::clockTargets.restart();
-			}
 
 			// START MENU
 			if (!start && !options && !info)
@@ -192,13 +175,6 @@ int main()
 					window->close();
 				}
 
-				//if (info)
-				//{
-				//	window->clear(sf::Color(0, 0, 0, 255));
-
-				//	//info func from menu
-				//	menu.displayInfo(*window);
-				//}
 				mouseManager.updateMousePos(*window);
 
 				// Sync the clock
@@ -295,8 +271,6 @@ int main()
 				default:
 					break;
 				}
-
-				//info = false;
 
 				mouseManager.updateMousePos(*window);
 

@@ -172,11 +172,8 @@ void TargetsManager::eraseAllEnemies()
 		m_targets.erase(m_targets.begin() + i);
 	}
 
-	// Erase bullet hole
-	for (size_t i = 0; i < m_missSprites.size(); i++)
-	{
-		m_missSprites.erase(m_missSprites.begin() + i);
-	}
+	// Erase red crosses
+	m_missSprites.clear();
 }
 
 void TargetsManager::reset(float health, unsigned short points)
@@ -187,8 +184,9 @@ void TargetsManager::reset(float health, unsigned short points)
 
 void TargetsManager::createMissSprite(sf::Vector2f mousePos)
 {
-	m_missSprite.setPosition(mousePos.x - 3, mousePos.y - 3);
+	m_missSprites.reserve(3); // for optimization
 
+	m_missSprite.setPosition(mousePos.x - 3, mousePos.y - 3);
 	m_missSprites.push_back(m_missSprite);
 }
 

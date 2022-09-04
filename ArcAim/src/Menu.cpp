@@ -28,7 +28,7 @@ void Menu::initText()
 	formatTxt(m_gameModes0Txt, m_font, 25, sf::Color::White, 365, 350);
 
 	// Info for fps cap
-	formatTxt(m_infoTxt, m_font, 25, sf::Color::White, 250, 160);
+	formatTxt(m_infoTxt, m_font, 25, sf::Color::White, 250, 150);
 }
 
 void Menu::initButton()
@@ -116,7 +116,7 @@ void Menu::displayInfo(sf::RenderWindow& window)
 {
 	std::stringstream ss;
 
-	ss << "[F1] VSync (ON/OFF)\n\n[F2] 60 FPS cap\n\n[F3] 144 FPS cap\n\n[F5] Red Cross miss (ON/OFF)\n\n[ESC] for fast Restart\n";
+	ss << "[F1] VSync (ON/OFF)\n\n[F2] 60 FPS cap\n\n[F3] 144 FPS cap\n\n[F5] Red Cross miss (ON/OFF)\n\n[R] for fast Restart\n\n[ESC] for menu\n";
 
 	m_infoTxt.setString(ss.str());
 
