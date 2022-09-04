@@ -2,12 +2,17 @@
 
 void TargetC::initSprite()
 {
-	m_texture.loadFromFile("res/Images/Target.png");
+	// 32x32
+	//m_texture.loadFromFile("res/Images/TargetMDA.png");
+	//m_sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+	//m_sprite.setScale(1.f, 1.f);							
 
+	// 16x16
+	m_texture.loadFromFile("res/Images/TargetMDAs.png");
 	m_sprite.setTexture(m_texture);
-	m_sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+	m_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
 	m_sprite.setColor(sf::Color(255, 255, 255, 255));
-	m_sprite.setScale(1.1f, 1.1f);
+	m_sprite.setScale(2.f, 2.f);
 }
 
 void TargetC::initHitSound()

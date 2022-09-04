@@ -92,6 +92,7 @@ int main()
 					{
 						restart = true;
 						start = false;
+						info = false;
 						std::cout << "Menu\n";
 					}
 
