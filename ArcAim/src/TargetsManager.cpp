@@ -74,7 +74,7 @@ void TargetsManager::fallingEnemies()
 		}
 		else
 		{
-			m_targets[i].moveDown(0.f, 2.5f);
+			m_targets[i].moveDown(0.f, m_yFallingVel);
 		}
 	}	
 }
@@ -209,6 +209,11 @@ void TargetsManager::drawMissSprite(sf::RenderWindow& window)
 	deleteMissSprite();
 }
 
+void TargetsManager::playMissSound()
+{
+	m_missSound.play();
+}
+
 unsigned short TargetsManager::getPoints()
 {
 	return m_points;
@@ -239,8 +244,9 @@ void TargetsManager::setMissActivation(bool missSpriteActive)
 	m_isMissSpriteActive = missSpriteActive;
 }
 
-
-void TargetsManager::playMissSound()
+void TargetsManager::setYFallingVel(float yFallingVel)
 {
-	m_missSound.play();
+	m_yFallingVel = yFallingVel;
 }
+
+

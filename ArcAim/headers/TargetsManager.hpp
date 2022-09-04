@@ -25,6 +25,7 @@ private:
 	bool m_deleted;
 	float m_targetSpawnTime;
 	float m_timer;
+	float m_yFallingVel;
 
 	sf::Texture m_missTexture;
 	sf::Sprite m_missSprite;
@@ -37,6 +38,7 @@ private:
 	// RNG system (Better than srand)
 	std::random_device m_rd;
 	std::mt19937 m_rng;
+	// For position
 	std::uniform_int_distribution<int> m_xDist;
 	std::uniform_int_distribution<int> m_yDist;
 
@@ -89,6 +91,6 @@ public:
 	void setHealth(float health);
 	void setPoints(unsigned short points);
 	void setMissActivation(bool holeActive);
-	
+	void setYFallingVel(float yFallingVel);
 };
 

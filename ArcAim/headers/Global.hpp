@@ -16,7 +16,10 @@ constexpr float TARGET_SPAWN_TIMER = 1.f;
 constexpr unsigned int MAX_TARGETS = 5;
 
 // player health
-constexpr float PLAYER_HEALTH = 100.f;
+constexpr float PLAYER_HEALTH = 110.f;
+
+// falling Y Velocity
+constexpr float Y_FALLING_VELOCITY = 1.4f;
 
 // game status
 constexpr char GAME_START = '1';

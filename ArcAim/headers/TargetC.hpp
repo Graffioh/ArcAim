@@ -27,13 +27,13 @@ public:
 	// Constructor
 	TargetC();
 
-	// Getters
-	sf::Sprite getSprite();
-
 	// Funcs to operate on the sprite
 	void setTargetPos(float x, float y);
 	void moveDown(float x, float y);
 	void playHitSound();
+
+	// Getters
+	sf::Sprite getSprite();
 };
 
 

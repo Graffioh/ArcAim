@@ -37,7 +37,7 @@ int main()
 
 	Menu menu;
 
-	TimeManager time;
+	TimeManager timeM;
 
 	char gameStatus = 0;
 	float health = 0.f;
@@ -52,6 +52,7 @@ int main()
 	bool restart = false;
 	float healthReset = PLAYER_HEALTH;
 	float spawnTimerReset = TARGET_SPAWN_TIMER;
+	float yFallingVelReset = Y_FALLING_VELOCITY;
 
 	bool missSpriteActive = true;
 
@@ -202,11 +203,14 @@ int main()
 				switch (menu.activateOptionBtn(mouseManager.getMousePos()))
 				{
 				// DIFFICULTY
-				case DIFFICULTY_EASY:
-					healthReset = 120.f;
+				case DIFFICULTY_EASY: // Default
+					healthReset = 110.f;
 					targetsManager.setHealth(healthReset);
-					spawnTimerReset = 1.1f;
+					spawnTimerReset = 1.f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
+					// Only for falling mode
+					yFallingVelReset = 1.4f;
+					targetsManager.setYFallingVel(yFallingVelReset);
 
 					std::cout << "Difficulty set to EASY\n";
 					sf::sleep(sf::milliseconds(100));
@@ -216,6 +220,9 @@ int main()
 					targetsManager.setHealth(healthReset);
 					spawnTimerReset = 0.65f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
+					// Only for falling mode
+					yFallingVelReset = 1.9f;
+					targetsManager.setYFallingVel(yFallingVelReset);
 
 					std::cout << "Difficulty set to MEDIUM\n";
 					sf::sleep(sf::milliseconds(100));
@@ -225,6 +232,9 @@ int main()
 					targetsManager.setHealth(healthReset);
 					spawnTimerReset = 0.5f;
 					targetsManager.setSpawnTimer(spawnTimerReset);
+					// Only for falling mode
+					yFallingVelReset = 2.2f;
+					targetsManager.setYFallingVel(yFallingVelReset);
 
 					std::cout << "Difficulty set to HARD\n";
 					sf::sleep(sf::milliseconds(100));
