@@ -33,8 +33,7 @@ void TargetsManager::spawn()
 	switch (m_spawnType)
 	{
 	case REFLEX_ENEMIES:
-		//m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
-		m_target.setTargetPos(300, 200);
+		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
 		break;
 
 	case FALLING_ENEMIES:

@@ -50,15 +50,22 @@ int main()
 	bool vsync = false;
 	bool reset = false;
 	bool restart = false;
+	bool missSpriteActive = true;
 	float healthReset = PLAYER_HEALTH;
 	float spawnTimerReset = TARGET_SPAWN_TIMER;
 	float yFallingVelReset = Y_FALLING_VELOCITY;
 
-	bool missSpriteActive = true;
-
-	winManager.initWindow(window);
+	// Icon in the window bar
+	auto image = sf::Image{};
+	if (!image.loadFromFile("res/Images/Target.png"))
+	{
+		std::cout << "ERROR: could not load the image\n";
+	}
+	window->setIcon(image.getSize().x, image.getSize().y, image.getPixelsPtr());
 
 	previous_time = std::chrono::steady_clock::now();
+
+	winManager.initWindow(window);
 
 	targetsManager.setSpawnType(REFLEX_ENEMIES);
 
@@ -339,7 +346,6 @@ int main()
 					winManager.initUIText(WIN_WIDTH / 3.5f, WIN_HEIGHT / 5.f, 60);
 					winManager.updateText(points, health, endgame);
 
-					// To erase holes when endgame
 					targetsManager.eraseAllEnemies();
 				}
 
