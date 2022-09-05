@@ -5,6 +5,7 @@ MouseManager::MouseManager()
 {
 	m_cursorTexture.loadFromFile("res/Images/GreenReticleOutline.png");
 
+	m_cursorSprite.setTextureRect(sf::IntRect(8, 8, 16, 16));
 	m_cursorSprite.setTexture(m_cursorTexture);
 }
 
@@ -43,7 +44,8 @@ void MouseManager::setCrossStyle(char style)
 
 	if (style == CROSS_STYLE3)
 	{
-		m_cursorTexture.loadFromFile("res/Images/RedReticle.png");
+		m_cursorTexture.loadFromFile("res/Images/RedReticleOpen.png");
+		m_cursorSprite.setTextureRect(sf::IntRect(6, 6, 20, 20));
 	}
 
 	m_cursorSprite.setTexture(m_cursorTexture);

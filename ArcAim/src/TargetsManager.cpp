@@ -33,7 +33,8 @@ void TargetsManager::spawn()
 	switch (m_spawnType)
 	{
 	case REFLEX_ENEMIES:
-		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
+		//m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
+		m_target.setTargetPos(300, 200);
 		break;
 
 	case FALLING_ENEMIES:
@@ -119,8 +120,8 @@ void TargetsManager::drawTarget(sf::RenderWindow& window)
 void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 {
 	// Fix mouse pos offset but the detection on the borders is still shit
-	mousePos.x = mousePos.x + 6;
-	mousePos.y = mousePos.y + 6;
+	mousePos.x = mousePos.x + 9;
+	mousePos.y = mousePos.y + 9;
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
@@ -186,7 +187,7 @@ void TargetsManager::createMissSprite(sf::Vector2f mousePos)
 {
 	m_missSprites.reserve(3); // for optimization
 
-	m_missSprite.setPosition(mousePos.x - 3, mousePos.y - 3);
+	m_missSprite.setPosition(mousePos.x - 3.f, mousePos.y - 3.f);
 	m_missSprites.push_back(m_missSprite);
 }
 

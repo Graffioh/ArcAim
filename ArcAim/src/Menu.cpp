@@ -58,15 +58,15 @@ void Menu::initCrossStyleImg()
 	// Cursor style img
 	m_crossStyle1Img.loadFromFile("res/Images/GreenReticleOutline.png");
 	m_crossStyle1SpriteImg.setTexture(m_crossStyle1Img);
-	m_crossStyle1SpriteImg.setPosition(260, 255);
+	m_crossStyle1SpriteImg.setPosition(250, 247);
 
 	m_crossStyle2Img.loadFromFile("res/Images/CyanReticle.png");
 	m_crossStyle2SpriteImg.setTexture(m_crossStyle2Img);
-	m_crossStyle2SpriteImg.setPosition(490, 255);
+	m_crossStyle2SpriteImg.setPosition(480, 247);
 
-	m_crossStyle3Img.loadFromFile("res/Images/RedReticle.png");
+	m_crossStyle3Img.loadFromFile("res/Images/RedReticleOpen.png");
 	m_crossStyle3SpriteImg.setTexture(m_crossStyle3Img);
-	m_crossStyle3SpriteImg.setPosition(710, 255);
+	m_crossStyle3SpriteImg.setPosition(705, 247);
 }
 
 Menu::Menu()
