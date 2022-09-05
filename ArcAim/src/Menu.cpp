@@ -37,7 +37,7 @@ void Menu::initButton()
 	m_buttons["GAME_OPTIONS"] = new Button(sf::Color::Red, 210, 60, 270, 300, &m_font, "OPTIONS", sf::Color::White);
 	m_buttons["GAME_EXIT"] = new Button(sf::Color::Red, 210, 60, 270, 440, &m_font, "EXIT GAME", sf::Color::White);
 
-	m_buttons["GAME_INFO"] = new Button(sf::Color::Red, 60, 210, 520, 230, &m_font, "\nI\nN\nF\nO", sf::Color::White);
+	m_buttons["GAME_INFO"] = new Button(sf::Color::Blue, 30, 30, 10, 10, &m_font, "i", sf::Color::White);
 
 	m_buttons["DIFFICULTY_EASY"] = new Button(sf::Color::Green, 150, 40, 100, 100, &m_font, "EASY", sf::Color::Black);
 	m_buttons["DIFFICULTY_MEDIUM"] = new Button(sf::Color::Yellow, 150, 40, 330, 100, &m_font, "MEDIUM", sf::Color::Black);
