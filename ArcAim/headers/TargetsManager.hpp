@@ -95,5 +95,6 @@ public:
 	void setPoints(unsigned short points);
 	void setMissActivation(bool holeActive);
 	void setYFallingVel(float yFallingVel);
+	void setTargetsScale(float x, float y);
 };
 

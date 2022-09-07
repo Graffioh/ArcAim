@@ -55,6 +55,9 @@ int main()
 	float spawnTimerReset = TARGET_SPAWN_TIMER;
 	float yFallingVelReset = Y_FALLING_VELOCITY;
 
+	char spawnType = REFLEX_ENEMIES;
+	char difficultyType = DIFFICULTY_EASY;
+
 	// Icon in the window bar
 	auto image = sf::Image{};
 	if (!image.loadFromFile("res/Images/Target.png"))
@@ -222,6 +225,8 @@ int main()
 					yFallingVelReset = 1.4f;
 					targetsManager.setYFallingVel(yFallingVelReset);
 
+					difficultyType = DIFFICULTY_EASY;
+
 					std::cout << "Difficulty set to EASY\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
@@ -234,6 +239,8 @@ int main()
 					yFallingVelReset = 1.9f;
 					targetsManager.setYFallingVel(yFallingVelReset);
 
+					difficultyType = DIFFICULTY_MEDIUM;
+
 					std::cout << "Difficulty set to MEDIUM\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
@@ -245,6 +252,8 @@ int main()
 					// Only for falling mode
 					yFallingVelReset = 2.2f;
 					targetsManager.setYFallingVel(yFallingVelReset);
+
+					difficultyType = DIFFICULTY_HARD;
 
 					std::cout << "Difficulty set to HARD\n";
 					sf::sleep(sf::milliseconds(100));
@@ -274,16 +283,23 @@ int main()
 				case REFLEX_ENEMIES:
 					targetsManager.setSpawnType(REFLEX_ENEMIES);
 
+					spawnType = REFLEX_ENEMIES;
+
 					std::cout << "Reflex mode set\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case PRECISION_ENEMIES:
 					targetsManager.setSpawnType(PRECISION_ENEMIES);
+
+					spawnType = PRECISION_ENEMIES;
+
 					std::cout << "Precision mode set\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case FALLING_ENEMIES:
 					targetsManager.setSpawnType(FALLING_ENEMIES);
+
+					spawnType = FALLING_ENEMIES;
 
 					std::cout << "Falling mode set\n";
 					sf::sleep(sf::milliseconds(100));
@@ -299,6 +315,30 @@ int main()
 				}
 
 				mouseManager.updateMousePos(*window);
+
+				// Change size based on difficulty for the precision mode 
+				// (Its ugly, yes, but it works fine)
+				if (spawnType == PRECISION_ENEMIES)
+				{
+					targetsManager.eraseAllEnemiesAndCo();
+
+					if (difficultyType == DIFFICULTY_EASY)
+					{
+						targetsManager.setTargetsScale(1.1f, 1.1f);
+					}
+					else if (difficultyType == DIFFICULTY_MEDIUM)
+					{
+						targetsManager.setTargetsScale(0.8f, 0.8f);
+					}
+					else if (difficultyType == DIFFICULTY_HARD)
+					{
+						targetsManager.setTargetsScale(0.5f, 0.5f);
+					}
+				}
+				else
+				{
+					targetsManager.setTargetsScale(2.f, 2.f);
+				}
 
 				// Sync the clock
 				TimeManager::clockCountdown.restart();

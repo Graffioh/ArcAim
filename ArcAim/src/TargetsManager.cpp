@@ -34,17 +34,17 @@ void TargetsManager::spawn()
 	{
 	case REFLEX_ENEMIES:
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
-		m_target.setScale(2.f, 2.f);
+		//m_target.setScale(2.f, 2.f);
 		break;
 
 	case PRECISION_ENEMIES:
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
-		m_target.setScale(1.f, 1.f);
+		//m_target.setScale(1.f, 1.f);
 		break;
 
 	case FALLING_ENEMIES:
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), 0);
-		m_target.setScale(2.f, 2.f);
+		//m_target.setScale(2.f, 2.f);
 		break;
 
 	default:
@@ -283,6 +283,11 @@ void TargetsManager::setMissActivation(bool missSpriteActive)
 void TargetsManager::setYFallingVel(float yFallingVel)
 {
 	m_yFallingVel = yFallingVel;
+}
+
+void TargetsManager::setTargetsScale(float x, float y)
+{
+	m_target.setScale(x, y);
 }
 
 
