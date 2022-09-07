@@ -47,8 +47,9 @@ void Menu::initButton()
 	m_buttons["CROSS_STYLE2"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 243, &m_font, "STYLE 2", sf::Color::Black);
 	m_buttons["CROSS_STYLE3"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 550, 243, &m_font, "STYLE 3", sf::Color::Black);
 
-	m_buttons["REFLEX_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 170, 390, &m_font, "REFLEX", sf::Color::Black);
-	m_buttons["FALLING_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 490, 390, &m_font, "FALLING", sf::Color::Black);
+	m_buttons["REFLEX_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 100, 390, &m_font, "REFLEX", sf::Color::Black);
+	m_buttons["PRECISION_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 390, &m_font, "PRECISION", sf::Color::Black);
+	m_buttons["FALLING_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 550, 390, &m_font, "FALLING", sf::Color::Black);
 
 	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 500, &m_font, "BACK", sf::Color::Black);
 
@@ -226,6 +227,12 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				return REFLEX_ENEMIES;
 			}
 
+			if (m_buttons["PRECISION_ENEMIES"]->getBounds().contains(mousePos))
+			{
+				playBtnSound();
+				return PRECISION_ENEMIES;
+			}
+
 			if (m_buttons["FALLING_ENEMIES"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
@@ -280,6 +287,7 @@ void Menu::displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool 
 
 		target->draw(m_gameModes0Txt);
 		m_buttons["REFLEX_ENEMIES"]->drawBtn(target);
+		m_buttons["PRECISION_ENEMIES"]->drawBtn(target);
 		m_buttons["FALLING_ENEMIES"]->drawBtn(target);
 
 		m_buttons["GAME_GOBACK"]->drawBtn(target);

@@ -55,10 +55,13 @@ public:
 	// Normal spawn
 	void spawn();
 
-	// Reflex spawn
+	// Reflex mechanism
 	void reflexEnemies();
 
-	// Falling enemies
+	// Precision spawn
+	//void precisionEnemies();
+
+	// Falling mechanism
 	void fallingEnemies();
 
 	// Update and drawTarget

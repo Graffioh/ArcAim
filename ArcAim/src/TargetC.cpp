@@ -38,6 +38,11 @@ void TargetC::setTargetPos(float x, float y)
 	m_sprite.setPosition(x, y);
 }
 
+void TargetC::setScale(float x, float y)
+{
+	m_sprite.setScale(x, y);
+}
+
 void TargetC::moveDown(float x, float y)
 {
 	m_sprite.move(x, y);

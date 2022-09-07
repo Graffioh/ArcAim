@@ -17,7 +17,7 @@ void TargetsManager::initMissSound()
 
 
 TargetsManager::TargetsManager()
-	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_targetSpawnTime(TARGET_SPAWN_TIMER), m_rng(m_rd()), m_xDist(0, WIN_WIDTH - 50), m_yDist(0, WIN_HEIGHT - 50), isHit(false)
+	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_targetSpawnTime(TARGET_SPAWN_TIMER), m_yFallingVel(Y_FALLING_VELOCITY), m_rng(m_rd()), m_xDist(0, WIN_WIDTH - 50), m_yDist(0, WIN_HEIGHT - 50), isHit(false)
 {
 	initMissSprite();
 	initMissSound();
@@ -34,10 +34,17 @@ void TargetsManager::spawn()
 	{
 	case REFLEX_ENEMIES:
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
+		m_target.setScale(2.f, 2.f);
+		break;
+
+	case PRECISION_ENEMIES:
+		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
+		m_target.setScale(1.f, 1.f);
 		break;
 
 	case FALLING_ENEMIES:
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), 0);
+		m_target.setScale(2.f, 2.f);
 		break;
 
 	default:
@@ -63,6 +70,14 @@ void TargetsManager::reflexEnemies()
 	}
 }
 
+//void TargetsManager::precisionEnemies()
+//{
+//	if (m_targets.size() < MAX_TARGETS)
+//	{	
+//		spawn();
+//	}
+//}
+
 void TargetsManager::fallingEnemies()
 { 
 	for (size_t i = 0; i < m_targets.size(); i++)
@@ -84,24 +99,40 @@ void TargetsManager::updateSpawn()
 {
 	m_timer = TimeManager::clockTargets.getElapsedTime().asSeconds();
 
-	if (m_targets.size() < MAX_TARGETS)
-	{
-		// If TARGET_SPAWN_TIMER seconds are elapsed then spawn
-		if (m_timer > m_targetSpawnTime + 0.01f)
-		{
-			spawn();
-
-			TimeManager::clockTargets.restart();
-		}
-	}
-
 	switch (m_spawnType)
 	{
 	case REFLEX_ENEMIES:
 		reflexEnemies();
+		if (m_targets.size() < MAX_TARGETS)
+		{
+			// If TARGET_SPAWN_TIMER seconds are elapsed then spawn
+			if (m_timer > m_targetSpawnTime + 0.01f)
+			{
+				spawn();
+
+				TimeManager::clockTargets.restart();
+			}
+		}
+		break;
+	case PRECISION_ENEMIES:
+		//precisionEnemies();
+		if (m_targets.size() < MAX_TARGETS)
+		{
+			spawn();
+		}
 		break;
 	case FALLING_ENEMIES:
 		fallingEnemies();
+		if (m_targets.size() < MAX_TARGETS)
+		{
+			// If TARGET_SPAWN_TIMER seconds are elapsed then spawn
+			if (m_timer > m_targetSpawnTime + 0.01f)
+			{
+				spawn();
+
+				TimeManager::clockTargets.restart();
+			}
+		}
 		break;
 	default:
 		std::cout << "Spawn type not allowed(update)\n";
@@ -129,6 +160,7 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 		{
 			m_mouseHeld = true;
 			m_deleted = false;
+
 			for (size_t i = 0; i < m_targets.size() && !m_deleted; i++)
 			{
 				if (m_targets[i].getSprite().getGlobalBounds().contains(mousePos) && m_playerHealth != 0.f)
@@ -145,16 +177,20 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 				else
 				{
 					isHit = false;
-
-					m_playerHealth -= 10.f;
-
-					if (m_isMissSpriteActive)
-					{
-						createMissSprite(mousePos);
-					}
-
-					playMissSound();
 				}
+			}
+
+			if (!isHit)
+			{
+
+				m_playerHealth -= 10.f;
+
+				if (m_isMissSpriteActive)
+				{
+					createMissSprite(mousePos);
+				}
+
+				playMissSound();
 			}
 		}
 	}

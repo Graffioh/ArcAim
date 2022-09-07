@@ -212,7 +212,7 @@ int main()
 				// Options buttons
 				switch (menu.activateOptionBtn(mouseManager.getMousePos()))
 				{
-					// DIFFICULTY
+				// DIFFICULTY
 				case DIFFICULTY_EASY: // Default
 					healthReset = 110.f;
 					targetsManager.setHealth(healthReset);
@@ -250,7 +250,7 @@ int main()
 					sf::sleep(sf::milliseconds(100));
 					break;
 
-					// CROSSHAIR STYLE
+				// CROSSHAIR STYLE
 				case CROSS_STYLE1:
 					mouseManager.setCrossStyle(CROSS_STYLE1);
 
@@ -270,11 +270,16 @@ int main()
 					sf::sleep(sf::milliseconds(100));
 					break;
 
-					// MODE
+				// MODE
 				case REFLEX_ENEMIES:
 					targetsManager.setSpawnType(REFLEX_ENEMIES);
 
 					std::cout << "Reflex mode set\n";
+					sf::sleep(sf::milliseconds(100));
+					break;
+				case PRECISION_ENEMIES:
+					targetsManager.setSpawnType(PRECISION_ENEMIES);
+					std::cout << "Precision mode set\n";
 					sf::sleep(sf::milliseconds(100));
 					break;
 				case FALLING_ENEMIES:
@@ -338,7 +343,7 @@ int main()
 				// GAME OVER & RESTART
 				//
 				// Endgame trigger
-				if (health == 0 || winManager.getCountdown() == 0)
+				if (health <= 0 || winManager.getCountdown() == 0)
 				{
 					endgame = true;
 				}

@@ -29,6 +29,7 @@ public:
 
 	// Funcs to operate on the sprite
 	void setTargetPos(float x, float y);
+	void setScale(float x, float y);
 	void moveDown(float x, float y);
 	void playHitSound();
 
