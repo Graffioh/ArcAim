@@ -9,12 +9,12 @@ Press
 + **[R]** for a fast restart during the gameplay.
 + **[F5]** to activate/deactivate holes when missing the target.
 
-## Options:
+## Options
 Choose between:
 + 3 different difficulties
 + 3 crosshair styles
 
-## Difficulty:
+## Difficulty
 
 **Easy** (*Default*)
 + Target spawn time: 1 second
@@ -31,6 +31,11 @@ Choose between:
 + Health: 70
 + Countdown: 20 seconds
 
+## Modes
+Choose between 3 modes!
++ Reflex: Test your reflexes.
++ Precision: [BOOM!!! Headshot!](https://www.youtube.com/watch?v=5_Xdi4T8mgI), shoot these small targets faster than a sniper.
++ Falling: Be ready, they are falling from the sky.
 
 ## Framerate
 
