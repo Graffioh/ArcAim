@@ -37,6 +37,15 @@
     <ClInclude Include="headers\TargetsManager.hpp" />
     <ClInclude Include="headers\TimeManager.hpp" />
     <ClInclude Include="headers\WindowManager.hpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Exec\res\Images\Target.png" />
+    <Image Include="..\x64\Release\res\Images\Target.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ArcAim.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
