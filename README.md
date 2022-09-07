@@ -13,6 +13,7 @@ Press
 Choose between:
 + 3 different difficulties
 + 3 crosshair styles
++ 3 different gamemodes
 
 ## Difficulty
 
@@ -32,10 +33,16 @@ Choose between:
 + Countdown: 20 seconds
 
 ## Modes
-Choose between 3 modes!
-+ Reflex: Test your reflexes.
-+ Precision: [BOOM!!! Headshot!](https://www.youtube.com/watch?v=5_Xdi4T8mgI), shoot these small targets faster than a sniper.
-+ Falling: Be ready, they are falling from the sky.
++ **Reflex** (*Default*)
+
+    Test your reflexes.
++ **Precision**
+
+    [BOOM!!! Headshot!](https://www.youtube.com/watch?v=5_Xdi4T8mgI), shoot these small targets faster than a sniper shooting heads.
+
++ **Falling** 
+
+    Be ready, they are falling from the sky.
 
 ## Framerate
 
@@ -49,13 +56,18 @@ Press
 To avoid weird input lag just cap the fps accordingly to your monitor refresh rate.
 
 # Build and compile
-**IMPORTANT!** You have 2 options:
+**IMPORTANT!** 
 
+Clone the repository in a folder of your choice by using:
+
+    git clone https://github.com/Graffioh/ArcAim.git
+
+After that You have 2 options:
 1) Build and compile with Visual studio community (MSVC v143) by opening the .sln file
 
     (if you have older versions just change the Platform toolset in project properties)
 
-2) Build by opening the console in the main folder, write mingw32-make  and then open the .exe in the Exec folder.
+2) In the main folder use mingw32-make and then open the .exe in the Exec folder.
 
     (MinGW 64 bit compiler required: https://www.msys2.org/ )
 
