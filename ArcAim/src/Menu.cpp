@@ -33,24 +33,28 @@ void Menu::initText()
 
 void Menu::initButton()
 {
-	m_buttons["GAME_START"] = new Button(sf::Color::Red, 210, 60, 270, 160, &m_font, "START GAME", sf::Color::White);
-	m_buttons["GAME_OPTIONS"] = new Button(sf::Color::Red, 210, 60, 270, 300, &m_font, "OPTIONS", sf::Color::White);
-	m_buttons["GAME_EXIT"] = new Button(sf::Color::Red, 210, 60, 270, 440, &m_font, "EXIT GAME", sf::Color::White);
+	m_buttons["GAME_START"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 270, 160, &m_font, "START GAME", sf::Color::White);
+	m_buttons["GAME_OPTIONS"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 270, 300, &m_font, "OPTIONS", sf::Color::White);
+	m_buttons["GAME_EXIT"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 270, 440, &m_font, "EXIT GAME", sf::Color::White);
 
-	m_buttons["GAME_INFO"] = new Button(sf::Color::Blue, 30, 30, 10, 10, &m_font, "i", sf::Color::White);
+	m_buttons["GAME_INFO"] = new Button(sf::Color::Blue, sf::Color(0, 0, 130), 30, 30, 10, 10, &m_font, "i", sf::Color::White);
 
-	m_buttons["DIFFICULTY_EASY"] = new Button(sf::Color::Green, 150, 40, 100, 100, &m_font, "EASY", sf::Color::Black);
-	m_buttons["DIFFICULTY_MEDIUM"] = new Button(sf::Color::Yellow, 150, 40, 330, 100, &m_font, "MEDIUM", sf::Color::Black);
-	m_buttons["DIFFICULTY_HARD"] = new Button(sf::Color::Red, 150, 40, 550, 100, &m_font, "HARD", sf::Color::Black);
+	m_buttons["DIFFICULTY_EASY"] = new Button(sf::Color::Green, sf::Color(0, 130, 0), 150, 40, 100, 100, &m_font, "EASY", sf::Color::Black);
+	m_buttons["DIFFICULTY_MEDIUM"] = new Button(sf::Color::Yellow, sf::Color(215, 210, 0), 150, 40, 330, 100, &m_font, "MEDIUM", sf::Color::Black);
+	m_buttons["DIFFICULTY_HARD"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 150, 40, 550, 100, &m_font, "HARD", sf::Color::Black);
 
-	m_buttons["CROSS_STYLE1"] = new Button(sf::Color::White, 150, 40, 100, 243, &m_font, "STYLE 1", sf::Color::Black);
-	m_buttons["CROSS_STYLE2"] = new Button(sf::Color::White, 150, 40, 330, 243, &m_font, "STYLE 2", sf::Color::Black);
-	m_buttons["CROSS_STYLE3"] = new Button(sf::Color::White, 150, 40, 550, 243, &m_font, "STYLE 3", sf::Color::Black);
+	m_buttons["CROSS_STYLE1"] = new Button(sf::Color::White, sf::Color(190,190,190), 150, 40, 100, 243, &m_font, "STYLE 1", sf::Color::Black);
+	m_buttons["CROSS_STYLE2"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 243, &m_font, "STYLE 2", sf::Color::Black);
+	m_buttons["CROSS_STYLE3"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 550, 243, &m_font, "STYLE 3", sf::Color::Black);
 
-	m_buttons["REFLEX_ENEMIES"] = new Button(sf::Color::White, 150, 40, 170, 390, &m_font, "REFLEX", sf::Color::Black);
-	m_buttons["FALLING_ENEMIES"] = new Button(sf::Color::White, 150, 40, 490, 390, &m_font, "FALLING", sf::Color::Black);
+	m_buttons["REFLEX_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 170, 390, &m_font, "REFLEX", sf::Color::Black);
+	m_buttons["FALLING_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 490, 390, &m_font, "FALLING", sf::Color::Black);
 
-	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, 150, 40, 330, 500, &m_font, "BACK", sf::Color::Black);
+	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 500, &m_font, "BACK", sf::Color::Black);
+
+	m_btnSoundBuffer.loadFromFile("res/Sounds/buttonsound.wav");
+	m_btnSound.setBuffer(m_btnSoundBuffer);
+	m_btnSound.setVolume(9);
 }
 
 void Menu::initCrossStyleImg()
@@ -112,6 +116,14 @@ void Menu::updateText(bool isOptions)
 	}
 }
 
+void Menu::updateBtn(sf::Vector2f mousePos)
+{
+	for (auto& it : m_buttons)
+	{
+		it.second->updateBtnColor(mousePos);
+	}
+}
+
 void Menu::displayInfo(sf::RenderWindow& window)
 {
 	std::stringstream ss;
@@ -133,21 +145,25 @@ char Menu::activateStartBtn(sf::Vector2f mousePos)
 
 			if (m_buttons["GAME_START"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return GAME_START;
 			}
 
 			if (m_buttons["GAME_OPTIONS"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return GAME_OPTIONS;
 			}
 
 			if (m_buttons["GAME_EXIT"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return GAME_EXIT;
 			}
 
 			if (m_buttons["GAME_INFO"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return GAME_INFO;
 			}
 		}
@@ -170,46 +186,55 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 
 			if (m_buttons["DIFFICULTY_EASY"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return DIFFICULTY_EASY;
 			}
 
 			if (m_buttons["DIFFICULTY_MEDIUM"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return DIFFICULTY_MEDIUM;
 			}
 
 			if (m_buttons["DIFFICULTY_HARD"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return DIFFICULTY_HARD;
 			}
 
 			if (m_buttons["CROSS_STYLE1"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return CROSS_STYLE1;
 			}
 
 			if (m_buttons["CROSS_STYLE2"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return CROSS_STYLE2;
 			}
 
 			if (m_buttons["CROSS_STYLE3"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return CROSS_STYLE3;
 			}
 
 			if (m_buttons["REFLEX_ENEMIES"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return REFLEX_ENEMIES;
 			}
 
 			if (m_buttons["FALLING_ENEMIES"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return FALLING_ENEMIES;
 			}
 
 			if (m_buttons["GAME_GOBACK"]->getBounds().contains(mousePos))
 			{
+				playBtnSound();
 				return GAME_GOBACK;
 			}
 		}
@@ -222,6 +247,10 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 	return '0';
 }
 
+void Menu::playBtnSound()
+{
+	m_btnSound.play();
+}
 
 void Menu::displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool isOptions)
 {
@@ -235,35 +264,33 @@ void Menu::displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool 
 	if (isOptions)
 	{
 		target->draw(m_difficulty0Txt);
-		m_buttons["DIFFICULTY_EASY"]->draw(target);
-		m_buttons["DIFFICULTY_MEDIUM"]->draw(target);
-		m_buttons["DIFFICULTY_HARD"]->draw(target);
+		m_buttons["DIFFICULTY_EASY"]->drawBtn(target);
+		m_buttons["DIFFICULTY_MEDIUM"]->drawBtn(target);
+		m_buttons["DIFFICULTY_HARD"]->drawBtn(target);
 
 		target->draw(m_crossStyle0Txt);
-		m_buttons["CROSS_STYLE1"]->draw(target);
+		m_buttons["CROSS_STYLE1"]->drawBtn(target);
 		target->draw(m_crossStyle1SpriteImg);
 
-		m_buttons["CROSS_STYLE2"]->draw(target);
+		m_buttons["CROSS_STYLE2"]->drawBtn(target);
 		target->draw(m_crossStyle2SpriteImg);
 		
-		m_buttons["CROSS_STYLE3"]->draw(target);
+		m_buttons["CROSS_STYLE3"]->drawBtn(target);
 		target->draw(m_crossStyle3SpriteImg);
 
 		target->draw(m_gameModes0Txt);
-		m_buttons["REFLEX_ENEMIES"]->draw(target);
-		m_buttons["FALLING_ENEMIES"]->draw(target);
+		m_buttons["REFLEX_ENEMIES"]->drawBtn(target);
+		m_buttons["FALLING_ENEMIES"]->drawBtn(target);
 
-		m_buttons["GAME_GOBACK"]->draw(target);
+		m_buttons["GAME_GOBACK"]->drawBtn(target);
 	}
 	else
 	{
-		//target->drawTarget(m_infoCapFpsTxt); Not working
+		m_buttons["GAME_START"]->drawBtn(target);
+		m_buttons["GAME_OPTIONS"]->drawBtn(target);
+		m_buttons["GAME_EXIT"]->drawBtn(target);
 
-		m_buttons["GAME_START"]->draw(target);
-		m_buttons["GAME_OPTIONS"]->draw(target);
-		m_buttons["GAME_EXIT"]->draw(target);
-
-		m_buttons["GAME_INFO"]->draw(target);
+		m_buttons["GAME_INFO"]->drawBtn(target);
 	}
 }
 

@@ -51,7 +51,6 @@ void WindowManager::initTimerText()
 	m_timerText.setPosition(WIN_WIDTH / 2, 0);
 }
 
-
 WindowManager::WindowManager()
 	:m_countdown(COUNTDOWN), m_timer(0)
 {

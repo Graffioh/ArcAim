@@ -4,6 +4,7 @@
 #include <sstream>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include "Global.hpp"
 #include "Button.hpp"
@@ -28,6 +29,9 @@ private:
 	sf::Texture m_crossStyle3Img;
 	sf::Sprite m_crossStyle3SpriteImg;
 
+	sf::SoundBuffer m_btnSoundBuffer;
+	sf::Sound m_btnSound;
+
 	bool m_mouseHeld;
 
 public:
@@ -46,11 +50,15 @@ public:
 	// Start Menu text setup
 	void updateText(bool isOptions);
 
+	void updateBtn(sf::Vector2f mousePos);
+
 	void displayInfo(sf::RenderWindow& window);
 
 	// Mechanism for buttons
 	char activateStartBtn(sf::Vector2f mousePos);
 	char activateOptionBtn(sf::Vector2f mousePos);
+
+	void playBtnSound();
 
 	// Display the menu by using window from main
 	void displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool isOptions);

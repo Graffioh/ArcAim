@@ -62,12 +62,12 @@ public:
 	void fallingEnemies();
 
 	// Update and drawTarget
-	void update();
+	void updateSpawn();
 	void drawTarget(sf::RenderWindow& window);
 
 	// If click on enemy, then erase it
 	void eraseOnClick(sf::Vector2f mousePos);
-	void eraseAllEnemies();
+	void eraseAllEnemiesAndCo();
 
 	// Reset func for game restart
 	void reset(float health, unsigned short points);

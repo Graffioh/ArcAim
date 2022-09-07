@@ -135,7 +135,7 @@ int main()
 					if (event.key.code == sf::Keyboard::F5)
 					{
 						missSpriteActive = !missSpriteActive;
-						if(missSpriteActive)
+						if (missSpriteActive)
 							std::cout << "Miss Sprite ON\n";
 						else
 							std::cout << "Miss Sprite OFF\n";
@@ -148,6 +148,9 @@ int main()
 
 			// Activate miss red cross from default
 			targetsManager.setMissActivation(missSpriteActive);
+
+			// Change button color when hovered
+			menu.updateBtn(mouseManager.getMousePos());
 
 			// START MENU
 			if (!start && !options && !info)
@@ -209,7 +212,7 @@ int main()
 				// Options buttons
 				switch (menu.activateOptionBtn(mouseManager.getMousePos()))
 				{
-				// DIFFICULTY
+					// DIFFICULTY
 				case DIFFICULTY_EASY: // Default
 					healthReset = 110.f;
 					targetsManager.setHealth(healthReset);
@@ -247,7 +250,7 @@ int main()
 					sf::sleep(sf::milliseconds(100));
 					break;
 
-				// CROSSHAIR STYLE
+					// CROSSHAIR STYLE
 				case CROSS_STYLE1:
 					mouseManager.setCrossStyle(CROSS_STYLE1);
 
@@ -267,7 +270,7 @@ int main()
 					sf::sleep(sf::milliseconds(100));
 					break;
 
-				// MODE
+					// MODE
 				case REFLEX_ENEMIES:
 					targetsManager.setSpawnType(REFLEX_ENEMIES);
 
@@ -304,7 +307,7 @@ int main()
 
 				// Clear the window and set the grey background
 				window->clear(sf::Color(18, 18, 18, 255));
-				
+
 				menu.updateText(options);
 
 				mouseManager.updateMousePos(*window);
@@ -314,7 +317,7 @@ int main()
 				// Managing target's funcs
 				if (!endgame)
 				{
-					targetsManager.update();
+					targetsManager.updateSpawn();
 					targetsManager.eraseOnClick(mouseManager.getMousePos());
 
 				}
@@ -326,12 +329,12 @@ int main()
 
 				// WINDOW
 				// 
-				// HUD Text update and drawTarget + pause mechanism (if -1 change the text to PAUSE)
+				// HUD Text updateSpawn and drawTarget + pause mechanism (if -1 change the text to PAUSE)
 				winManager.updateClock();
 				winManager.updateTimerText();
 				winManager.updateText(points, health, endgame);
-				
-				
+
+
 				// GAME OVER & RESTART
 				//
 				// Endgame trigger
@@ -346,7 +349,7 @@ int main()
 					winManager.initUIText(WIN_WIDTH / 3.5f, WIN_HEIGHT / 5.f, 60);
 					winManager.updateText(points, health, endgame);
 
-					targetsManager.eraseAllEnemies();
+					targetsManager.eraseAllEnemiesAndCo();
 				}
 
 				// Restart trigger
@@ -354,7 +357,7 @@ int main()
 				{
 					// Reset
 					targetsManager.reset(healthReset, 0);
-					targetsManager.eraseAllEnemies();
+					targetsManager.eraseAllEnemiesAndCo();
 
 					winManager.setCountdown(20);
 					winManager.initUIText();
