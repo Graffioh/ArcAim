@@ -12,7 +12,7 @@ void TargetsManager::initMissSound()
 {
 	m_missSoundBuffer.loadFromFile("res/Sounds/Nope.wav");
 	m_missSound.setBuffer(m_missSoundBuffer);
-	m_missSound.setVolume(8);
+	m_missSound.setVolume(6);
 }
 
 
@@ -52,12 +52,13 @@ void TargetsManager::reflexEnemies()
 {
 	m_timer = TimeManager::clockTargets.getElapsedTime().asSeconds();
 
-	if (m_targets.size() > 0 && m_timer > m_targetSpawnTime - 0.01f)
+	//if (m_targets.size() > 0 && m_timer > m_targetSpawnTime - 0.01f) // This fucker was the problem...
+	if (m_targets.size() > 1)
 	{
 		for (size_t i = 0; i < m_targets.size(); i++)
 		{
 			m_targets.erase(m_targets.begin() + i);
-			m_playerHealth -= 10;
+			m_playerHealth -= 10.f;
 		}
 	}
 }
@@ -79,7 +80,7 @@ void TargetsManager::fallingEnemies()
 	}	
 }
 
-void TargetsManager::update()
+void TargetsManager::updateSpawn()
 {
 	m_timer = TimeManager::clockTargets.getElapsedTime().asSeconds();
 
@@ -118,7 +119,7 @@ void TargetsManager::drawTarget(sf::RenderWindow& window)
 
 void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 {
-	// Fix mouse pos offset but the detection on the borders is still shit
+	// Fix mouse pos offset
 	mousePos.x = mousePos.x + 9;
 	mousePos.y = mousePos.y + 9;
 
@@ -130,7 +131,7 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 			m_deleted = false;
 			for (size_t i = 0; i < m_targets.size() && !m_deleted; i++)
 			{
-				if (m_targets[i].getSprite().getGlobalBounds().contains(mousePos))
+				if (m_targets[i].getSprite().getGlobalBounds().contains(mousePos) && m_playerHealth != 0.f)
 				{
 					m_deleted = true;
 					m_targets.erase(this->m_targets.begin() + i);
@@ -143,17 +144,16 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 				}
 				else
 				{
-					// If target miss, decrease the health by 10 and create an hole on background
-					if (m_playerHealth != 0.f)
+					isHit = false;
+
+					m_playerHealth -= 10.f;
+
+					if (m_isMissSpriteActive)
 					{
-						isHit = false;
-
-						m_playerHealth -= 10.f;
-						if(m_isMissSpriteActive)
-							createMissSprite(mousePos);
-
-						playMissSound();
+						createMissSprite(mousePos);
 					}
+
+					playMissSound();
 				}
 			}
 		}
@@ -164,7 +164,7 @@ void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
 	}
 }
 
-void TargetsManager::eraseAllEnemies()
+void TargetsManager::eraseAllEnemiesAndCo()
 {
 	// Erase targets
 	for (size_t i = 0; i < m_targets.size(); i++)
