@@ -33,9 +33,9 @@ void Menu::initText()
 
 void Menu::initButton()
 {
-	m_buttons["GAME_START"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 270, 160, &m_font, "START GAME", sf::Color::White);
-	m_buttons["GAME_OPTIONS"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 270, 300, &m_font, "OPTIONS", sf::Color::White);
-	m_buttons["GAME_EXIT"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 270, 440, &m_font, "EXIT GAME", sf::Color::White);
+	m_buttons["GAME_START"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 300, 160, &m_font, "START GAME", sf::Color::White);
+	m_buttons["GAME_OPTIONS"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 300, 300, &m_font, "OPTIONS", sf::Color::White);
+	m_buttons["GAME_EXIT"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 300, 440, &m_font, "EXIT GAME", sf::Color::White);
 
 	m_buttons["GAME_INFO"] = new Button(sf::Color::Blue, sf::Color(0, 0, 130), 30, 30, 10, 10, &m_font, "i", sf::Color::White);
 
