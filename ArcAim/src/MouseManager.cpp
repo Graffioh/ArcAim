@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "../headers/MouseManager.hpp"
 
 MouseManager::MouseManager()
@@ -32,19 +34,21 @@ void MouseManager::drawTarget(sf::RenderWindow& window)
 
 void MouseManager::setCrossStyle(char style)
 {
-	if (style == CROSS_STYLE1)
+	switch (style)
 	{
+	case CROSS_STYLE1:
 		m_cursorTexture.loadFromFile("res/Images/GreenReticleOutline.png");
-	}
-
-	if (style == CROSS_STYLE2)
-	{
+		break;
+	case CROSS_STYLE2:
 		m_cursorTexture.loadFromFile("res/Images/CyanReticle.png");
-	}
-
-	if (style == CROSS_STYLE3)
-	{
+		break;
+	case CROSS_STYLE3:
 		m_cursorTexture.loadFromFile("res/Images/RedReticleOpen.png");
+		break;
+	default:
+		// return so we don't set an invalid m_cursorTexture
+		std::cout << "invalid CROSS_STYLE!\n";
+		return;
 	}
 
 	m_cursorSprite.setTexture(m_cursorTexture);
