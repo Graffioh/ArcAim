@@ -79,3 +79,8 @@ Enjoy and let me know (with a DM on Twitter: @graffioh or Discord: Graffioh#2823
 
 ![gameplayGIF](https://i.imgur.com/q2icwPM.gif)
 
+## Final prototype gameplay
+
+https://user-images.githubusercontent.com/93008765/190242818-9ce5a5e9-9d82-4621-bc81-652d1a4865d8.mp4
+
+
