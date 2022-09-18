@@ -17,7 +17,7 @@ void TargetsManager::initMissSound()
 
 
 TargetsManager::TargetsManager()
-	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_targetSpawnTime(TARGET_SPAWN_TIMER), m_yFallingVel(Y_FALLING_VELOCITY), m_rng(m_rd()), m_xDist(0, WIN_WIDTH - 50), m_yDist(0, WIN_HEIGHT - 50), isHit(false)
+	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_targetSpawnTime(TARGET_SPAWN_TIMER), m_yFallingVel(Y_FALLING_VELOCITY), m_rng(m_rd()), m_xDist(50, WIN_WIDTH - 50), m_yDist(40, WIN_HEIGHT - 50), isHit(false)
 {
 	initMissSprite();
 	initMissSound();
