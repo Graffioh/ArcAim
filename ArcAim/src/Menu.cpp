@@ -35,7 +35,7 @@ void Menu::initButton()
 {
 	m_buttons["GAME_START"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 300, 160, &m_font, "START GAME", sf::Color::White);
 	m_buttons["GAME_OPTIONS"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 300, 300, &m_font, "OPTIONS", sf::Color::White);
-	m_buttons["GAME_EXIT"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210, 60, 300, 440, &m_font, "EXIT GAME", sf::Color::White);
+	m_buttons["GAME_EXIT"] = new Button(sf::Color::Red, sf::Color(150, 0, 0), 210,  60, 300, 440, &m_font, "EXIT GAME", sf::Color::White);
 
 	m_buttons["GAME_INFO"] = new Button(sf::Color::Blue, sf::Color(0, 0, 130), 30, 30, 10, 10, &m_font, "i", sf::Color::White);
 
@@ -75,7 +75,7 @@ void Menu::initCrossStyleImg()
 }
 
 Menu::Menu()
-	:m_mouseHeld(false)
+	:m_mouseHeld(false), m_btnOutlineWhenClicked(3.5)
 {
 	initFont();
 	initText();
@@ -121,7 +121,7 @@ void Menu::updateBtn(sf::Vector2f mousePos)
 {
 	for (auto& it : m_buttons)
 	{
-		it.second->updateBtnColor(mousePos);
+		it.second->updateBtnColorHovered(mousePos);
 	}
 }
 
@@ -188,54 +188,81 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 			if (m_buttons["DIFFICULTY_EASY"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
+				m_buttons["DIFFICULTY_EASY"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
+				m_buttons["DIFFICULTY_MEDIUM"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["DIFFICULTY_HARD"]->updateBtnOutlineWhenClicked(0);
 				return DIFFICULTY_EASY;
 			}
 
 			if (m_buttons["DIFFICULTY_MEDIUM"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
+				m_buttons["DIFFICULTY_EASY"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["DIFFICULTY_MEDIUM"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
+				m_buttons["DIFFICULTY_HARD"]->updateBtnOutlineWhenClicked(0);
 				return DIFFICULTY_MEDIUM;
 			}
 
 			if (m_buttons["DIFFICULTY_HARD"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
+				m_buttons["DIFFICULTY_EASY"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["DIFFICULTY_MEDIUM"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["DIFFICULTY_HARD"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
 				return DIFFICULTY_HARD;
 			}
 
 			if (m_buttons["CROSS_STYLE1"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
+				m_buttons["CROSS_STYLE1"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
+				m_buttons["CROSS_STYLE2"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["CROSS_STYLE3"]->updateBtnOutlineWhenClicked(0);
 				return CROSS_STYLE1;
 			}
 
 			if (m_buttons["CROSS_STYLE2"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
+				m_buttons["CROSS_STYLE1"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["CROSS_STYLE2"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
+				m_buttons["CROSS_STYLE3"]->updateBtnOutlineWhenClicked(0);
 				return CROSS_STYLE2;
 			}
 
 			if (m_buttons["CROSS_STYLE3"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
+				m_buttons["CROSS_STYLE1"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["CROSS_STYLE2"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["CROSS_STYLE3"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
 				return CROSS_STYLE3;
 			}
 
 			if (m_buttons["REFLEX_ENEMIES"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
+				m_buttons["REFLEX_ENEMIES"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
+				m_buttons["PRECISION_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["FALLING_ENEMIES"]->updateBtnOutlineWhenClicked(0);
 				return REFLEX_ENEMIES;
 			}
 
 			if (m_buttons["PRECISION_ENEMIES"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
+				m_buttons["REFLEX_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["PRECISION_ENEMIES"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
+				m_buttons["FALLING_ENEMIES"]->updateBtnOutlineWhenClicked(0);
 				return PRECISION_ENEMIES;
 			}
 
 			if (m_buttons["FALLING_ENEMIES"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
+				m_buttons["REFLEX_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["PRECISION_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["FALLING_ENEMIES"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
 				return FALLING_ENEMIES;
 			}
 
