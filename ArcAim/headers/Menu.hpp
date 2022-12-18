@@ -33,6 +33,8 @@ private:
 	sf::Sound m_btnSound;
 
 	bool m_mouseHeld;
+	
+	float m_btnOutlineWhenClicked;
 
 public:
 	// Initializers
