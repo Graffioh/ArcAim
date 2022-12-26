@@ -7,6 +7,8 @@ Button::Button(sf::Color btnColorIdle, sf::Color btnColorHovered, float width, f
 	m_shape.setOutlineColor(m_colorOutline);
 	m_shape.setSize(sf::Vector2f(width, height));
 	m_shape.setPosition(x, y);
+	m_xBtnPos = x;
+	m_yBtnPos = y;
 
 	m_font = font;
 	m_text.setFont(*font);
@@ -46,5 +48,12 @@ void Button::drawBtn(sf::RenderTarget* target)
 sf::FloatRect Button::getBounds()
 {
 	return m_shape.getGlobalBounds();
+}
+
+void Button::setUpDownBtnYPos(float y)
+{
+	m_shape.setPosition(m_xBtnPos, m_yBtnPos += y);
+	m_text.setPosition((int)((m_shape.getPosition().x + m_shape.getGlobalBounds().width / 2.f) - (m_text.getGlobalBounds().width / 2.f)) + 1,
+		(int)((m_shape.getPosition().y + m_shape.getGlobalBounds().height / 2.f) - (m_text.getGlobalBounds().height / 1.3f)));
 }
 

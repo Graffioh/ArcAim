@@ -53,6 +53,9 @@ void Menu::initButton()
 
 	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 500, &m_font, "BACK", sf::Color::Black);
 
+	m_buttons["MENU_UP"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 45, 40, 740, 30, &m_font, "U", sf::Color::Black);
+	m_buttons["MENU_DOWN"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 45, 40, 740, 530, &m_font, "D", sf::Color::Black);
+
 	m_btnSoundBuffer.loadFromFile("res/Sounds/buttonsound.wav");
 	m_btnSound.setBuffer(m_btnSoundBuffer);
 	m_btnSound.setVolume(9);
@@ -75,12 +78,14 @@ void Menu::initCrossStyleImg()
 }
 
 Menu::Menu()
-	:m_mouseHeld(false), m_btnOutlineWhenClicked(3.5)
+	:m_mouseHeld(false), m_btnOutlineWhenClicked(3.5), m_yDownUpValue(0.f)
 {
 	initFont();
 	initText();
 	initButton();
 	initCrossStyleImg();
+
+	m_view.reset(sf::FloatRect(0, 0, 800, 600));
 }
 
 Menu::~Menu()
@@ -271,6 +276,25 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				playBtnSound();
 				return GAME_GOBACK;
 			}
+
+			if (m_buttons["MENU_UP"]->getBounds().contains(mousePos))
+			{
+				playBtnSound();
+				m_yDownUpValue = -20;
+				m_view.move(0.f, m_yDownUpValue);
+				m_buttons["MENU_UP"]->setUpDownBtnYPos(-20);
+				m_buttons["MENU_DOWN"]->setUpDownBtnYPos(-20);
+			}
+
+			if (m_buttons["MENU_DOWN"]->getBounds().contains(mousePos))
+			{
+				playBtnSound();
+				m_yDownUpValue = 20;
+				m_view.move(0.f, m_yDownUpValue);
+				m_buttons["MENU_UP"]->setUpDownBtnYPos(20);
+				m_buttons["MENU_DOWN"]->setUpDownBtnYPos(20);
+			}
+
 		}
 	}
 	else
@@ -318,6 +342,9 @@ void Menu::displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool 
 		m_buttons["FALLING_ENEMIES"]->drawBtn(target);
 
 		m_buttons["GAME_GOBACK"]->drawBtn(target);
+
+		m_buttons["MENU_UP"]->drawBtn(target);
+		m_buttons["MENU_DOWN"]->drawBtn(target);
 	}
 	else
 	{
@@ -327,5 +354,10 @@ void Menu::displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool 
 
 		m_buttons["GAME_INFO"]->drawBtn(target);
 	}
+}
+
+sf::View Menu::getView()
+{
+	return m_view;
 }
 

@@ -182,6 +182,8 @@ void Game::run(sf::RenderWindow* window)
 				// Sync the clock
 				TimeManager::clockCountdown.restart();
 				TimeManager::clockTargets.restart();
+
+				window->setView(window->getDefaultView());
 			}
 			else if (info)
 			{
@@ -193,11 +195,15 @@ void Game::run(sf::RenderWindow* window)
 				// Sync the clock
 				TimeManager::clockCountdown.restart();
 				TimeManager::clockTargets.restart();
+
+				window->setView(window->getDefaultView());
 			}
 			else if (options)
 			{
 				menu.displayMenu(window, *window, options);
 				menu.updateText(options);
+
+				window->setView(menu.getView());
 
 				// Options buttons
 				switch (menu.activateOptionBtn(mouseManager.getMousePos()))

@@ -17,6 +17,9 @@ private:
 
 	bool m_mouseHeld;
 
+	float m_xBtnPos;
+	float m_yBtnPos;
+
 public:
 	Button(sf::Color btnColorIdle, sf::Color btnColorHovered, float width, float height, float x, float y, sf::Font* font, std::string string, sf::Color txtColor);
 	~Button();
@@ -27,6 +30,8 @@ public:
 	void drawBtn(sf::RenderTarget* target);
 
 	sf::FloatRect getBounds();
+
+	void setUpDownBtnYPos(float y);
 };
 	
 

@@ -36,6 +36,10 @@ private:
 	
 	float m_btnOutlineWhenClicked;
 
+	float m_yDownUpValue;
+
+	sf::View m_view;
+
 public:
 	// Initializers
 	void initFont();
@@ -64,5 +68,7 @@ public:
 
 	// Display the menu by using window from main
 	void displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool isOptions);
+
+	sf::View getView();
 };
 
