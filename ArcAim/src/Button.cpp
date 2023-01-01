@@ -22,6 +22,27 @@ Button::Button(sf::Color btnColorIdle, sf::Color btnColorHovered, float width, f
 	m_colorHovered = btnColorHovered;
 }
 
+Button::Button(sf::Color btnColorIdle, sf::Color btnColorHovered, float width, float height, float x, float y, std::string imgPath, bool isBackArrow)
+	:m_mouseHeld(false), m_colorOutline(sf::Color::Blue)
+{
+	m_shape.setFillColor(btnColorIdle);
+	m_shape.setOutlineColor(m_colorOutline);
+	m_shape.setSize(sf::Vector2f(width, height));
+	m_shape.setPosition(x, y);
+	m_xBtnPos = x;
+	m_yBtnPos = y;
+
+	m_customTexture.loadFromFile(imgPath);
+
+	m_customSprite.setTexture(m_customTexture);
+	m_customSprite.setScale(2.f, 2.f);
+	m_customSprite.setPosition((int)((m_shape.getPosition().x + m_shape.getGlobalBounds().width / 2.f) - (m_customSprite.getGlobalBounds().width / 2.f)),
+		(int)((m_shape.getPosition().y + m_shape.getGlobalBounds().height / 2.f) - (m_customSprite.getGlobalBounds().height / 2.f)));
+	
+	m_colorIdle = btnColorIdle;
+	m_colorHovered = btnColorHovered;
+}
+
 Button::~Button()
 {
 }
@@ -43,6 +64,7 @@ void Button::drawBtn(sf::RenderTarget* target)
 {
 	target->draw(m_shape);
 	target->draw(m_text);
+	target->draw(m_customSprite);
 }
 
 sf::FloatRect Button::getBounds()
@@ -55,5 +77,7 @@ void Button::setUpDownBtnYPos(float y)
 	m_shape.setPosition(m_xBtnPos, m_yBtnPos += y);
 	m_text.setPosition((int)((m_shape.getPosition().x + m_shape.getGlobalBounds().width / 2.f) - (m_text.getGlobalBounds().width / 2.f)) + 1,
 		(int)((m_shape.getPosition().y + m_shape.getGlobalBounds().height / 2.f) - (m_text.getGlobalBounds().height / 1.3f)));
+	m_customSprite.setPosition((int)((m_shape.getPosition().x + m_shape.getGlobalBounds().width / 2.f) - (m_customSprite.getGlobalBounds().width / 2.f)),
+		(int)((m_shape.getPosition().y + m_shape.getGlobalBounds().height / 2.f) - (m_customSprite.getGlobalBounds().height / 2.f)));
 }
 

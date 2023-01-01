@@ -51,10 +51,13 @@ void Menu::initButton()
 	m_buttons["PRECISION_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 390, &m_font, "PRECISION", sf::Color::Black);
 	m_buttons["FALLING_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 550, 390, &m_font, "FALLING", sf::Color::Black);
 
-	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 500, &m_font, "BACK", sf::Color::Black);
+	//m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 45, 40, 20, 20, &m_font, "<", sf::Color::Black);
+	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 40, 30, 10, 10, "res/Images/backarrow_b.png", true);
 
-	m_buttons["MENU_UP"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 45, 40, 740, 30, &m_font, "U", sf::Color::Black);
-	m_buttons["MENU_DOWN"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 45, 40, 740, 530, &m_font, "D", sf::Color::Black);
+	//m_buttons["MENU_UP"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 30, 30, 740, 30, &m_font, "^", sf::Color::Black);
+	//m_buttons["MENU_DOWN"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 30, 30, 740, 540, &m_font, "v", sf::Color::Black);
+	m_buttons["MENU_UP"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 30, 30, 740, 30, "res/Images/uparrow.png", false);
+	m_buttons["MENU_DOWN"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 30, 30, 740, 540, "res/Images/downarrow.png", false);
 
 	m_btnSoundBuffer.loadFromFile("res/Sounds/buttonsound.wav");
 	m_btnSound.setBuffer(m_btnSoundBuffer);
@@ -78,7 +81,7 @@ void Menu::initCrossStyleImg()
 }
 
 Menu::Menu()
-	:m_mouseHeld(false), m_btnOutlineWhenClicked(3.5), m_yDownUpValue(0.f)
+	:m_mouseHeld(false), m_btnOutlineWhenClicked(3.5), m_yDownUpValue(0.f), m_limitUp(0.f)
 {
 	initFont();
 	initText();
@@ -139,6 +142,7 @@ void Menu::displayInfo(sf::RenderWindow& window)
 	m_infoTxt.setString(ss.str());
 
 	window.draw(m_infoTxt);
+	m_buttons["GAME_GOBACK"]->drawBtn(&window);
 }
 
 char Menu::activateStartBtn(sf::Vector2f mousePos)
@@ -280,19 +284,30 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 			if (m_buttons["MENU_UP"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
-				m_yDownUpValue = -20;
-				m_view.move(0.f, m_yDownUpValue);
-				m_buttons["MENU_UP"]->setUpDownBtnYPos(-20);
-				m_buttons["MENU_DOWN"]->setUpDownBtnYPos(-20);
+				m_yDownUpValue = -30;
+				m_limitUp += m_yDownUpValue;
+				if (m_limitUp > 0)
+				{
+					m_view.move(0.f, m_yDownUpValue);
+					m_buttons["MENU_UP"]->setUpDownBtnYPos(m_yDownUpValue);
+					m_buttons["MENU_DOWN"]->setUpDownBtnYPos(m_yDownUpValue);
+					m_buttons["GAME_GOBACK"]->setUpDownBtnYPos(m_yDownUpValue);
+				}
+				else
+				{
+					m_limitUp = 0;
+				}
 			}
 
 			if (m_buttons["MENU_DOWN"]->getBounds().contains(mousePos))
 			{
 				playBtnSound();
-				m_yDownUpValue = 20;
+				m_yDownUpValue = 30;
+				m_limitUp += m_yDownUpValue;
 				m_view.move(0.f, m_yDownUpValue);
-				m_buttons["MENU_UP"]->setUpDownBtnYPos(20);
-				m_buttons["MENU_DOWN"]->setUpDownBtnYPos(20);
+				m_buttons["MENU_UP"]->setUpDownBtnYPos(m_yDownUpValue);
+				m_buttons["MENU_DOWN"]->setUpDownBtnYPos(m_yDownUpValue);
+				m_buttons["GAME_GOBACK"]->setUpDownBtnYPos(m_yDownUpValue);
 			}
 
 		}

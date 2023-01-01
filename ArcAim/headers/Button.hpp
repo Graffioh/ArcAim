@@ -20,8 +20,13 @@ private:
 	float m_xBtnPos;
 	float m_yBtnPos;
 
+	sf::Texture m_customTexture;
+	sf::Sprite m_customSprite;
+
 public:
 	Button(sf::Color btnColorIdle, sf::Color btnColorHovered, float width, float height, float x, float y, sf::Font* font, std::string string, sf::Color txtColor);
+	// Custom button
+	Button(sf::Color btnColorIdle, sf::Color btnColorHovered, float width, float height, float x, float y, std::string imgPath, bool isBackArrow);
 	~Button();
 
 	void updateBtnColorHovered(sf::Vector2f mousePos);

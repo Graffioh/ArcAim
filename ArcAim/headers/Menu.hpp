@@ -37,6 +37,7 @@ private:
 	float m_btnOutlineWhenClicked;
 
 	float m_yDownUpValue;
+	float m_limitUp;
 
 	sf::View m_view;
 

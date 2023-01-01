@@ -192,6 +192,13 @@ void Game::run(sf::RenderWindow* window)
 				//info func from menu
 				menu.displayInfo(*window);
 
+				mouseManager.updateMousePos(*window);
+
+				if (menu.activateOptionBtn(mouseManager.getMousePos()) == GAME_GOBACK)
+				{
+					info = false;
+				}
+
 				// Sync the clock
 				TimeManager::clockCountdown.restart();
 				TimeManager::clockTargets.restart();
