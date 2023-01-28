@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 
 #include <SFML/Graphics.hpp>
@@ -29,7 +30,7 @@ public:
 	Button(sf::Color btnColorIdle, sf::Color btnColorHovered, float width, float height, float x, float y, std::string imgPath, bool isBackArrow);
 	~Button();
 
-	void updateBtnColorHovered(sf::Vector2f mousePos);
+	void updateBtnColorWhenHovered(sf::Vector2f mousePos);
 	void updateBtnOutlineWhenClicked(float thickness);
 
 	void drawBtn(sf::RenderTarget* target);

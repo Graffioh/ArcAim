@@ -47,7 +47,7 @@ Button::~Button()
 {
 }
 
-void Button::updateBtnColorHovered(sf::Vector2f mousePos)
+void Button::updateBtnColorWhenHovered(sf::Vector2f mousePos)
 {
 	if (m_shape.getGlobalBounds().contains(mousePos))
 		m_shape.setFillColor(m_colorHovered);

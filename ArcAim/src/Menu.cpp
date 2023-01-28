@@ -126,7 +126,7 @@ void Menu::updateBtn(sf::Vector2f mousePos)
 {
 	for (auto& it : m_buttons)
 	{
-		it.second->updateBtnColorHovered(mousePos);
+		it.second->updateBtnColorWhenHovered(mousePos);
 	}
 }
 

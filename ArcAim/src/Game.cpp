@@ -207,10 +207,9 @@ void Game::run(sf::RenderWindow* window)
 			}
 			else if (options)
 			{
+				window->setView(menu.getView());
 				menu.displayMenu(window, *window, options);
 				menu.updateText(options);
-
-				window->setView(menu.getView());
 
 				// Options buttons
 				switch (menu.activateOptionBtn(mouseManager.getMousePos()))
