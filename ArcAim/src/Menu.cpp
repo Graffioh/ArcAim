@@ -51,11 +51,8 @@ void Menu::initButton()
 	m_buttons["PRECISION_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 390, &m_font, "PRECISION", sf::Color::Black);
 	m_buttons["FALLING_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 550, 390, &m_font, "FALLING", sf::Color::Black);
 
-	//m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 45, 40, 20, 20, &m_font, "<", sf::Color::Black);
 	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 40, 30, 10, 10, "res/Images/backarrow_b.png", true);
 
-	//m_buttons["MENU_UP"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 30, 30, 740, 30, &m_font, "^", sf::Color::Black);
-	//m_buttons["MENU_DOWN"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 30, 30, 740, 540, &m_font, "v", sf::Color::Black);
 	m_buttons["MENU_UP"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 30, 30, 740, 30, "res/Images/uparrow.png", false);
 	m_buttons["MENU_DOWN"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 30, 30, 740, 540, "res/Images/downarrow.png", false);
 
@@ -286,7 +283,7 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				playBtnSound();
 				m_yDownUpValue = -30;
 				m_limitUp += m_yDownUpValue;
-				if (m_limitUp > 0)
+				if (m_limitUp >= 0)
 				{
 					m_view.move(0.f, m_yDownUpValue);
 					m_buttons["MENU_UP"]->setUpDownBtnYPos(m_yDownUpValue);
