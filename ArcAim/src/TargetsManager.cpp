@@ -17,7 +17,9 @@ void TargetsManager::initMissSound()
 
 
 TargetsManager::TargetsManager()
-	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), m_targetSpawnTime(TARGET_SPAWN_TIMER), m_yFallingVel(Y_FALLING_VELOCITY), m_rng(m_rd()), m_xDist(45, WIN_WIDTH - 50), m_yDist(40, WIN_HEIGHT - 50), isHit(false)
+	:m_timer(0), m_mouseHeld(false), m_points(0), m_deleted(false), m_spawnType('0'), m_playerHealth(PLAYER_HEALTH), 
+	m_targetSpawnTime(TARGET_SPAWN_TIMER), m_yFallingVel(Y_FALLING_VELOCITY), m_rng(m_rd()), m_xDist(45, WIN_WIDTH - 50), m_yDist(40, WIN_HEIGHT - 50), 
+	isHit(false), m_tmpTargetPosX(WIN_WIDTH / 2), m_tmpTargetPosY(WIN_HEIGHT / 2), m_tmpTargetPosX2(0), m_tmpTargetPosY2(0)
 {
 	initMissSprite();
 	initMissSound();
@@ -34,17 +36,29 @@ void TargetsManager::spawn()
 	{
 	case REFLEX_ENEMIES:
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
-		//m_target.setScale(2.f, 2.f);
 		break;
 
 	case PRECISION_ENEMIES:
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
-		//m_target.setScale(1.f, 1.f);
 		break;
 
 	case FALLING_ENEMIES:
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), 0);
-		//m_target.setScale(2.f, 2.f);
+		break;
+
+	case ONE_LINE:
+		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
+		m_tmpTargetPosX2 = m_target.getTargetPos().x;
+		m_tmpTargetPosY2 = m_target.getTargetPos().y;
+
+		m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX, m_tmpTargetPosY), sf::Color::Red);
+		m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX2, m_tmpTargetPosY2), sf::Color::Red);
+
+		for (size_t i = 0; i < 2; i++)
+		{
+			if (m_LineVertices.size() > 2)
+				m_LineVertices.erase(m_LineVertices.begin() + i);
+		}
 		break;
 
 	default:
@@ -69,14 +83,6 @@ void TargetsManager::reflexEnemies()
 		}
 	}
 }
-
-//void TargetsManager::precisionEnemies()
-//{
-//	if (m_targets.size() < MAX_TARGETS)
-//	{	
-//		spawn();
-//	}
-//}
 
 void TargetsManager::fallingEnemies()
 { 
@@ -115,7 +121,6 @@ void TargetsManager::updateSpawn()
 		}
 		break;
 	case PRECISION_ENEMIES:
-		//precisionEnemies();
 		if (m_targets.size() < MAX_TARGETS)
 		{
 			spawn();
@@ -134,6 +139,12 @@ void TargetsManager::updateSpawn()
 			}
 		}
 		break;
+	case ONE_LINE:
+		if (m_targets.size() < 1)
+		{
+			spawn();
+		}
+		break;
 	default:
 		std::cout << "Spawn type not allowed(update)\n";
 		break;
@@ -146,6 +157,9 @@ void TargetsManager::drawTarget(sf::RenderWindow& window)
 	{
 		window.draw(target.getSprite());
 	}
+
+	if (m_LineVertices.size() > 1)
+		window.draw(m_LineVertices.data(), m_LineVertices.size(), sf::LinesStrip);
 }
 
 void TargetsManager::eraseOnClick(sf::Vector2f mousePos)

@@ -50,6 +50,7 @@ void Menu::initButton()
 	m_buttons["REFLEX_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 100, 390, &m_font, "REFLEX", sf::Color::Black);
 	m_buttons["PRECISION_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 390, &m_font, "PRECISION", sf::Color::Black);
 	m_buttons["FALLING_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 550, 390, &m_font, "FALLING", sf::Color::Black);
+	m_buttons["ONE_LINE"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 460, &m_font, "ONE LINE", sf::Color::Black);
 
 	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 40, 30, 10, 10, "res/Images/backarrow_b.png", true);
 
@@ -251,6 +252,8 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				m_buttons["REFLEX_ENEMIES"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
 				m_buttons["PRECISION_ENEMIES"]->updateBtnOutlineWhenClicked(0);
 				m_buttons["FALLING_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["ONE_LINE"]->updateBtnOutlineWhenClicked(0);
+
 				return REFLEX_ENEMIES;
 			}
 
@@ -260,6 +263,8 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				m_buttons["REFLEX_ENEMIES"]->updateBtnOutlineWhenClicked(0);
 				m_buttons["PRECISION_ENEMIES"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
 				m_buttons["FALLING_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["ONE_LINE"]->updateBtnOutlineWhenClicked(0);
+
 				return PRECISION_ENEMIES;
 			}
 
@@ -269,7 +274,20 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				m_buttons["REFLEX_ENEMIES"]->updateBtnOutlineWhenClicked(0);
 				m_buttons["PRECISION_ENEMIES"]->updateBtnOutlineWhenClicked(0);
 				m_buttons["FALLING_ENEMIES"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
+				m_buttons["ONE_LINE"]->updateBtnOutlineWhenClicked(0);
+
 				return FALLING_ENEMIES;
+			}
+
+			if (m_buttons["ONE_LINE"]->getBounds().contains(mousePos))
+			{
+				playBtnSound();
+				m_buttons["REFLEX_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["PRECISION_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["FALLING_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["ONE_LINE"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
+
+				return ONE_LINE;
 			}
 
 			if (m_buttons["GAME_GOBACK"]->getBounds().contains(mousePos))
@@ -352,6 +370,7 @@ void Menu::displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool 
 		m_buttons["REFLEX_ENEMIES"]->drawBtn(target);
 		m_buttons["PRECISION_ENEMIES"]->drawBtn(target);
 		m_buttons["FALLING_ENEMIES"]->drawBtn(target);
+		m_buttons["ONE_LINE"]->drawBtn(target);
 
 		m_buttons["GAME_GOBACK"]->drawBtn(target);
 

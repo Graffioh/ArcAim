@@ -1,6 +1,8 @@
 # ArcAim
 An arcade aim based game, made in **SFML** with C++.
 
+(Only on Windows for now.)
+
 Try to reach the highest score, but remember, every miss is a penalty (-10 HP), so be careful ;)
 
 # Functionality
@@ -14,6 +16,8 @@ Choose between:
 + 3 different difficulties
 + 3 crosshair styles
 + 3 different gamemodes
+
+(More coming soon™)
 
 ## Difficulty
 
@@ -43,6 +47,10 @@ Choose between:
 + **Falling** 
 
     Be ready, they are falling from the sky.
+
++ **One Line** 
+
+    Do clean flicks just by following the line.
 
 ## Framerate
 

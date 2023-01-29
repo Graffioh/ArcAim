@@ -302,6 +302,13 @@ void Game::run(sf::RenderWindow* window)
 
 					std::cout << "Falling mode set\n";
 					sf::sleep(sf::milliseconds(100));
+				case ONE_LINE:
+					targetsManager.setSpawnType(ONE_LINE);
+
+					spawnType = ONE_LINE;
+
+					std::cout << "One line mode set\n";
+					sf::sleep(sf::milliseconds(100));
 					break;
 				case GAME_GOBACK:
 					options = false;
@@ -317,7 +324,7 @@ void Game::run(sf::RenderWindow* window)
 
 				// Change size based on difficulty for the precision mode 
 				// (Its ugly, yes, but it works fine)
-				if (spawnType == PRECISION_ENEMIES)
+				if (spawnType == PRECISION_ENEMIES || spawnType == ONE_LINE)
 				{
 					targetsManager.eraseAllEnemiesAndCo();
 

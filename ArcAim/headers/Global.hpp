@@ -45,6 +45,7 @@ constexpr char GAME_GOBACK = '7';
 constexpr char REFLEX_ENEMIES = 'a';
 constexpr char PRECISION_ENEMIES = 'b';
 constexpr char FALLING_ENEMIES = 'c';
+constexpr char ONE_LINE = 'd';
 
 // frame duration for frame indipendent gameplay
 constexpr std::chrono::microseconds FRAME_DURATION(3333);

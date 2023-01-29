@@ -35,6 +35,7 @@ public:
 
 	// Getters
 	sf::Sprite getSprite();
+	sf::Vector2f getTargetPos();
 };
 
 

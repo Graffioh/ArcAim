@@ -33,6 +33,11 @@ sf::Sprite TargetC::getSprite()
 	return m_sprite;
 }
 
+sf::Vector2f TargetC::getTargetPos()
+{
+	return m_sprite.getPosition();
+}
+
 void TargetC::setTargetPos(float x, float y)
 {
 	m_sprite.setPosition(x, y);
