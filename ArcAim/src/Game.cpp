@@ -302,6 +302,7 @@ void Game::run(sf::RenderWindow* window)
 
 					std::cout << "Falling mode set\n";
 					sf::sleep(sf::milliseconds(100));
+					break;
 				case ONE_LINE:
 					targetsManager.setSpawnType(ONE_LINE);
 

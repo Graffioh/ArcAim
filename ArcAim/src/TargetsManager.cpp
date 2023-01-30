@@ -109,6 +109,9 @@ void TargetsManager::updateSpawn()
 	{
 	case REFLEX_ENEMIES:
 		reflexEnemies();
+
+		m_LineVertices.clear();
+
 		if (m_targets.size() < MAX_TARGETS)
 		{
 			// If TARGET_SPAWN_TIMER seconds are elapsed then spawn
@@ -121,6 +124,9 @@ void TargetsManager::updateSpawn()
 		}
 		break;
 	case PRECISION_ENEMIES:
+
+		m_LineVertices.clear();
+
 		if (m_targets.size() < MAX_TARGETS)
 		{
 			spawn();
@@ -128,6 +134,9 @@ void TargetsManager::updateSpawn()
 		break;
 	case FALLING_ENEMIES:
 		fallingEnemies();
+
+		m_LineVertices.clear();
+
 		if (m_targets.size() < MAX_TARGETS)
 		{
 			// If TARGET_SPAWN_TIMER seconds are elapsed then spawn
