@@ -48,17 +48,6 @@ void TargetsManager::spawn()
 
 	case ONE_LINE:
 		m_target.setTargetPos(static_cast<float>(m_xDist(m_rng)), static_cast<float>(m_yDist(m_rng)));
-		m_tmpTargetPosX2 = m_target.getTargetPos().x;
-		m_tmpTargetPosY2 = m_target.getTargetPos().y;
-
-		m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX, m_tmpTargetPosY), sf::Color::Red);
-		m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX2, m_tmpTargetPosY2), sf::Color::Red);
-
-		for (size_t i = 0; i < 2; i++)
-		{
-			if (m_LineVertices.size() > 2)
-				m_LineVertices.erase(m_LineVertices.begin() + i);
-		}
 		break;
 
 	default:
@@ -149,9 +138,23 @@ void TargetsManager::updateSpawn()
 		}
 		break;
 	case ONE_LINE:
+
 		if (m_targets.size() < 1)
 		{
 			spawn();
+
+			m_tmpTargetPosX2 = m_target.getTargetPos().x + m_target.getSprite().getGlobalBounds().width / 2;
+			m_tmpTargetPosY2 = m_target.getTargetPos().y + m_target.getSprite().getGlobalBounds().height / 2;
+
+			m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX, m_tmpTargetPosY), sf::Color::Red);
+			m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX2, m_tmpTargetPosY2), sf::Color::Red);
+
+			for (size_t i = 0; i < 2; i++)
+			{
+				if (m_LineVertices.size() > 2)
+					m_LineVertices.erase(m_LineVertices.begin() + i);
+			}
+
 		}
 		break;
 	default:
