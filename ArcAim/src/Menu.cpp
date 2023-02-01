@@ -50,8 +50,12 @@ void Menu::initButton()
 	m_buttons["REFLEX_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 100, 390, &m_font, "REFLEX", sf::Color::Black);
 	m_buttons["PRECISION_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 390, &m_font, "PRECISION", sf::Color::Black);
 	m_buttons["FALLING_ENEMIES"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 550, 390, &m_font, "FALLING", sf::Color::Black);
+	m_buttons["ONE_LINE"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 460, &m_font, "ONE LINE", sf::Color::Black);
 
-	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 150, 40, 330, 500, &m_font, "BACK", sf::Color::Black);
+	m_buttons["GAME_GOBACK"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 40, 30, 10, 10, "res/Images/backarrow_b.png", true);
+
+	m_buttons["MENU_UP"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 30, 30, 740, 30, "res/Images/uparrow.png", false);
+	m_buttons["MENU_DOWN"] = new Button(sf::Color::White, sf::Color(190, 190, 190), 30, 30, 740, 540, "res/Images/downarrow.png", false);
 
 	m_btnSoundBuffer.loadFromFile("res/Sounds/buttonsound.wav");
 	m_btnSound.setBuffer(m_btnSoundBuffer);
@@ -75,12 +79,14 @@ void Menu::initCrossStyleImg()
 }
 
 Menu::Menu()
-	:m_mouseHeld(false), m_btnOutlineWhenClicked(3.5)
+	:m_mouseHeld(false), m_btnOutlineWhenClicked(3.5), m_yDownUpValue(0.f), m_limitUp(0.f)
 {
 	initFont();
 	initText();
 	initButton();
 	initCrossStyleImg();
+
+	m_view.reset(sf::FloatRect(0, 0, 800, 600));
 }
 
 Menu::~Menu()
@@ -121,7 +127,7 @@ void Menu::updateBtn(sf::Vector2f mousePos)
 {
 	for (auto& it : m_buttons)
 	{
-		it.second->updateBtnColorHovered(mousePos);
+		it.second->updateBtnColorWhenHovered(mousePos);
 	}
 }
 
@@ -134,6 +140,7 @@ void Menu::displayInfo(sf::RenderWindow& window)
 	m_infoTxt.setString(ss.str());
 
 	window.draw(m_infoTxt);
+	m_buttons["GAME_GOBACK"]->drawBtn(&window);
 }
 
 char Menu::activateStartBtn(sf::Vector2f mousePos)
@@ -245,6 +252,8 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				m_buttons["REFLEX_ENEMIES"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
 				m_buttons["PRECISION_ENEMIES"]->updateBtnOutlineWhenClicked(0);
 				m_buttons["FALLING_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["ONE_LINE"]->updateBtnOutlineWhenClicked(0);
+
 				return REFLEX_ENEMIES;
 			}
 
@@ -254,6 +263,8 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				m_buttons["REFLEX_ENEMIES"]->updateBtnOutlineWhenClicked(0);
 				m_buttons["PRECISION_ENEMIES"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
 				m_buttons["FALLING_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["ONE_LINE"]->updateBtnOutlineWhenClicked(0);
+
 				return PRECISION_ENEMIES;
 			}
 
@@ -263,7 +274,20 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				m_buttons["REFLEX_ENEMIES"]->updateBtnOutlineWhenClicked(0);
 				m_buttons["PRECISION_ENEMIES"]->updateBtnOutlineWhenClicked(0);
 				m_buttons["FALLING_ENEMIES"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
+				m_buttons["ONE_LINE"]->updateBtnOutlineWhenClicked(0);
+
 				return FALLING_ENEMIES;
+			}
+
+			if (m_buttons["ONE_LINE"]->getBounds().contains(mousePos))
+			{
+				playBtnSound();
+				m_buttons["REFLEX_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["PRECISION_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["FALLING_ENEMIES"]->updateBtnOutlineWhenClicked(0);
+				m_buttons["ONE_LINE"]->updateBtnOutlineWhenClicked(m_btnOutlineWhenClicked);
+
+				return ONE_LINE;
 			}
 
 			if (m_buttons["GAME_GOBACK"]->getBounds().contains(mousePos))
@@ -271,6 +295,36 @@ char Menu::activateOptionBtn(sf::Vector2f mousePos)
 				playBtnSound();
 				return GAME_GOBACK;
 			}
+
+			if (m_buttons["MENU_UP"]->getBounds().contains(mousePos))
+			{
+				playBtnSound();
+				m_yDownUpValue = -30;
+				m_limitUp += m_yDownUpValue;
+				if (m_limitUp >= 0)
+				{
+					m_view.move(0.f, m_yDownUpValue);
+					m_buttons["MENU_UP"]->setUpDownBtnYPos(m_yDownUpValue);
+					m_buttons["MENU_DOWN"]->setUpDownBtnYPos(m_yDownUpValue);
+					m_buttons["GAME_GOBACK"]->setUpDownBtnYPos(m_yDownUpValue);
+				}
+				else
+				{
+					m_limitUp = 0;
+				}
+			}
+
+			if (m_buttons["MENU_DOWN"]->getBounds().contains(mousePos))
+			{
+				playBtnSound();
+				m_yDownUpValue = 30;
+				m_limitUp += m_yDownUpValue;
+				m_view.move(0.f, m_yDownUpValue);
+				m_buttons["MENU_UP"]->setUpDownBtnYPos(m_yDownUpValue);
+				m_buttons["MENU_DOWN"]->setUpDownBtnYPos(m_yDownUpValue);
+				m_buttons["GAME_GOBACK"]->setUpDownBtnYPos(m_yDownUpValue);
+			}
+
 		}
 	}
 	else
@@ -316,8 +370,12 @@ void Menu::displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool 
 		m_buttons["REFLEX_ENEMIES"]->drawBtn(target);
 		m_buttons["PRECISION_ENEMIES"]->drawBtn(target);
 		m_buttons["FALLING_ENEMIES"]->drawBtn(target);
+		m_buttons["ONE_LINE"]->drawBtn(target);
 
 		m_buttons["GAME_GOBACK"]->drawBtn(target);
+
+		m_buttons["MENU_UP"]->drawBtn(target);
+		m_buttons["MENU_DOWN"]->drawBtn(target);
 	}
 	else
 	{
@@ -327,5 +385,10 @@ void Menu::displayMenu(sf::RenderTarget* target, sf::RenderWindow& window, bool 
 
 		m_buttons["GAME_INFO"]->drawBtn(target);
 	}
+}
+
+sf::View Menu::getView()
+{
+	return m_view;
 }
 

@@ -44,6 +44,10 @@ private:
 
 	bool isHit;
 
+	std::vector<sf::Vertex> m_LineVertices;
+
+	float m_tmpTargetPosX, m_tmpTargetPosY, m_tmpTargetPosX2, m_tmpTargetPosY2;
+
 public:
 	// Initializers
 	void initMissSprite();
