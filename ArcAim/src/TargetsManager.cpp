@@ -146,14 +146,32 @@ void TargetsManager::updateSpawn()
 			m_tmpTargetPosX2 = m_target.getTargetPos().x + m_target.getSprite().getGlobalBounds().width / 2;
 			m_tmpTargetPosY2 = m_target.getTargetPos().y + m_target.getSprite().getGlobalBounds().height / 2;
 
-			m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX, m_tmpTargetPosY), sf::Color::Red);
+			m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX, m_tmpTargetPosY - 5), sf::Color::Red);
+			m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX, m_tmpTargetPosY + 5), sf::Color::Red);
+			m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX2, m_tmpTargetPosY2 + 5), sf::Color::Red);
+			m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX2, m_tmpTargetPosY2 - 5), sf::Color::Red);
+
+			if (m_LineVertices.size() > 4) 
+			{	
+				m_LineVertices.erase(m_LineVertices.begin() + 0);
+				m_LineVertices.erase(m_LineVertices.begin() + 0);
+				
+				m_LineVertices.erase(m_LineVertices.begin() + 2);
+				m_LineVertices.erase(m_LineVertices.begin() + 2);
+				
+			}
+
+			/*m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX, m_tmpTargetPosY), sf::Color::Red);
 			m_LineVertices.emplace_back(sf::Vector2f(m_tmpTargetPosX2, m_tmpTargetPosY2), sf::Color::Red);
 
-			for (size_t i = 0; i < 2; i++)
+			if (m_LineVertices.size() > 2)
 			{
-				if (m_LineVertices.size() > 2)
+				for (size_t i = 0; i < 2; i++)
+				{
 					m_LineVertices.erase(m_LineVertices.begin() + i);
-			}
+				}
+			}*/
+			
 
 		}
 		break;
@@ -170,8 +188,11 @@ void TargetsManager::drawTarget(sf::RenderWindow& window)
 		window.draw(target.getSprite());
 	}
 
-	if (m_LineVertices.size() > 1)
-		window.draw(m_LineVertices.data(), m_LineVertices.size(), sf::LinesStrip);
+	//if (m_LineVertices.size() > 1)
+	//	window.draw(m_LineVertices.data(), m_LineVertices.size(), sf::LinesStrip);
+	if (m_LineVertices.size() > 3)
+		window.draw(m_LineVertices.data(), m_LineVertices.size(), sf::TriangleStrip);
+
 }
 
 void TargetsManager::eraseOnClick(sf::Vector2f mousePos)
